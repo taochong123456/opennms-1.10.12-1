@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<http-datacollection-config
+	xmlns:http-dc="http://xmlns.opennms.org/xsd/config/http-datacollection"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.opennms.org/xsd/config/http-datacollection http://www.opennms.org/xsd/config/http-datacollection-config.xsd"
+	rrdRepository="share/rrd/snmp/">
+	<!-- <http-collection name="doc-count"> <rrd step="300"> <rra>RRA:AVERAGE:0.5:1:2016</rra> 
+		<rra>RRA:AVERAGE:0.5:12:1488</rra> <rra>RRA:AVERAGE:0.5:288:366</rra> <rra>RRA:MAX:0.5:288:366</rra> 
+		<rra>RRA:MIN:0.5:288:366</rra> </rrd> <uris> <uri name="document-counts"> 
+		<url path="/test/resources/httpcolltest.html" user-agent="Mozilla/5.0 (Macintosh; 
+		U; PPC Mac OS X; en) AppleWebKit/412 (KHTML, like Gecko) Safari/412" matches=".*([0-9]+).*" 
+		response-range="100-399" > </url> <attributes> <attrib alias="documentCount" 
+		match-group="1" type="Gauge"/> </attributes> </uri> </uris> </http-collection> -->
+
+	<http-collection name="SparkWorker">
+		<rrd step="300">
+			<rra>RRA:AVERAGE:0.5:1:2016</rra>
+			<rra>RRA:AVERAGE:0.5:12:1488</rra>
+			<rra>RRA:AVERAGE:0.5:288:366</rra>
+			<rra>RRA:MAX:0.5:288:366</rra>
+			<rra>RRA:MIN:0.5:288:366</rra>
+		</rrd>
+		<uris>
+			<uri name="SparkWorker">
+				<url path="/json"
+					user-agent="Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/412 (KHTML, like Gecko) Safari/412"
+					matches="all" response-range="100-399">
+				</url>
+				<attributes>
+					<attrib alias="cores" match-group="1" type="Gauge" />
+					<attrib alias="coresused" match-group="1" type="Gauge" />
+					<attrib alias="executors" match-group="1" type="Gauge" />
+					<attrib alias="finishedexecutors" match-group="1" type="Gauge" />
+					<attrib alias="memory" match-group="1" type="Gauge" />
+					<attrib alias="memoryused" match-group="1" type="Gauge" />
+					<attrib alias="memUsedPercent" match-group="1" type="Gauge" />
+				</attributes>
+			</uri>
+		</uris>
+	</http-collection>
+
+
+	<http-collection name="DOCKER">
+		<rrd step="300">
+			<rra>RRA:AVERAGE:0.5:1:2016</rra>
+			<rra>RRA:AVERAGE:0.5:12:1488</rra>
+			<rra>RRA:AVERAGE:0.5:288:366</rra>
+			<rra>RRA:MAX:0.5:288:366</rra>
+			<rra>RRA:MIN:0.5:288:366</rra>
+		</rrd>
+		<uris>
+			<uri name="dockerInfo">
+				<url path="/info"
+					user-agent="Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/412 (KHTML, like Gecko) Safari/412"
+					matches="all" response-range="100-399">
+				</url>
+				<attributes>
+					<attrib alias="ID" match-group="1" type="String" />
+					<attrib alias="Containers" match-group="1" type="Gauge" />
+					<attrib alias="Images" match-group="1" type="Gauge" />
+					<attrib alias="MemoryLimit" match-group="1" type="String" />
+					<attrib alias="KernelVersion" match-group="1" type="String" />
+					<attrib alias="OperatingSystem" match-group="1" type="String" />
+					<attrib alias="InitPath" match-group="1" type="String" />
+					<attrib alias="MemTotal" match-group="1" type="Gauge" />
+					<attrib alias="DockerRootDir" match-group="1" type="String" />
+					<attrib alias="Name" match-group="1" type="String" />
+				</attributes>
+			</uri>
+			<uri name="dockerVersion">
+				<url path="/version"
+					user-agent="Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/412 (KHTML, like Gecko) Safari/412"
+					matches="all" response-range="100-399">
+				</url>
+				<attributes>
+					<attrib alias="Version" match-group="1" type="String" />
+					<attrib alias="ApiVersion" match-group="1" type="String" />
+				</attributes>
+			</uri>
+			<uri name="dockerContainersAll">
+				<url path="/containers/json"
+					user-agent="Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/412 (KHTML, like Gecko) Safari/412"
+					matches="all" response-range="100-399">
+				</url>
+				<attributes>
+					<attrib alias="Id" match-group="1" type="String" />
+					<attrib alias="Image" match-group="1" type="Gauge" />
+					<attrib alias="Created" match-group="1" type="Gauge" />
+					<attrib alias="Status" match-group="1" type="String" />
+				</attributes>
+			</uri>
+		</uris>
+	</http-collection>
+
+
+	<http-collection name="ElasticSearch">
+		<rrd step="300">
+			<rra>RRA:AVERAGE:0.5:1:2016</rra>
+			<rra>RRA:AVERAGE:0.5:12:1488</rra>
+			<rra>RRA:AVERAGE:0.5:288:366</rra>
+			<rra>RRA:MAX:0.5:288:366</rra>
+			<rra>RRA:MIN:0.5:288:366</rra>
+		</rrd>
+		<uris>
+			<uri name="element">
+				<url path="*"
+					user-agent="Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/412 (KHTML, like Gecko) Safari/412"
+					matches="all" response-range="100-399">
+				</url>
+				<attributes>
+					<attrib alias="cluster_name" match-group="1" type="String" />
+					<attrib alias="http_address" match-group="1" type="String" />
+					<attrib alias="active_shards" match-group="1" type="String" />
+					<attrib alias="active_primary_shards" match-group="1" type="Gauge" />
+					<attrib alias="relocating_shards" match-group="1" type="Gauge" />
+					<attrib alias="initializing_shards" match-group="1" type="Gauge" />
+					<attrib alias="unassigned_shards" match-group="1" type="Gauge" />
+					<attrib alias="delayed_unassigned_shards" match-group="1" type="Gauge" />
+					<attrib alias="number_of_pending_tasks" match-group="1" type="Gauge" />
+					<attrib alias="transport_address" match-group="1" type="String" />
+					<attrib alias="totalIndices" match-group="1" type="Gauge" />
+					<attrib alias="totalDocs" match-group="1" type="Gauge" />
+					<attrib alias="transport_address" match-group="1" type="String" />
+					<attrib alias="clusterName" match-group="1" type="String" />
+					<attrib alias="clusterStatus" match-group="1" type="String" />
+					<attrib alias="masterNodeName" match-group="1" type="String" />
+					<attrib alias="masterNodeIP" match-group="1" type="String" />
+					<attrib alias="masterNodePort" match-group="1" type="String" />
+					<attrib alias="publishPort" match-group="1" type="String" />
+					<attrib alias="totalShards" match-group="1" type="Gauge" />
+					<attrib alias="count" match-group="1" type="Gauge" />
+					<attrib alias="total" match-group="1" type="Gauge" />
+					<attrib alias="master_only" match-group="1" type="String" />
+					<attrib alias="data_only" match-group="1" type="String" />
+					<attrib alias="master_data" match-group="1" type="String" />
+					<attrib alias="client" match-group="1" type="String" />
+					<attrib alias="totalNodes" match-group="1" type="Gauge" />
+					<attrib alias="insert_order" match-group="1" type="String" />
+					<attrib alias="time_in_queue_millis" match-group="1" type="String" />
+					<attrib alias="priority" match-group="1" type="String" />
+					<attrib alias="source" match-group="1" type="String" />
+				</attributes>
+			</uri>
+		</uris>
+	</http-collection>
+</http-datacollection-config>

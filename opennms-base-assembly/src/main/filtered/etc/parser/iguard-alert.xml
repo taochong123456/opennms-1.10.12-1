@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+
+<config> 
+  <event Name="iguard-alert" Description="iGuard告警日志" Priority="" Match="([1-9]\d{3}-[01]\d-[0123]\d\s*\d{2}:\d{2}:\d{2}),\s*warn,\s*\[(\d+\.\d+\.\d+\.\d+)\]\s*(((\w*\s)*)(\S*[^,\s])),*\s*(.*)">
+    <field Name="category" Description="事件分类" Index="" Format="" Value="warn" />
+    <field Name="occurTime" Description="事件产生时刻" Index="1" Format="yyyy-MM-dd HH:mm:ss" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="2" Format="" Value="" /> 
+	<field Name="action" Description="操作" Index="5" Format="" Value="" />
+	<field Name="result" Description="结果" Index="4" Format="" Value="" />  
+	<field Name="name" Description="事件名称" Index="7" Format="" Value="" />
+	<field Name="resource" Description="资源名称" Index="6" Format="" Value="" />     
+  </event>
+  <event Name="iguard-alert" Description="iGuard告警日志" Priority="" Match="([1-9]\d{3}-[01]\d-[0123]\d\s*\d{2}:\d{2}:\d{2}),\s*alert,\s*\[(\d+\.\d+\.\d+\.\d+)\]\s*([^,]*),*\s*([^,]*),*\s*(.*)">
+    <field Name="category" Description="事件分类" Index="" Format="" Value="alert" />
+    <field Name="occurTime" Description="事件产生时刻" Index="1" Format="yyyy-MM-dd HH:mm:ss" Value="" /> 
+	<field Name="sendTime" Description="事件发送时刻" Index="3" Format="MM-dd HH:mm:ss" Value="" />   
+    <field Name="dAddr" Description="目的地址" Index="2" Format="" Value="" /> 
+    <field Name="resource" Description="资源名称" Index="4" Format="" Value="" />
+    <field Name="name" Description="事件名称" Index="5" Format="" Value="" /> 
+  </event>
+</config>

@@ -1,0 +1,244 @@
+﻿<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+
+<config> 
+<event Name="windows" Description="windows日志" Priority="2" Match="^EventType=([^\s]+)\sSubmitTime=&quot;([^&quot;]+)&quot;\sShortEventID=([^\s]+)\sSourceName=&quot;([^&quot;]+)&quot;\sUserName=&quot;SYSTEM&quot;\sSIDType=&quot;([^&quot;]+)&quot;\sEventLogType=([^\s]+)\sUserType=([^\s]+)\sComputerName=&quot;([^&quot;]+)&quot;\sCategoryString=&quot;([^&quot;]+)&quot;\sOSVer=&quot;([^&quot;]+)&quot;\sTempString=&quot;([^&quot;]+)&quot;">
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="type" Description="事件具体类型" Index="1" Format="" Value="" />
+    <field Name="priority" Description="等级" Index="" Format="" Value="" >
+      <fieldvalue Match="^0" Value="4" />
+  	  <fieldvalue Match="^[1-2]" Value="3" />
+      <fieldvalue Match="^[3-4]" Value="2" />
+      <fieldvalue Match="^[5-6]" Value="1" />
+	  <fieldvalue Match="^7" Value="0" />   
+    </field>
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" />
+    <field Name="rawID" Description="事件本身的编号" Index="3" Format="" Value="" />
+    <field Name="occurTime" Description="事件产生时刻" Index="2" Format="EEE MMM dd HH:mm:ss yyyy" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="2" Format="EEE MMM dd HH:mm:ss yyyy" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="protocol" Description="协议" Index="" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="" Format="" Value="" />
+    <field Name="object" Description="对象" Index="9" Format="" Value="" >
+		<fieldvalue Match="帐户" Value="/user" />	
+		<fieldvalue Match="\S" Value="/host" />	
+	</field>
+    <field Name="policy" Description="策略" Index="" Format="" Value="" />
+    <field Name="resource" Description="资源名称" Index="11" Format="" Value="" >
+		<fieldvalue Match="[\s|\S]+文件名:\s([\s|\S]+)\s创建者过程ID:" Value="" />
+		<fieldvalue Match="[\s|\S]+文件名:\s([\s|\S]+)\s用户名:" Value="" />				
+	</field>
+    <field Name="action" Description="操作" Index="3" Format="" Value="" >
+      <fieldvalue Match="52[89]|53[012345679]|54[089]|552|67[2345678]|68[0123]" Value="/authen/login" />
+	  <fieldvalue Match="538|551" Value="/authen/logout" />
+	  <fieldvalue Match="54[1234567]" Value="/authen" />
+	  <fieldvalue Match="626|560|562|563|564|565" Value="/access/start" />	
+	  <fieldvalue Match="576|577|578" Value="/authori" /> 	   
+	  <fieldvalue Match="624|631|632|635|636" Value="/add" /> 
+	  <fieldvalue Match="625|627|628|642|639|641|642|643" Value="/modifty" /> 
+	  <fieldvalue Match="630|633|634|637|638" Value="/remove" />
+	  <fieldvalue Match="629" Value="/forbid" /> 
+	  <fieldvalue Match="644" Value="/lock" />
+	  
+    </field>
+    <field Name="intent" Description="意图" Index="" Format="" Value="" /> 
+    <field Name="result" Description="结果" Index="6" Format="" Value="" >
+      <fieldvalue Match="[1]" Value="/success" />
+      <fieldvalue Match="^[2]" Value="/failure" />
+      <fieldvalue Match="^[5]" Value="/success" />
+      <fieldvalue Match="^[6]" Value="/failure" />	  
+    </field>
+    <field Name="sAddr" Description="源地址" Index="11" Format="" Value="" >
+		<fieldvalue Match="[\s|\S]+客户端地址:\s(\S+)" Value="" />
+		<fieldvalue Match="[\s|\S]+源网络地址:\s(\S+)" Value="" />
+	</field>
+    <field Name="sName" Description="源名称" Index="11" Format="" Value="" >		
+		<fieldvalue Match="[\s|\S]+客户端名:\s(\S+)" Value="" />
+		<fieldvalue Match="[\s|\S]+工作站名:\s(\S+)" Value="" />
+		<fieldvalue Match="[\s|\S]+源工作站:\s(\S+)错误代码" Value="" />
+	</field>
+    <field Name="sPort" Description="源端口" Index="" Format="" Value="" />
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="11" Format="" Value="" >
+    	<fieldvalue Match="用户名:\s([\s|\S]+)\s域" Value="" />
+    	<fieldvalue Match="用户名:\s([\s|\S]+)\s用户域" Value="" />
+    	<fieldvalue Match="用户名:\s([\s|\S]+)\s用户ID" Value="" />		
+		<fieldvalue Match="登录帐户:([\s|\S]+)源工作站" Value="" />		
+		<fieldvalue Match="目标帐户名称:\s([\s|\S]+)\s目标域" Value="" />
+		<fieldvalue Match="目标帐户名:\s([\s|\S]+)\s目标域" Value="" />		
+		<fieldvalue Match="新的帐户名:\s([\s|\S]+)\s新域" Value="" />	
+    </field>
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="8" Format="" Value="" />
+    <field Name="devCategory" Description="设备分类" Index="" Format="" Value="" />
+    <field Name="devType" Description="设备型号" Index="10" Format="" Value="" >
+	  <fieldvalue Match="Professional" Value="/3" />
+      <fieldvalue Match="Home" Value="/3" />
+      <fieldvalue Match="Server" Value="/2" />
+	</field>
+    <field Name="devVendor" Description="设备厂商" Index="" Format="" Value="microsoft" />
+	<field Name="devProduct" Description="产品名称" Index="" Format="" Value="Windows" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="/os" />
+    <field Name="program" Description="程序名称" Index="4" Format="" Value="" />
+    <field Name="requestURI" Description="请求网址" Index="" Format="" Value="" />
+    <field Name="name" Description="事件名称" Index="11" Format="" Value="" >		
+		<fieldvalue Match="\s([^:]+)" Value="" />
+	</field>	  
+    <!--customS1 SIDType(SID帐号的类型)  -->
+    <field Name="customS1" Description="定制字符串" Index="5" Format="" Value="" /> 
+    <!--customS2 CateGoryString ,根据事件来源对事件进行的分类。例如，安全性类别包括了：登录和注销、策略更改、权限使用、系统事           件、对象访问、详情跟踪和帐户管理-->
+    <field Name="customS2" Description="定制字符串" Index="9" Format="" Value="" />
+    <!--customS3 OSVer(操作系统的版本号)  -->
+    <field Name="customS3" Description="定制字符串" Index="10" Format="" Value="" />
+    <!--customS3 OSVer(日志内容的具体描述信息)  -->
+    <field Name="customS4" Description="定制字符串" Index="11" Format="" Value="" >
+		<fieldvalue Match="域:\s+(\S+)\s+登录ID:" Value="" />
+	</field> 
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" /> 
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" /> 
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" /> 
+	<!--customD1 登陆类型-->
+    <field Name="customD1" Description="定制整型" Index="11" Format="" Value="" >
+		<fieldvalue Match="[\s|\S]+登录类型:\s(\S+)" Value="" />
+	</field>
+    <field Name="customD2" Description="定制整型" Index="7" Format="" Value="" />  
+    <field Name="customD3" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD4" Description="定制整型" Index="" Format="" Value="" />
+ 
+  </event>
+  <event Name="windows" Description="windows日志" Priority="10" Match="^EventType=([^\s]+)\sSubmitTime=&quot;([^&quot;]+)&quot;\sShortEventID=([^\s]+)\sSourceName=&quot;([^&quot;]+)&quot;\sUserName=&quot;([^&quot;]+)&quot;\sSIDType=&quot;([^&quot;]+)&quot;\sEventLogType=([^\s]+)\sUserType=([^\s]+)\sComputerName=&quot;([^&quot;]+)&quot;\sCategoryString=&quot;([^&quot;]+)&quot;\sOSVer=&quot;([^&quot;]+)&quot;\sTempString=&quot;([^&quot;]+)&quot;">
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="type" Description="事件具体类型" Index="1" Format="" Value="" />
+    <field Name="priority" Description="等级" Index="" Format="" Value="" >
+      <fieldvalue Match="^0" Value="4" />
+  	  <fieldvalue Match="^[1-2]" Value="3" />
+      <fieldvalue Match="^[3-4]" Value="2" />
+      <fieldvalue Match="^[5-6]" Value="1" />
+	  <fieldvalue Match="^7" Value="0" />   
+    </field>
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" />
+    <field Name="rawID" Description="事件本身的编号" Index="3" Format="" Value="" />
+    <field Name="occurTime" Description="事件产生时刻" Index="2" Format="EEE MMM dd HH:mm:ss yyyy" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="2" Format="EEE MMM dd HH:mm:ss yyyy" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="protocol" Description="协议" Index="" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="" Format="" Value="" />
+    <field Name="object" Description="对象" Index="10" Format="" Value="" >
+		<fieldvalue Match="帐户" Value="/user" />	
+		<fieldvalue Match="\S" Value="/host" />	
+	</field>
+    <field Name="policy" Description="策略" Index="" Format="" Value="" />
+    <field Name="resource" Description="资源名称" Index="12" Format="" Value="" >
+		<fieldvalue Match="[\s|\S]+文件名:\s([\s|\S]+)\s创建者过程ID:" Value="" />
+		<fieldvalue Match="[\s|\S]+文件名:\s([\s|\S]+)\s用户名:" Value="" />			
+	</field>
+    <field Name="action" Description="操作" Index="3" Format="" Value="" >
+      <fieldvalue Match="52[89]|53[012345679]|54[089]|552|67[2345678]|68[0123]" Value="/authen/login" />
+	  <fieldvalue Match="538|551" Value="/authen/logout" />
+	  <fieldvalue Match="54[1234567]" Value="/authen" />
+	  <fieldvalue Match="626|560|562|563|564|565" Value="/access/start" />	
+	  <fieldvalue Match="576|577|578" Value="/authori" /> 	   
+	  <fieldvalue Match="624|631|632|635|636" Value="/add" /> 
+	  <fieldvalue Match="625|627|628|642|639|641|642|643" Value="/modifty" /> 
+	  <fieldvalue Match="630|633|634|637|638" Value="/remove" />
+	  <fieldvalue Match="629" Value="/forbid" /> 
+	  <fieldvalue Match="644" Value="/lock" />
+	  
+    </field>
+    <field Name="intent" Description="意图" Index="" Format="" Value="" /> 
+    <field Name="result" Description="结果" Index="7" Format="" Value="" >
+      <fieldvalue Match="[1]" Value="/success" />
+      <fieldvalue Match="^[2]" Value="/failure" />
+      <fieldvalue Match="^[5]" Value="/success" />
+      <fieldvalue Match="^[6]" Value="/failure" />	  
+    </field>
+    <field Name="sAddr" Description="源地址" Index="12" Format="" Value="" >
+		<fieldvalue Match="[\s|\S]+客户端地址:\s(\S+)" Value="" />
+		<fieldvalue Match="[\s|\S]+源网络地址:\s(\S+)" Value="" />
+	</field>
+    <field Name="sName" Description="源名称" Index="12" Format="" Value="" >		
+		<fieldvalue Match="[\s|\S]+客户端名:\s(\S+)" Value="" />
+		<fieldvalue Match="[\s|\S]+工作站名:\s(\S+)" Value="" />
+		<fieldvalue Match="[\s|\S]+源工作站:\s(\S+)错误代码" Value="" />
+	</field>
+    <field Name="sPort" Description="源端口" Index="" Format="" Value="" />
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="12" Format="" Value="" >
+    	<fieldvalue Match="用户名:\s([\s|\S]+)\s域" Value="" />	
+    	<fieldvalue Match="用户名:\s([\s|\S]+)\s用户域" Value="" />
+    	<fieldvalue Match="用户名:\s+([\s|\S]+)\s+用户ID" Value="" />		
+		<fieldvalue Match="登录帐户:([\s|\S]+)源工作站" Value="" />		
+		<fieldvalue Match="目标帐户名称:\s([\s|\S]+)\s目标域" Value="" />
+		<fieldvalue Match="目标帐户名:\s([\s|\S]+)\s目标域" Value="" />		
+		<fieldvalue Match="新的帐户名:\s([\s|\S]+)\s新域" Value="" />	
+    </field>
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="9" Format="" Value="" />
+    <field Name="devCategory" Description="设备分类" Index="" Format="" Value="" />
+    <field Name="devType" Description="设备型号" Index="11" Format="" Value="" >
+	  <fieldvalue Match="Professional" Value="/3" />
+      <fieldvalue Match="Home" Value="/3" />
+      <fieldvalue Match="Server" Value="/2" />
+	</field>
+    <field Name="devVendor" Description="设备厂商" Index="" Format="" Value="microsoft" />
+	  <field Name="devProduct" Description="产品名称" Index="" Format="" Value="Windows" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="/os" />
+    <field Name="program" Description="程序名称" Index="4" Format="" Value="" />
+    <field Name="requestURI" Description="请求网址" Index="" Format="" Value="" />
+    <field Name="name" Description="事件名称" Index="12" Format="" Value="" >		
+		<fieldvalue Match="\s([^:]+)" Value="" />
+	</field>	  
+    <!--customS1 SIDType(SID帐号的类型)  -->
+    <field Name="customS1" Description="定制字符串" Index="6" Format="" Value="" /> 
+    <!--customS2 CateGoryString ,根据事件来源对事件进行的分类。例如，安全性类别包括了：登录和注销、策略更改、权限使用、系统事           件、对象访问、详情跟踪和帐户管理-->
+    <field Name="customS2" Description="定制字符串" Index="10" Format="" Value="" />
+    <!--customS3 OSVer(操作系统的版本号)  -->
+    <field Name="customS3" Description="定制字符串" Index="11" Format="" Value="" />
+    <!--customS4 OSVer(日志内容的具体描述信息)  -->
+    <field Name="customS4" Description="定制字符串" Index="12" Format="" Value="" >
+		<fieldvalue Match="域:\s+(\S+)\s+登录ID:" Value="" />
+	</field>
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" />
+
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" /> 
+	<!--customD1 登陆类型-->
+    <field Name="customD1" Description="定制整型" Index="12" Format="" Value="" >
+		<fieldvalue Match="[\s|\S]+登录类型:\s(\S+)" Value="" />
+	</field>
+    <field Name="customD2" Description="定制整型" Index="8" Format="" Value="" /> 
+    <field Name="customD3" Description="定制整型" Index="" Format="" Value="" /> 
+    <field Name="customD4" Description="定制整型" Index="" Format="" Value="" />      
+  </event>
+  
+</config>

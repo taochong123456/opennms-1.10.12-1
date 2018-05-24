@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+
+<config> 
+  <event Name="Juniper" Description="Juniper SSL VPN" Priority="" Match="Juniper:\s*([1-9]\d{3}-[01]\d-[0123]\d\s*\d{2}:\d{2}:\d{2})\s*-\s*\w*\s*-\s*\[?\d+\.\d+\.\d+\.\d+\]\s*(\w+\.){1,}\w+:?:?\w+-\w+\(\w+\)\[\w+\]\s*-\s*(\w*\s\w*)+,?\s*(\w*)\s*\w*\s*((\w*):*[^:]*:*(\d*)\S*)\s*\w*\s*(\d+\.\d+\.\d+\.\d+)\s*result=(\d*)\s*sent=(\d*)\s*received=(\d*)\s*\w*\s*(\d*)\s*\w*">
+    <field Name="occurTime" Description="事件产生时刻" Index="1" Format="yyyy-MM-dd HH:mm:ss" Value="" />   
+    <field Name="duration" Description="持续时刻" Index="12" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="10" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="11" Format="" Value="" />   
+    <field Name="appProtocol" Description="应用协议" Index="6" Format="" Value="" />   
+    <field Name="action" Description="操作" Index="4" Format="" Value="" />    
+    <field Name="result" Description="结果" Index="9" Format="" Value="" />   
+    <field Name="dAddr" Description="目的地址" Index="8" Format="" Value="" />   
+    <field Name="dPort" Description="目的端口" Index="7" Format="" Value="" />    
+    <field Name="requestURI" Description="请求网址" Index="5" Format="" Value="" />    
+    <field Name="customS1" Description="定制字符串" Index="3" Format="" Value="" />   
+  </event>
+  <event Name="Juniper" Description="Juniper SSL VPN" Priority="" Match="Juniper:\s*([1-9]\d{3}-[01]\d-[0123]\d\s*\d{2}:\d{2}:\d{2})\s*-\s*\w*\s*-\s*\[?\d+\.\d+\.\d+\.\d+\]\s*(\w+\.){1,}\w+:?:?\w+-\w+\(\w+\)\[\w+\]\s*-\s*(\w*\s\w*\s*)+\S?\s*\w*\s*\S?\s*(\d+\.\d+\.\d+\.\d+)\s*\S?\s*\S*\s*(\w*\s*\S*)\s*(.*)">
+    <field Name="occurTime" Description="事件产生时刻" Index="1" Format="yyyy-MM-dd HH:mm:ss" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="6" Format="" Value="" >
+		<fieldvalue Value="HTTP|http(\s.*)*" Match="80"/>
+	</field>
+    <field Name="action" Description="操作" Index="5" Format="" Value="">
+		 <fieldvalue Match="[^\s]*" Value="" />
+	</field>
+    <field Name="dAddr" Description="目的地址" Index="4" Format="" Value="" />    
+    <field Name="requestURI" Description="请求网址" Index="5" Format="" Value="">	
+		<fieldvalue Match="\s+\S*" Value="" />
+	</field>    
+    <field Name="customS1" Description="定制字符串" Index="3" Format="" Value="" />    
+  </event>
+</config>

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+
+<config> 
+  <event Name="attackinfo" Description="抗拒绝服务网关日志" Priority="1" Match="^net.*\s=\s([^\s]+)\ssrc=([^\s]+)\sdst=([^\s]+)\ssport=([^\s]+)\sdport=([^\s]+)\sflag=(.*)">
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="type" Description="事件具体类型" Index="" Format="" Value="" />
+    <field Name="priority" Description="等级" Index="" Format="" Value="" />
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" />
+    <field Name="rawID" Description="事件本身的编号" Index="" Format="" Value="" />
+    <field Name="occurTime" Description="事件产生时刻" Index="" Format="" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="protocol" Description="协议" Index="" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="5" Format="" Value="" />
+    <field Name="object" Description="对象" Index="" Format="" Value="" />
+    <field Name="policy" Description="策略" Index="" Format="" Value="" />
+    <field Name="resource" Description="资源名称" Index="" Format="" Value="" />
+    <field Name="action" Description="操作" Index="" Format="" Value="" />
+    <field Name="intent" Description="意图" Index="" Format="" Value="" /> 
+    <field Name="result" Description="结果" Index="" Format="" Value="" />
+    <field Name="sAddr" Description="源地址" Index="2" Format="" Value="" />
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="4" Format="" Value="" />
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="3" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="5" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备分类" Index="" Format="" Value="4" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="/4/Security05" />
+    <field Name="devVendor" Description="设备厂商" Index="" Format="" Value="" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="/antivirus" />
+    <field Name="program" Description="程序名称" Index="" Format="" Value="" />
+    <field Name="requestURI" Description="请求网址" Index="" Format="" Value="" />
+    <field Name="name" Description="事件名称" Index="1" Format="" Value="" />	  
+    <!--customS1 SIDType(SID帐号的类型)  -->
+    <field Name="customS1" Description="定制字符串" Index="" Format="" Value="" /> 
+    <!--customS2 CateGoryString ,根据事件来源对事件进行的分类。例如，安全性类别包括了：登录和注销、策略更改、权限使用、系统事           件、对象访问、详情跟踪和帐户管理-->
+    <field Name="customS2" Description="定制字符串" Index="" Format="" Value="" />
+    <!--customS3 OSVer(操作系统的版本号)  -->
+    <field Name="customS3" Description="定制字符串" Index="" Format="" Value="" />
+    <!--customS3 OSVer(日志内容的具体描述信息)  -->
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" /> 
+	<!--customD1 登陆类型-->
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" />      
+  </event>
+</config>

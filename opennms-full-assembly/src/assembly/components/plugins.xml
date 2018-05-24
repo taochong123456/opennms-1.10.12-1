@@ -1,0 +1,16 @@
+<component>
+  <dependencySets>
+    <dependencySet>
+      <!-- for jetty, all other webapp dependencies should go in normal lib/ -->
+      <unpack>true</unpack>
+      <includes>
+		 <include>org.opennms.protocols:selenium-monitor:jar:${project.version}</include>
+	  </includes>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useTransitiveDependencies>false</useTransitiveDependencies>
+      <outputDirectory>/plugins/</outputDirectory>
+      <fileMode>0644</fileMode>
+      <directoryMode>0755</directoryMode>
+    </dependencySet>
+   </dependencySets>
+</component>

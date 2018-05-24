@@ -1,0 +1,99 @@
+﻿<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   对于日志格式的解析提取采用正则表达式进行处理，还可采用映射赋值和直接赋值进行字段统一表示，例如将不同设备的事件等级映射为标准的等级。
+   所有的配置文件必须放置在ext/audit/event目录下。
+   事件归一化采用分级归一化，首先采用正则表达式将日志中的基本字段提取出来，对于其他非基本字段进行二次提取，避免了重复扫描，又具有灵活性。同时对于日志中最常见的日志格式，可以专门提供一个事件模式，一次性将所有字段全部提取出来，例如防火墙日志，90%都是包过滤日志，可以针对包过滤日志的专门写一个事件模式，放在优先的位置，就可以提高效率。
+   事件归一化模式配置的基本格式如下：
+   <config> 
+   <event Name="ciscopix" Description="cisco pix日志" Match="(^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{2}\s\d{2}:\d{2}:\d{2})\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s%PIX-(\d)-(\d{6}):\s([^$]+)">
+       Event表示日志的归一化模式，可以配置多个。
+其中：
+       Match：能够区分此类日志的特征字符串，采用正则表达式，可以将日志基本的字段匹配出来，其他非基本部分可以提取出来在字段提取中二次提取。
+   <field Name="priority" Description="等级" Index="3" Format="" Value="" >
+      <fieldvalue Match="^0" Value="4" />
+	  <fieldvalue Match="^[1-2]" Value="3" />
+      <fieldvalue Match="^[3-4]" Value="2" />
+      <fieldvalue Match="^[5-6]" Value="1" />
+	  <fieldvalue Match="^7" Value="0" />
+   </field>
+   其中：
+   Field：
+        Name：对应字段名称。
+        Index：对应第一次提取的字段索引，对应event的Match中的正则表达式的组数，从1开始。
+        Format：目前针对时间格式，只对时间字段有效，例如yyyy/MM/dd HH:mm:ss。
+        Value：对于此字段直接赋值。
+        如果直接采用提取的结果，就不需要配置fieldvalue，如果需要根据提取的结果作二次提取，可以配置fieldvalue。
+   Fieldvalue：
+        Match：从已经提取的字段中进行提取该字段的正则表达式。      
+        Value：字段赋值，根据Match匹配的结果赋值，如果为空，直接采用提取的结果，例如提取IP地址。
+   注意：
+   不管此字段是否存在，必须保留该字段，Match、Format、Value均配置为空字符串。
+   字段的顺序不能调整，必须保留原有顺序。
+
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+
+<config>
+<event Name="Microsoft" Description="Microsoft FireWall日志" Priority="" Match="(\d+-\d+-\d+\s+\d+:\d+:\d+)\s+([^\s]+)\s+([^\s]+)\s+(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})\s+(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+).*">
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="type" Description="事件具体类型" Index="" Format="" Value="" />
+    <field Name="priority" Description="等级" Index="" Format="" Value="" />
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" />
+    <field Name="rawID" Description="事件本身的编号" Index="" Format="" Value="" />
+    <field Name="occurTime" Description="事件产生时刻" Index="1" Format="MM/dd/yyyy HH:mm:ss" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="1" Format="MM/dd/yyyy HH:mm:ss" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />    
+    <field Name="send" Description="发送字节数" Index="8" Format="" Value="" />      
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />      
+    <field Name="protocol" Description="协议" Index="3" Format="" Value="" >   
+			 <fieldvalue Match="TCP" Value="6" />
+			 <fieldvalue Match="UDP" Value="17" />
+			 <fieldvalue Match="ICMP" Value="1" />
+    </field> 
+    <field Name="appProtocol" Description="应用协议" Index="7" Format="" Value="" />
+    <field Name="object" Description="对象" Index="" Format="" Value="/net" />
+    <field Name="policy" Description="策略" Index="" Format="" Value="" />   
+    <field Name="resource" Description="资源名称" Index="" Format="" Value="" />      
+    <field Name="action" Description="操作" Index="2" Format="" Value="" > 
+				 <fieldvalue Match="DROP" Value="/remove" />
+				 <fieldvalue Match="CLOSE" Value="/close" />
+				 <fieldvalue Match="OPEN" Value="/open" />
+				 <fieldvalue Match="INFO-EVENTS-LOST" Value="/lost" />
+    </field> 
+    <field Name="result" Description="结果" Index="" Format="" Value="" />              
+    <field Name="intent" Description="意图" Index="" Format="" Value="" />      
+    <field Name="sAddr" Description="源地址" Index="4" Format="" Value="" />      
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="6" Format="" Value="" />      
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />      
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />      
+    <field Name="dAddr" Description="目的地址" Index="5" Format="" Value="" />      
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="7" Format="" Value="" />      
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />      
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />      
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备分类" Index="" Format="" Value="" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="" />
+    <field Name="devVendor" Description="设备厂商" Index="" Format="" Value="microsoft" />
+    <field Name="devProduct" Description="产品名称" Index="" Format="" Value="microsoft firewall" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="" />
+    <field Name="program" Description="程序名称" Index="" Format="" Value="" /> 
+    <field Name="requestURI" Description="请求网址" Index="" Format="" Value="" />
+    <field Name="name" Description="事件名称" Index="" Format="" Value="" />
+    <field Name="customS1" Description="定制字符串" Index="" Format="" Value="" /> 
+    <field Name="customS2" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" /> 
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" />     
+  </event>
+</config>

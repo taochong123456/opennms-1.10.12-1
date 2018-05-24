@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:ns="http://xmlns.opennms.org/xsd/config/redis-datacollection"
+		  targetNamespace="http://xmlns.opennms.org/xsd/config/redis-datacollection"
+		  elementFormDefault="qualified">
+
+	<annotation>
+		<documentation>
+			XML Schema for the redis-datacollection configuration file
+		</documentation>
+	</annotation>
+
+  <element name="rrd">
+    <annotation>
+      <documentation>RRD parms</documentation>
+    </annotation>
+
+    <complexType>
+      <sequence>
+        <element maxOccurs="unbounded" minOccurs="1" name="rra">
+          <annotation>
+            <documentation>Round Robin Archive definitions</documentation>
+          </annotation>
+
+          <simpleType>
+            <restriction base="string">
+              <pattern value="RRA:(AVERAGE|MIN|MAX|LAST):.*"/>
+            </restriction>
+          </simpleType>
+        </element>
+      </sequence>
+
+      <attribute name="step" type="int" use="required">
+        <annotation>
+          <documentation>step size for the RRD</documentation>
+        </annotation>
+      </attribute>
+    </complexType>
+  </element>
+
+	<element name="redis-datacollection-config">
+		<complexType>
+			<sequence>
+				<element ref="ns:redis-collection" maxOccurs="unbounded"/>
+			</sequence>
+			<attribute name="rrdRepository" type="string" use="required"/>
+			<!-- full path to the RRD repository for collected Nsclient data -->
+		</complexType>
+	</element>
+	<element name="redis-collection">
+		<annotation>
+			<documentation>A grouping of redis related RRD parms and redis object groups</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="ns:rrd"/>
+				<element ref="ns:redis"/>
+			</sequence>
+			<attribute name="name" type="string" use="required"/>
+			<!-- collector name -->
+		</complexType>
+	</element>
+	
+	<element name="redis">
+		<annotation>
+			<documentation>A grouping of redis related RRD parms and redis object groups</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="ns:attrib" minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="attrib">
+		<annotation>
+			<documentation>An Attribute Object</documentation>
+		</annotation>
+		<complexType>
+			<attribute name="name" type="string" use="required"/>
+			<attribute name="alias" type="string" use="required"/>			
+			<attribute name="type" use="required">
+				<simpleType>
+					<restriction base="string">
+						<pattern value="([Cc](ounter|OUNTER)|[Gg](auge|AUGE)|[Ss](tring|TRING))"/>
+					</restriction>
+				</simpleType>
+			</attribute>
+		</complexType>
+	</element>
+</schema>

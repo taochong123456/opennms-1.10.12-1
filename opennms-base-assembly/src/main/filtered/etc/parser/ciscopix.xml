@@ -1,0 +1,621 @@
+﻿<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+<!--
+日志格式：
+Nov 28 22:02:42 10.0.111.2 %PIX-6-106015: Deny TCP (no connection) from 3.3.3.3/4532 to 4.4.4.4/80 flags RST on interface outside
+Nov 28 22:06:10 10.0.111.2 %PIX-3-305005: No translation group found for tcp src inside:10.0.112.9/37 dst outside:4.5.6.7/3562
+Nov 29 01:46:42 10.0.111.2 %PIX-6-305005: Translation built for gaddr 1.2.3.4 to laddr 10.0.111.9
+Nov 29 01:35:15 10.0.111.2 %PIX-4-500004: Invalid transport field for protocol=6, from 2.2.2.2/0 to 3.3.3.3/0
+Nov 28 12:03:21 10.0.111.2 %PIX-6-106015: Deny TCP (no connection) from 1.1.1.1/3564 to 2.2.2.2/80 flags RST on interface outside
+Nov 29 04:11:32 10.0.111.2 %PIX-4-500004: Invalid transport field for protocol=6, from 5.5.5.5/0 to 6.6.6.6/0
+Mar 29 2004 09:54:19: %PIX-6-302005: Built UDP connection for faddr 198.207.223.240/36205 gaddr 10.0.0.187/53 laddr 192.168.0.2/53
+Mar 29 2004 09:54:26: %PIX-4-106023: Deny icmp src outside:Some-Cisco dst inside:10.0.0.187 (type 3, code 1) by access-group "outside_access_in"
+
+-->
+
+<config> 
+<event Name="ciscopix" Description="cisco pix日志" Priority="" Match="(^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{2}\s\d{4}\s\d{2}:\d{2}:\d{2}):\s%PIX-(\d)-(\d{6}):\s([^$]+)">
+    <!-- 系统识别过程组 -->  
+    <field Name="name" Description="摘要" Index="4" Format="" Value="" />
+    <field Name="type" Description="事件具体类型" Index="" Format="" Value="" />      
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="protocol" Description="协议" Index="4" Format="" Value="" >
+      <fieldvalue Match="TCP|tcp" Value="6" />
+      <fieldvalue Match="UDP|udp" Value="17" />  
+      <fieldvalue Match="ICMP|icmp" Value="1" />	   
+      <fieldvalue Match="protocol=([^,]+)" Value="" />
+    </field>
+    <field Name="appProtocol" Description="应用协议" Index="4" Format="" Value="" >
+      <fieldvalue Match="HTTPS|https" Value="443" />
+      <fieldvalue Match="bootps" Value="67" />
+      <fieldvalue Match="TELNET|(?:T|t)elnet" Value="23" />
+      <fieldvalue Match="FTP|ftp" Value="21" />
+      <fieldvalue Match="netbios-ns" Value="137" />
+      <fieldvalue Match="netbios-dgm" Value="" />
+    </field>
+    
+    <!-- 事件语义过程组 -->
+    <field Name="intent" Description="意图" Index="" Format="" Value="" />
+    <field Name="policy" Description="方法" Index="4" Format="" Value="" >
+      <fieldvalue Match="^Deny" Value="/policy/breach" />
+      <fieldvalue Match="^Teardown" Value="/policy/compliant" />      
+      <fieldvalue Match="^Built" Value="/policy/compliant" />
+    </field>
+    <field Name="action" Description="操作" Index="4" Format="" Value="">
+      <fieldvalue Match="Accessed" Value="/access" />
+      <fieldvalue Match="^Login" Value="/authen/login" />
+      <fieldvalue Match="^Deny" Value="/deny" />
+      <fieldvalue Match="^Teardown" Value="/permit" />   
+      <fieldvalue Match="^Built" Value="/permit" />
+      <fieldvalue Match="^Invalid\sstransport\sfield" Value="/authen" />
+    </field>
+    <field Name="priority" Description="等级" Index="2" Format="" Value="" >
+      <fieldvalue Match="^0" Value="4" />
+	  <fieldvalue Match="^[1-2]" Value="3" />
+      <fieldvalue Match="^[3-4]" Value="2" />
+      <fieldvalue Match="^[5-6]" Value="1" />
+	  <fieldvalue Match="^7" Value="0" />
+    </field>
+    <field Name="result" Description="结果" Index="" Format="" Value="" >
+      <fieldvalue Match="(?:D|d)enied|failed" Value="/failure" />
+      <fieldvalue Match="permitted" Value="/success" />
+    </field>
+    <field Name="object" Description="对象" Index="" Format="" Value="/net" />    
+    <field Name="resource" Description="资源" Index="" Format="" Value="" />
+    
+    
+    <!-- 原始内容过程组 -->
+    <field Name="oriPriority" Description="原始等级" Index="2" Format="" Value="" />
+    <field Name="rawID" Description="事件分类号" Index="3" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="4" Format="" Value="" >
+			<fieldvalue Match="bytes\s(\d{1,10})" Value="" />
+    </field>
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="requestURI" Description="请求URL" Index="4" Format="" Value="" >
+    	<fieldvalue Match="URL[\s|\S]+:([^$]+)" Value="" />
+    </field>
+    <field Name="customS1" Description="定制字符串" Index="" Format="" Value="" /> 
+    <field Name="customS2" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" />  
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" />     
+    <field Name="customD3" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD4" Description="定制整型" Index="" Format="" Value="" />
+    
+    
+    <!-- 地址身份过程组 -->
+    <field Name="sAddr" Description="源地址" Index="4" Format="" Value="" >
+      <fieldvalue Match="(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="from\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="src\sinside:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/\d{1,5}" Value="" />
+      <fieldvalue Match="src\soutside:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/\d{1,5}" Value="" />
+      <fieldvalue Match="Built outbound[\s|\S]+laddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="Built inbound[\s|\S]+faddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="laddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+
+    </field>
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="4" Format="" Value="" >
+      <fieldvalue Match="from\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="src\sinside:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="src\soutside:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="Built outbound[\s|\S]+laddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="Built inbound[\s|\S]+faddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="laddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+    </field>     
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="4" Format="" Value="" >
+				<fieldvalue Match="Built outbound[\s|\S]+gaddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+				<fieldvalue Match="Built UDP[\s|\S]+gaddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+        <fieldvalue Match="Teardown UDP[\s|\S]+gaddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+    </field>
+    <field Name="stPort" Description="源地址转换端口" Index="4" Format="" Value="" >
+				<fieldvalue Match="Built outbound[\s|\S]+gaddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+				<fieldvalue Match="Built UDP[\s|\S]+gaddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+        <fieldvalue Match="Teardown UDP[\s|\S]+gaddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+    </field>
+    <field Name="dAddr" Description="目的地址" Index="4" Format="" Value="" >
+      <fieldvalue Match="URL\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="to\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="dst\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="dst\sdmz:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="Built outbound[\s|\S]+faddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="Built inbound[\s|\S]+laddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="faddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+    </field>
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="4" Format="" Value="" >
+      <fieldvalue Match="to\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="dst\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="dst\sdmz:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/ssh" Value="22" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/bootps" Value="67" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/netbios-ns" Value="137" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/netbios-dgm" Value="138" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/telnet" Value="23" />
+      <fieldvalue Match="Built outbound[\s|\S]+faddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="Built inbound[\s|\S]+laddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="faddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+    </field>  
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="4" Format="" Value="" >
+    	<fieldvalue Match="Built inbound[\s|\S]+gaddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+    </field>
+    <field Name="dtPort" Description="目的地址转换端口" Index="4" Format="" Value="" >
+    	<fieldvalue Match="Built inbound[\s|\S]+gaddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+    </field>
+    
+    <!-- 事件产生过程组 -->
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备类型" Index="" Format="" Value="4" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="/4/Security01" />
+    <field Name="devVendor" Description="厂商" Index="" Format="" Value="cisco" />
+		<field Name="devProduct" Description="产品" Index="" Format="" Value="PIX" />
+    <field Name="programType" Description="程序类型" Index="4" Format="" Value="" >
+    	<fieldvalue Match="Auth|Authentication|Authorization" Value="/3a" />
+    	<fieldvalue Match="SMTP" Value="/mail" />
+    </field>
+    <field Name="program" Description="程序名称" Index="" Format="" Value="" />     
+    
+    <!-- 事件传送过程组 -->     
+    <field Name="occurTime" Description="事件产生时刻" Index="1" Format="MMM dd yyyy HH:mm:ss" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="1" Format="MMM dd yyyy HH:mm:ss" Value="" />   
+        
+  </event>
+
+
+  <event Name="ciscopix" Description="cisco pix日志" Priority="" Match="(^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{2}\s\d{2}:\d{2}:\d{2})\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s%PIX-(\d)-(\d{6}):\s([^$]+)">
+    <!-- 系统识别过程组 -->
+    <field Name="name" Description="摘要" Index="5" Format="" Value="" /> 
+    <field Name="type" Description="事件具体类型" Index="" Format="" Value="" />
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="protocol" Description="协议" Index="5" Format="" Value="" >
+      <fieldvalue Match="TCP|tcp" Value="6" />
+      <fieldvalue Match="UDP|udp" Value="17" />  
+      <fieldvalue Match="ICMP|icmp" Value="1" />	   
+      <fieldvalue Match="protocol=([^,]+)" Value="" />
+    </field>
+    <field Name="appProtocol" Description="应用协议" Index="5" Format="" Value="" >
+      <fieldvalue Match="bootps" Value="67" /> 
+      <fieldvalue Match="netbios-ns" Value="137" /> 
+      <fieldvalue Match="TELNET|(?:T|t)elnet" Value="23" /> 
+      <fieldvalue Match="netbios-dgm" Value="" /> 
+      <fieldvalue Match="FTP|ftp" Value="21" /> 
+    </field>
+    
+    <!-- 事件语义过程组 -->
+    <field Name="intent" Description="意图" Index="" Format="" Value="" />
+    <field Name="policy" Description="方法" Index="5" Format="" Value="" >
+      <fieldvalue Match="^Deny" Value="/policy/breach" />
+      <fieldvalue Match="^Teardown" Value="/policy/compliant" />      
+      <fieldvalue Match="^Built" Value="/policy/compliant" />
+    </field>
+    <field Name="action" Description="操作" Index="5" Format="" Value="">
+      <fieldvalue Match="Accessed" Value="/access" />
+      <fieldvalue Match="^Login" Value="/authen/login" />
+      <fieldvalue Match="^Deny" Value="/deny" />
+      <fieldvalue Match="^Teardown" Value="/permit" />   
+      <fieldvalue Match="^Built" Value="/permit" />
+      <fieldvalue Match="^Invalid\sstransport\sfield" Value="/authen" />
+    </field>
+    <field Name="priority" Description="等级" Index="3" Format="" Value="1" >
+      <fieldvalue Match="^0" Value="4" />
+	  <fieldvalue Match="^[1-2]" Value="3" />
+      <fieldvalue Match="^[3-4]" Value="2" />
+      <fieldvalue Match="^[5-6]" Value="1" />
+	  <fieldvalue Match="^7" Value="0" />
+    </field>
+    <field Name="result" Description="结果" Index="5" Format="" Value="" >
+      <fieldvalue Match="(?:D|d)enied|failed" Value="/failure" /> 
+      <fieldvalue Match="permitted" Value="/success" /> 
+    </field>
+    <field Name="object" Description="对象" Index="" Format="" Value="/net" />
+    <field Name="resource" Description="资源" Index="" Format="" Value="" />
+    
+    <!-- 原始内容过程组 -->     
+    <field Name="oriPriority" Description="原始等级" Index="3" Format="" Value="" />
+    <field Name="rawID" Description="事件分类号" Index="4" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="5" Format="" Value="" >
+					<fieldvalue Match="bytes\s(\d{1,10})" Value="" />
+    </field>
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="requestURI" Description="请求URL" Index="5" Format="" Value="" >
+    	<fieldvalue Match="URL[\s|\S]+:([^$]+)" Value="" />
+    </field>
+    <field Name="customS1" Description="定制字符串" Index="" Format="" Value="" /> 
+    <field Name="customS2" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" />  
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" />     
+    <field Name="customD3" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD4" Description="定制整型" Index="" Format="" Value="" /> 
+    
+    <!-- 地址身份过程组 -->
+    <field Name="sAddr" Description="源地址" Index="5" Format="" Value="" >
+      <fieldvalue Match="(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="from\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="src\sinside:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="gaddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+    </field>
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="5" Format="" Value="" >
+      <fieldvalue Match="from\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="src\sinside:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+    </field>     
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="5" Format="" Value="" >
+      <fieldvalue Match="URL\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="to\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="dst\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="dst\sdmz:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" /> 
+      <fieldvalue Match="laddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" /> 
+    </field>
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="5" Format="" Value="" >
+      <fieldvalue Match="to\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="dst\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" /> 
+      <fieldvalue Match="dst\sdmz:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" /> 
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" /> 
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/ssh" Value="22" /> 
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/bootps" Value="67" /> 
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/netbios-ns" Value="137" /> 
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/netbios-dgm" Value="138" /> 
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/telnet" Value="23" /> 
+    </field>  
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    
+    <!-- 事件产生过程组 -->
+    <field Name="devAddr" Description="设备地址" Index="2" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备类型" Index="" Format="" Value="4" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="/4/Security01" />
+    <field Name="devVendor" Description="厂商" Index="" Format="" Value="cisco" />
+		<field Name="devProduct" Description="产品" Index="" Format="" Value="PIX" />
+    <field Name="programType" Description="程序类型" Index="5" Format="" Value="" >
+    	<fieldvalue Match="Auth|Authentication" Value="/3a" />
+    	<fieldvalue Match="SMTP" Value="/mail" />
+    </field>
+    <field Name="program" Description="程序名称" Index="" Format="" Value="" />
+    
+    <!-- 事件传送过程组 --> 
+    <field Name="occurTime" Description="事件产生时刻" Index="1" Format="MMM dd HH:mm:ss" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="1" Format="MMM dd HH:mm:ss" Value="" />    
+       
+  </event>
+
+  <event Name="ciscopix" Description="cisco pix日志" Priority="1" Match="^(%PIX|%ASA|%PIX\|ASA)-(\d)-(\d{6}):\s([^$]+)">
+    <!-- 系统识别过程组 -->
+    <field Name="name" Description="摘要" Index="4" Format="" Value="" />
+    <field Name="type" Description="事件具体类型" Index="" Format="" Value="" />
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="protocol" Description="协议" Index="4" Format="" Value="" >
+      <fieldvalue Match="TCP|tcp" Value="6" />
+      <fieldvalue Match="UDP|udp" Value="17" />  
+      <fieldvalue Match="ICMP|icmp" Value="1" />	   
+      <fieldvalue Match="protocol=([^,]+)" Value="" />
+    </field>
+    <field Name="appProtocol" Description="应用协议" Index="4" Format="" Value="" >
+      <fieldvalue Match="bootps" Value="67" />
+      <fieldvalue Match="netbios-ns" Value="137" />
+      <fieldvalue Match="TELNET|(?:T|t)elnet" Value="23" />
+      <fieldvalue Match="netbios-dgm" Value="138" />
+      <fieldvalue Match="FTP|ftp" Value="21" />
+    </field>
+    
+    <!-- 事件语义过程组 -->
+    <field Name="intent" Description="意图" Index="" Format="" Value="" />
+    <field Name="policy" Description="方法" Index="4" Format="" Value="" >
+      <fieldvalue Match="^Deny" Value="/policy/breach" />
+      <fieldvalue Match="^Teardown" Value="/policy/compliant" />      
+      <fieldvalue Match="^Built" Value="/policy/compliant" />
+    </field>
+    <field Name="action" Description="操作" Index="4" Format="" Value="">
+      <fieldvalue Match="Accessed" Value="/access" />
+      <fieldvalue Match="^Login" Value="/authen/login" />
+      <fieldvalue Match="^Deny" Value="/deny" />
+      <fieldvalue Match="^Teardown" Value="/permit" />   
+      <fieldvalue Match="^Built" Value="/permit" />
+      <fieldvalue Match="^Invalid\sstransport\sfield" Value="/authen" />
+    </field>    
+    <field Name="priority" Description="等级" Index="2" Format="" Value="" >
+      <fieldvalue Match="^0" Value="4" />
+	  <fieldvalue Match="^[1-2]" Value="3" />
+      <fieldvalue Match="^[3-4]" Value="2" />
+      <fieldvalue Match="^[5-6]" Value="1" />
+	  <fieldvalue Match="^7" Value="0" />
+    </field>
+    <field Name="result" Description="结果" Index="4" Format="" Value="" >
+      <fieldvalue Match="(?:D|d)enied|failed" Value="/failure" />
+      <fieldvalue Match="(?:P|p)ermitted" Value="/success" />
+    </field>
+    <field Name="object" Description="对象" Index="" Format="" Value="/net" />
+    <field Name="resource" Description="资源" Index="" Format="" Value="" />
+    
+     <!-- 原始内容过程组 -->   
+    <field Name="oriPriority" Description="原始等级" Index="2" Format="" Value="" /> 
+    <field Name="rawID" Description="事件分类号" Index="3" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="4" Format="" Value="" >
+				<fieldvalue Match="bytes\s(\d{1,10})" Value="" />
+    </field>
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="requestURI" Description="请求URL" Index="4" Format="" Value="" >
+    	<fieldvalue Match="URL[\s|\S]+:([^$]+)" Value="" />
+    </field>
+    <field Name="customS1" Description="定制字符串" Index="" Format="" Value="" /> 
+    <field Name="customS2" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" />  
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" />     
+    <field Name="customD3" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD4" Description="定制整型" Index="" Format="" Value="" /> 
+    
+    <!-- 地址身份过程组 -->
+    <field Name="sAddr" Description="源地址" Index="4" Format="" Value="" >
+      <fieldvalue Match="(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="from\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="src\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="gaddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+    </field>
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="4" Format="" Value="" >
+      <fieldvalue Match="from\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="src\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+    </field>  
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="4" Format="" Value="" >
+      <fieldvalue Match="URL\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="to\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="dst\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="dst\sdmz:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/\d{1,5}" Value="" />
+      <fieldvalue Match="laddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+    </field>
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="4" Format="" Value="" >
+      <fieldvalue Match="to\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="dst\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="dst\sdmz:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/ssh" Value="22" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/bootps" Value="67" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/netbios-ns" Value="137" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/netbios-dgm" Value="138" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/telnet" Value="23" />
+    </field> 
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    
+    <!-- 事件产生过程组 -->
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备类型" Index="" Format="" Value="4" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="/4/Security01" />
+    <field Name="devVendor" Description="厂商" Index="" Format="" Value="cisco" />
+		<field Name="devProduct" Description="产品" Index="" Format="" Value="PIX" />
+    <field Name="programType" Description="程序类型" Index="4" Format="" Value="" >
+    	<fieldvalue Match="Auth|Authentication" Value="/3a" />
+    	<fieldvalue Match="SMTP" Value="/mail" />
+    </field>
+    <field Name="program" Description="程序名称" Index="" Format="" Value="" /> 
+    
+    <!-- 事件传送过程组 -->    
+    <field Name="occurTime" Description="事件产生时刻" Index="" Format="" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="" Format="" Value="" />    
+    
+  </event>
+
+<!--
+日志格式：
+2008年11月29日修改
+UDP request discarded from 192.168.100.2/67 to inside:255.255.255.255/68
+Deny inbound tcp src outside:172.15.11.21/1114 dst inside:172.16.10.6/8000 
+Deny udp reverse path check from 10.1.1.1 to 255.255.255.255 on interface inside 
+
+-->
+
+<event Name="ciscopix" Description="cisco pix日志" Priority="99" Match="((?:ICMP|TCP|UDP|Deny|Teardown|Built).*)">
+    <!-- 系统识别过程组 -->  
+    <field Name="name" Description="摘要" Index="1" Format="" Value="" />
+    <field Name="type" Description="事件具体类型" Index="" Format="" Value="" />      
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="protocol" Description="协议" Index="1" Format="" Value="" >
+      <fieldvalue Match="TCP|tcp" Value="6" />
+      <fieldvalue Match="UDP|udp" Value="17" />  
+      <fieldvalue Match="ICMP|icmp" Value="1" />	   
+    </field>
+    <field Name="appProtocol" Description="应用协议" Index="1" Format="" Value="" >
+      <fieldvalue Match="HTTPS|https" Value="443" />
+      <fieldvalue Match="bootps" Value="67" />
+      <fieldvalue Match="TELNET|(?:T|t)elnet" Value="23" />
+      <fieldvalue Match="FTP|ftp" Value="21" />
+      <fieldvalue Match="netbios-ns" Value="137" />
+      <fieldvalue Match="netbios-dgm" Value="" />
+    </field>
+        
+    <!-- 事件语义过程组 -->
+    <field Name="intent" Description="意图" Index="" Format="" Value="" />
+    <field Name="policy" Description="方法" Index="1" Format="" Value="" >
+      <fieldvalue Match="^Deny" Value="/policy/breach" />
+      <fieldvalue Match="^Teardown" Value="/policy/compliant" />      
+      <fieldvalue Match="^Built" Value="/policy/compliant" />
+    </field>
+    <field Name="action" Description="操作" Index="1" Format="" Value="" >
+      <fieldvalue Match="connection" Value="/com/link" />
+      <fieldvalue Match="Accessed" Value="/access" />
+      <fieldvalue Match="Login" Value="/authen/login" />
+      <fieldvalue Match="Deny" Value="/deny" />
+      <fieldvalue Match="Teardown" Value="/permit" />   
+      <fieldvalue Match="Built" Value="/permit" />
+      <fieldvalue Match="Invalid\sstransport\sfield" Value="/authen" />
+    </field>
+    <field Name="priority" Description="等级" Index="1" Format="" Value="" >
+      <fieldvalue Match="discarded" Value="2" />
+    </field>
+    <field Name="result" Description="结果" Index="1" Format="" Value="" >
+      <fieldvalue Match="(?:D|d)enied|failed" Value="/failure" />
+      <fieldvalue Match="permitted" Value="/success" />
+      <fieldvalue Match="discarded" Value="丢弃" />
+    </field>
+    <field Name="object" Description="对象" Index="" Format="" Value="/net" />    
+    <field Name="resource" Description="资源" Index="" Format="" Value="" />
+    
+    
+    <!-- 原始内容过程组 -->
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" />
+    <field Name="rawID" Description="事件分类号" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="1" Format="" Value="" >
+			<fieldvalue Match="bytes\s(\d{1,10})" Value="" />
+    </field>
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="requestURI" Description="请求URL" Index="1" Format="" Value="" >
+    	<fieldvalue Match="URL[\s|\S]+:([^$]+)" Value="" />
+    </field>
+    <field Name="customS1" Description="定制字符串" Index="" Format="" Value="" /> 
+    <field Name="customS2" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" />  
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" />     
+    <field Name="customD3" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD4" Description="定制整型" Index="" Format="" Value="" />
+    
+    
+    <!-- 地址身份过程组 -->
+    <field Name="sAddr" Description="源地址" Index="1" Format="" Value="" >
+      <fieldvalue Match="from\s+(\d+.\d+.\d+.\d+)" Value="" />
+      <fieldvalue Match="src\s+outside:(\d+.\d+.\d+.\d+)" Value="" />
+      <fieldvalue Match="src\s+inside:(\d+.\d+.\d+.\d+)" Value="" />
+      <fieldvalue Match="for\s+inside:(\d+.\d+.\d+.\d+)" Value="" />
+      <fieldvalue Match="Built outbound[\s|\S]+laddr\s(\d+.\d+.\d+.\d+)" Value="" />
+      <fieldvalue Match="Built inbound[\s|\S]+faddr\s(\d+.\d+.\d+.\d+)" Value="" />
+      <fieldvalue Match="laddr\s(\d+.\d+.\d+.\d+)" Value="" />
+    </field>
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="1" Format="" Value="" >
+      <fieldvalue Match="from\s+\d+.\d+.\d+.\d+\/(\d+)" Value="" />
+      <fieldvalue Match="src outside:\d+.\d+.\d+.\d+\/(\d+)" Value="" />
+      <fieldvalue Match="src\sinside:\d+.\d+.\d+.\d+\/(\d+)" Value="" />
+      <fieldvalue Match="for\sinside:\d+.\d+.\d+.\d+\/(\d+)" Value="" />
+      <fieldvalue Match="Built outbound[\s|\S]+laddr\s\d+.\d+.\d+.\d+\/(\d+)" Value="" />
+      <fieldvalue Match="Built inbound[\s|\S]+faddr\s\d+.\d+.\d+.\d+\/(\d+)" Value="" />
+      <fieldvalue Match="laddr\s+\d+.\d+.\d+.\d+\/(\d+)" Value="" />
+    </field>  
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="1" Format="" Value="" >
+				<fieldvalue Match="Built outbound[\s|\S]+gaddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+				<fieldvalue Match="Built UDP[\s|\S]+gaddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+        <fieldvalue Match="Teardown UDP[\s|\S]+gaddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+    </field>
+    <field Name="stPort" Description="源地址转换端口" Index="1" Format="" Value="" >
+				<fieldvalue Match="Built outbound[\s|\S]+gaddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+				<fieldvalue Match="Built UDP[\s|\S]+gaddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+        <fieldvalue Match="Teardown UDP[\s|\S]+gaddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+    </field>
+    <field Name="dAddr" Description="目的地址" Index="1" Format="" Value="" >
+      <fieldvalue Match="URL\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="to\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="Ifc:\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="dst\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="dst\sdmz:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="Built outbound[\s|\S]+faddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="Built inbound[\s|\S]+laddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="faddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+    </field>
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="1" Format="" Value="" >
+      <fieldvalue Match="to\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="dst\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="dst\sdmz:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="Ifc:\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/ssh" Value="22" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/bootps" Value="67" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/netbios-ns" Value="137" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/netbios-dgm" Value="138" />
+      <fieldvalue Match="to\s(?:in|out)side:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/telnet" Value="23" />
+      <fieldvalue Match="Built outbound[\s|\S]+faddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="Built inbound[\s|\S]+laddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+      <fieldvalue Match="faddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+    </field> 
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="1" Format="" Value="" >
+    	<fieldvalue Match="Built inbound[\s|\S]+gaddr\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+    </field>
+    <field Name="dtPort" Description="目的地址转换端口" Index="1" Format="" Value="" >
+    	<fieldvalue Match="Built inbound[\s|\S]+gaddr\s\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/(\d{1,5})" Value="" />
+    </field>
+        
+    <!-- 事件产生过程组 -->
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备类型" Index="" Format="" Value="4" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="/4/Security01" />
+    <field Name="devVendor" Description="厂商" Index="" Format="" Value="cisco" />
+		<field Name="devProduct" Description="产品" Index="" Format="" Value="PIX" />
+    <field Name="programType" Description="程序类型" Index="1" Format="" Value="" >
+    	<fieldvalue Match="Auth|Authentication|Authorization" Value="/3a" />
+    	<fieldvalue Match="SMTP" Value="/mail" />
+    </field>
+    <field Name="program" Description="程序名称" Index="" Format="" Value="" />     
+    
+    <!-- 事件传送过程组 -->     
+    <field Name="occurTime" Description="事件产生时刻" Index="" Format="MMM dd yyyy HH:mm:ss" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="" Format="MMM dd yyyy HH:mm:ss" Value="" />
+
+  </event>
+
+
+</config>

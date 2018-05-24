@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<redis-datacollection-config rrdRepository="share/rrd/snmp/">
+    <redis-collection name="redis">
+        <rrd step="300">
+		  <rra>RRA:AVERAGE:0.5:1:2016</rra>
+		  <rra>RRA:AVERAGE:0.5:12:1488</rra>
+		  <rra>RRA:AVERAGE:0.5:288:366</rra>
+		  <rra>RRA:MAX:0.5:288:366</rra>
+		  <rra>RRA:MIN:0.5:288:366</rra>
+        </rrd>
+        <redis>
+             <attrib name="redis_version" alias="redis_version"  type="String"/>
+             <attrib name="redis_name" alias="redis_name"  type="String"/>
+             <attrib name="uptime_in_seconds" alias="uptime_in_seconds" type="Gauge"/>
+             <attrib name="redis_mode" alias="redis_mode" type="String"/>
+             <attrib name="os" alias="os" type="String"/>
+             <attrib name="process_id" alias="process_id" type="String"/>
+             <attrib name="tcp_port" alias="tcp_port" type="String"/>
+             <attrib name="uptime_in_days" alias="uptime_in_days" type="Gauge"/>
+             <attrib name="config_file" alias="config_file" type="String"/>
+             <attrib name="connected_clients" alias="connected_clients" type="Gauge"/>
+             <attrib name="client_longest_output_list" alias="client_longest_output_list" type="Gauge"/>
+             <attrib name="client_biggest_input_buf" alias="client_biggest_input_buf" type="Gauge"/>
+             <attrib name="blocked_clients" alias="blocked_clients" type="Gauge"/>
+             <attrib name="used_memory" alias="used_memory" type="Gauge"/>
+             <attrib name="used_memory_peak" alias="used_memory_peak" type="Gauge"/>
+             <attrib name="used_memory_lua" alias="used_memory_lua" type="Gauge"/>
+             <attrib name="mem_fragmentation_ratio" alias="mem_fragmentation_ratio" type="Gauge"/>
+             <attrib name="rdb_changes_since_last_save" alias="rdb_changes_since_last_save" type="Gauge"/>
+        </redis>
+    </redis-collection>
+</redis-datacollection-config>

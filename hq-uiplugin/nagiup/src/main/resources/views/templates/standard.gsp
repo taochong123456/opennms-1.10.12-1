@@ -1,0 +1,2 @@
+<%= hquStylesheets() %>
+<%= template.body %>

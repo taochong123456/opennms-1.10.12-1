@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   对于日志格式的解析提取采用正则表达式进行处理，还可采用映射赋值和直接赋值进行字段统一表示，例如将不同设备的事件等级映射为标准的等级。
+   所有的配置文件必须放置在ext/audit/event目录下。
+   事件归一化采用分级归一化，首先采用正则表达式将日志中的基本字段提取出来，对于其他非基本字段进行二次提取，避免了重复扫描，又具有灵活性。同时对于日志中最常见的日志格式，可以专门提供一个事件模式，一次性将所有字段全部提取出来，例如防火墙日志，90%都是包过滤日志，可以针对包过滤日志的专门写一个事件模式，放在优先的位置，就可以提高效率。
+   事件归一化模式配置的基本格式如下：
+   <config> 
+   <event Name="ciscopix" Description="cisco pix日志" Match="(^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{2}\s\d{2}:\d{2}:\d{2})\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s%PIX-(\d)-(\d{6}):\s([^$]+)">
+       Event表示日志的归一化模式，可以配置多个。
+其中：
+       Match：能够区分此类日志的特征字符串，采用正则表达式，可以将日志基本的字段匹配出来，其他非基本部分可以提取出来在字段提取中二次提取。
+   <field Name="priority" Description="等级" Index="3" Format="" Value="" >
+      <fieldvalue Match="^0" Value="4" />
+	  <fieldvalue Match="^[1-2]" Value="3" />
+      <fieldvalue Match="^[3-4]" Value="2" />
+      <fieldvalue Match="^[5-6]" Value="1" />
+	  <fieldvalue Match="^7" Value="0" />
+   </field>
+   其中：
+   Field：
+        Name：对应字段名称。
+        Index：对应第一次提取的字段索引，对应event的Match中的正则表达式的组数，从1开始。
+        Format：目前针对时间格式，只对时间字段有效，例如yyyy/MM/dd HH:mm:ss。
+        Value：对于此字段直接赋值。
+        如果直接采用提取的结果，就不需要配置fieldvalue，如果需要根据提取的结果作二次提取，可以配置fieldvalue。
+   Fieldvalue：
+        Match：从已经提取的字段中进行提取该字段的正则表达式。      
+        Value：字段赋值，根据Match匹配的结果赋值，如果为空，直接采用提取的结果，例如提取IP地址。
+   注意：
+   不管此字段是否存在，必须保留该字段，Match、Format、Value均配置为空字符串。
+   字段的顺序不能调整，必须保留原有顺序。
+
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+<!--
+数据库中全部字段：
+ID;EventType;EventID;EventLevel;EventInfo;ReporterName;EventTime;ClientID;ClientName;ClientIP;Port;CenterID;CenterName;strReserver;nReserve
+1969097201;4;-2147483644;1;C:\Program Files\Rising\Rav\Download\CompsVer.inf;RavUpdate;1197970072;00112233445513;LEGENDSECSOC;-1811855862;1977;00112233445511;legendsecsoc;;0
+1969097202;3;-2147483631;1;131530764|http://download.microsoft.com/download/f/e/a/fea03f61-f505-4eb9-983d-0dabfc6014de/WindowsServer2003-KB924667-x86-CHS.exe;RavUpdate;1197971643;001122334455;LEGENDSECSOC;-1811855862;1977;00112233445511;legendsecsoc;;0
+日志样本：
+错误;升级;RavUpdate;legendsecsoc;10.70.1.148;文件下载失败:C:\Program Files\Rising\Rav\Download\CompsVer.inf;2007-12-18 17:27:52
+错误;扫描漏洞;RavUpdate;legendsecsoc;10.70.1.148;漏洞补丁下载失败.漏洞BulltinID:131530764补丁地址:http://download.microsoft.com/download/f/e/a/fea03f61-f505-4eb9-983d-0dabfc6014de/WindowsServer2003-KB924667-x86-CHS.exe;2007-12-18 17:54:03
+需要采集的字段：
+ID;EventType;EventID;EventLevel;EventInfo;ReporterName;EventTime;ClientName;ClientIP;CenterName
+1969097201;4;-2147483644;1;C:\Program Files\Rising\Rav\Download\CompsVer.inf;RavUpdate;1197970072;LEGENDSECSOC;-1811855862;legendsecsoc
+1969097202;3;-2147483631;1;131530764|http://download.microsoft.com/download/f/e/a/fea03f61-f505-4eb9-983d-0dabfc6014de/WindowsServer2003-KB924667-x86-CHS.exe;RavUpdate;1197971643;LEGENDSECSOC;-1811855862;legendsecsoc
+事件传感器配置：
+1,Table_LogInfo,ID,1
+SIM原始消息：
+RavNetDB_Table_LogInfo 1969097201 4 -2147483644 1 C:\Program Files\Rising\Rav\Download\CompsVer.inf RavUpdate 1197970072 LEGENDSECSOC -1811855862 legendsecsoc
+-->
+<config> 
+  <event Name="risinglog" Description="瑞星反病毒系统日志" Priority="2" Match="(\S+)_(Table_LogInfo)\s+(\d+)\s+(\d+)\s+(-\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\d+)\s+(\d+)\s+(\S+).*">
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/cfg" />
+    <field Name="type" Description="事件具体类型" Index="4" Format="" Value="" >
+	    <fieldvalue Match="1" Value="配置改变" />
+	    <fieldvalue Match="2" Value="扫描病毒" />
+	    <fieldvalue Match="3" Value="扫描漏洞" />
+	  	<fieldvalue Match="4" Value="升级" />
+	  	<fieldvalue Match="5" Value="服务启动" />
+	  	<fieldvalue Match="6" Value="服务停止" />
+	  	<fieldvalue Match="7" Value="安装卸载" />
+	  	<fieldvalue Match="8" Value="一般操作" />
+    </field>
+    <field Name="priority" Description="等级" Index="6" Format="" Value="" >
+      <fieldvalue Match="1" Value="3" />
+	    <fieldvalue Match="2" Value="2" />
+	    <fieldvalue Match="3" Value="1" />
+    </field>
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" />
+    <field Name="rawID" Description="事件本身的编号" Index="3" Format="" Value="" />
+    <field Name="occurTime" Description="事件产生时刻" Index="9" Format="" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="protocol" Description="协议" Index="" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="" Format="" Value="" />
+    <field Name="object" Description="对象" Index="" Format="" Value="/host" />
+    <field Name="policy" Description="策略" Index="" Format="" Value="" />
+    <field Name="resource" Description="资源名称" Index="" Format="" Value="" />
+    <field Name="action" Description="操作" Index="" Format="" Value="" />
+    <field Name="result" Description="结果" Index="" Format="" Value="" />
+    <field Name="intent" Description="意图" Index="" Format="" Value="" />
+    <field Name="sAddr" Description="源地址" Index="12" Format="" Value="" />
+    <field Name="sName" Description="源名称" Index="11" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="13" Format="" Value="" />
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="15" Format="" Value="" />
+    <field Name="devCategory" Description="设备分类" Index="" Format="" Value="/3" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="" />
+    <field Name="devVendor" Description="设备厂商" Index="" Format="" Value="riring" />
+  	<field Name="devProduct" Description="产品名称" Index="" Format="" Value="" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="/antivirus" />
+    <field Name="program" Description="程序名称" Index="" Format="" Value="瑞星杀毒软件网络版" />
+    <field Name="requestURI" Description="请求网址" Index="" Format="" Value="" />
+    <field Name="name" Description="摘要" Index="5" Format="" Value="" >
+	    <fieldvalue Match="-2147483614" Value="服务期已过" />
+	    <fieldvalue Match="-2147483615" Value="客户端修复失败" />
+	    <fieldvalue Match="-2147483616" Value="漏洞补丁（备用字符串1）安装失败！" />
+	    <fieldvalue Match="-2147483617" Value="设置专用版信息失败（请检查专用版信息是否正确）" />
+	    <fieldvalue Match="-2147483618" Value="获取专用版信息失败（请检查序列号是否正确，或与瑞星客服中心联系）" />
+	    <fieldvalue Match="-2147483619" Value="连接失败" />
+	    <fieldvalue Match="-2147483620" Value="卸载瑞星管理控制台失败" />
+	    <fieldvalue Match="-2147483621" Value="安装瑞星管理控制台失败" />
+	    <fieldvalue Match="-2147483622" Value="设置查杀策略失败（备用字符串1）" />
+	    <fieldvalue Match="-2147483623" Value="向系统中心注册失败" />
+	    <fieldvalue Match="-2147483624" Value="无法升级，请与瑞星客户服务中心联系" />
+	    <fieldvalue Match="-2147483625" Value="升级错误，请与瑞星客户服务中心联系" />
+	    <fieldvalue Match="-2147483626" Value="创建对象（备用字符串1）失败" />
+	    <fieldvalue Match="-2147483627" Value="连接客户端（备用字符串1）失败" />
+	    <fieldvalue Match="-2147483628" Value="连接下级中心通讯代理（备用字符串1）失败" />
+	    <fieldvalue Match="-2147483629" Value="不能卸载客户端（可能原因：客户端上安装了控制台或系统中心）" />
+	    <fieldvalue Match="-2147483630" Value="配置模块出错，不能设置监控选项" />
+	    <fieldvalue Match="-2147483631" Value="漏洞补丁下载失败.漏洞BulltinID补丁地址:（备用字符串1）" />
+	    <fieldvalue Match="-2147483632" Value="存在重复的序列号" />
+	    <fieldvalue Match="-2147483633" Value="卸载（备用字符串1）失败" />
+	    <fieldvalue Match="-2147483634" Value="安装（备用字符串1）失败" />
+	    <fieldvalue Match="-2147483635" Value="超出授权数" />
+	    <fieldvalue Match="-2147483636" Value="磁盘空间不足:（备用字符串1）" />
+	    <fieldvalue Match="-2147483637" Value="没有用户ID" />
+	    <fieldvalue Match="-2147483638" Value="序列号与用户ID不匹配" />
+	    <fieldvalue Match="-2147483639" Value="升级次数过多" />
+      <fieldvalue Match="-2147483640" Value="序列号过期:（备用字符串1）" />
+      <fieldvalue Match="-2147483641" Value="序列号未注册:（备用字符串1）" />
+      <fieldvalue Match="-2147483642" Value="序列号无效:（备用字符串1）" />
+      <fieldvalue Match="-2147483643" Value="文件校验错误:（备用字符串1）" />
+      <fieldvalue Match="-2147483644" Value="文件下载失败:（备用字符串1）" />
+      <fieldvalue Match="-2147483645" Value="连接对象:（备用字符串1）" />
+      <fieldvalue Match="-2147483646" Value="拨号连接失败:（备用字符串1）" />
+      <fieldvalue Match="-2147483647" Value="网络连接失败:备用字符串1）" />
+    </field>
+    <field Name="customS1" Description="EventInfo" Index="7" Format="" Value="" />
+    <field Name="customS2" Description="ReporterName" Index="8" Format="" Value="" />
+    <field Name="customS3" Description="定制字符型" Index="" Format="" Value="" />
+    <field Name="customS4" Description="定制字符型" Index="" Format="" Value="" />
+    <field Name="customS5" Description="定制字符型" Index="" Format="" Value="" />
+    <field Name="customS6" Description="定制字符型" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符型" Index="" Format="" Value="" />
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" />
+
+  </event>  
+</config>

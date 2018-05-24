@@ -1,0 +1,242 @@
+﻿<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+
+<config> 
+  <event Name="IceyeIPS" Description="IceyeIPS告警信息日志" Priority="" Match="module=([^;]+);category=([^;]+);type=([^;]+);app=(\d\.\d\.\d\.\d\.\d\.\d\.\d\.\d\.\d);[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;([^;]+);(1);([^;]+);([^;]+);([^;]+);(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3});(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3});(\d{1,5});(\d{1,5});([^;]+);([^;]+);([^;]+);([^;]+);([^;]+);([^;]+);([^;]+);([^;]+);([^;]+);(.*?);([^;]+);([^;]+);([^;]+)">
+     <!--  系统识别过程组 --> 
+    <field Name="name" Description="摘要" Index="19" Format="" Value="" />
+    <field Name="category" Description="事件分类" Index="2" Format="" Value="" >
+		<fieldvalue Match="STA" Value="/sta" />
+		<fieldvalue Match="CFG" Value="/cfg" />
+		<fieldvalue Match="PFM" Value="/pfm" />
+		<fieldvalue Match="SEC" Value="/sec" />
+		<fieldvalue Match="OTH" Value="/oth" />
+	</field>
+    <field Name="type" Description="事件具体类型" Index="6" Format="" Value="" >
+		<fieldvalue Match="1" Value="告警信息" />
+		<fieldvalue Match="2" Value="系统信息" />
+		<fieldvalue Match="4" Value="网络信息" />
+	</field>
+    <field Name="protocol" Description="协议" Index="" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="" Format="" Value="" />
+    <!--  事件语义过程组 --> 
+    <field Name="policy" Description="方法" Index="23" Format="" Value="" />
+    <field Name="resource" Description="资源" Index="" Format="" Value="" />
+    <field Name="action" Description="操作" Index="9" Format="" Value="" />	  
+    <field Name="intent" Description="意图" Index="" Format="" Value="" /> 
+    <field Name="object" Description="对象" Index="" Format="" Value="" />
+    <field Name="result" Description="结果" Index="20" Format="" Value="" />
+    <field Name="priority" Description="等级" Index="24" Format="" Value="" >
+		<fieldvalue Match="低" Value="1" />
+		<fieldvalue Match="中" Value="2" />
+                <fieldvalue Match="高" Value="3" />
+	</field>
+    <!--  原始内容过程组 --> 
+    <field Name="oriPriority" Description="原始等级" Index="24" Format="" Value="" />
+    <field Name="rawID" Description="事件分类号" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="sessionID" Description="会话ID" Index="" Format="" Value="" /> 
+    <field Name="requestURI" Description="请求网址" Index="" Format="" Value="" />
+    <field Name="customS1" Description="源MAC" Index="14" Format="" Value="" /> 
+    <field Name="customS2" Description="目的MAC" Index="15" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="25" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="26" Format="" Value="" />
+    <field Name="customS5" Description="" Index="22" Format="" Value="" />
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customD1" Description="规则ID" Index="16" Format="" Value="" />
+    <field Name="customD2" Description="告警持续次数" Index="17" Format="" Value="" /> 
+    <field Name="customD3" Description="定制浮点" Index="" Format="" Value="" />
+    <field Name="customD4" Description="定制浮点" Index="" Format="" Value="" />
+    <!--  地址身份过程组 --> 
+    <field Name="sAddr" Description="源地址" Index="10" Format="" Value="" />
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="12" Format="" Value="" />
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="11" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="13" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAdrr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    <!--  事件产生过程组 --> 
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />   
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备分类" Index="" Format="" Value="" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="" />
+    <field Name="devVendor" Description="厂商" Index="7" Format="" Value="" />
+    <field Name="devProduct" Description="产品" Index="8" Format="" Value="" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="" />
+    <field Name="program" Description="程序名称" Index="5" Format="" Value="" />
+    <!--  事件传送过程组 --> 
+    <field Name="occurTime" Description="事件产生时刻" Index="" Format="" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="" Format="" Value="" />
+  </event>
+
+  <event Name="IceyeIPS" Description="IceyeIPS网络信息日志" Priority="" Match="module=([^;]+);category=([^;]+);type=([^;]+);app=(\d\.\d\.\d\.\d\.\d\.\d\.\d\.\d\.\d);[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;([^;]+);(4);([^;]+);([^;]+);([^;]+);([^;]+);([^;]+)">
+    <!--  系统识别过程组 --> 
+    <field Name="name" Description="摘要" Index="6" Format="" Value="" />
+    <field Name="type" Description="事件具体类型" Index="6" Format="" Value="" >
+		<fieldvalue Match="1" Value="告警信息" />
+		<fieldvalue Match="2" Value="系统信息" />
+		<fieldvalue Match="4" Value="网络信息" />
+	</field>
+    <field Name="category" Description="事件分类" Index="2" Format="" Value="" >
+		<fieldvalue Match="STA" Value="/sta" />
+		<fieldvalue Match="CFG" Value="/cfg" />
+		<fieldvalue Match="PFM" Value="/pfm" />
+		<fieldvalue Match="SEC" Value="/sec" />
+		<fieldvalue Match="OTH" Value="/oth" />
+	</field>
+    <field Name="protocol" Description="协议" Index="" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="" Format="" Value="" />
+    <!--  事件语义过程组  --> 
+    <field Name="action" Description="操作" Index="" Format="" Value="" />
+    <field Name="policy" Description="方法" Index="" Format="" Value="" />	  
+    <field Name="intent" Description="意图" Index="" Format="" Value="" /> 
+    <field Name="priority" Description="等级" Index="" Format="" Value="" />
+    <field Name="result" Description="结果" Index="" Format="" Value="" />
+    <field Name="object" Description="对象" Index="" Format="" Value="" />
+    <field Name="resource" Description="资源名称" Index="" Format="" Value="" >
+		<fieldvalue Match="subname=([^;]+)" Value="" />
+	</field>
+    <!--  原始内容过程组 --> 
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" />
+    <field Name="rawID" Description="事件分类号" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="sessionID" Description="会话ID" Index="" Format="" Value="" /> 
+    <field Name="requestURI" Description="请求网址" Index="" Format="" Value="" />
+    <field Name="customS1" Description="定制字符串" Index="9" Format="" Value="" /> 
+    <field Name="customS2" Description="定制字符串" Index="10" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="11" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" /> 
+    <field Name="customD3" Description="定制浮点" Index="" Format="" Value="" />
+    <field Name="customD4" Description="定制浮点" Index="" Format="" Value="" />
+    <!--  地址身份过程组  --> 
+    <field Name="sAddr" Description="源地址" Index="" Format="" Value="" />
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="" Format="" Value="" />
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAdrr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    <!--  事件产生过程组 --> 
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />   
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备分类" Index="" Format="" Value="" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="" />
+    <field Name="devVendor" Description="厂商" Index="7" Format="" Value="" />
+	<field Name="devProduct" Description="产品" Index="8" Format="" Value="" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="" />
+    <field Name="program" Description="程序名称" Index="5" Format="" Value="" />
+    <!--  事件传送过程组 --> 
+    <field Name="occurTime" Description="事件产生时刻" Index="" Format="" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="" Format="" Value="" />
+  </event>
+
+  <event Name="IceyeIPS" Description="IceyeIPS系统信息日志" Priority="" Match="module=([^;]+);category=([^;]+);type=([^;]+);app=(\d\.\d\.\d\.\d\.\d\.\d\.\d\.\d\.\d);[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;[^;]+;([^;]+);(2);([^;]+);([^;]+);([^;]+);([^;]+);([^;]+)">
+    <!--  系统识别过程组 --> 
+    <field Name="name" Description="摘要" Index="6" Format="" Value="" />
+    <field Name="type" Description="事件具体类型" Index="6" Format="" Value="" >
+		<fieldvalue Match="1" Value="告警信息" />
+		<fieldvalue Match="2" Value="系统信息" />
+		<fieldvalue Match="4" Value="网络信息" />
+	</field>
+    <field Name="category" Description="事件分类" Index="2" Format="" Value="" >
+		<fieldvalue Match="STA" Value="/sta" />
+		<fieldvalue Match="CFG" Value="/cfg" />
+		<fieldvalue Match="PFM" Value="/pfm" />
+		<fieldvalue Match="SEC" Value="/sec" />
+		<fieldvalue Match="OTH" Value="/oth" />
+	</field>
+    <field Name="protocol" Description="协议" Index="" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="" Format="" Value="" />
+    <!--  事件语义过程组  --> 
+    <field Name="action" Description="操作" Index="" Format="" Value="" />
+    <field Name="policy" Description="方法" Index="" Format="" Value="" />	  
+    <field Name="intent" Description="意图" Index="" Format="" Value="" /> 
+    <field Name="priority" Description="等级" Index="" Format="" Value="" />
+    <field Name="result" Description="结果" Index="" Format="" Value="" />
+    <field Name="object" Description="对象" Index="" Format="" Value="" />
+    <field Name="resource" Description="资源名称" Index="" Format="" Value="" >
+		<fieldvalue Match="subname=([^;]+)" Value="" />
+	</field>
+    <!--  原始内容过程组 --> 
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" />
+    <field Name="rawID" Description="事件分类号" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="sessionID" Description="会话ID" Index="" Format="" Value="" /> 
+    <field Name="requestURI" Description="请求网址" Index="" Format="" Value="" />
+    <field Name="customS1" Description="定制字符串" Index="9" Format="" Value="" /> 
+    <field Name="customS2" Description="定制字符串" Index="10" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="11" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" /> 
+    <field Name="customD3" Description="定制浮点" Index="" Format="" Value="" />
+    <field Name="customD4" Description="定制浮点" Index="" Format="" Value="" />
+    <!--  地址身份过程组  --> 
+    <field Name="sAddr" Description="源地址" Index="" Format="" Value="" />
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="" Format="" Value="" />
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAdrr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    <!--  事件产生过程组 --> 
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />   
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备分类" Index="" Format="" Value="" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="" />
+    <field Name="devVendor" Description="厂商" Index="7" Format="" Value="" />
+	<field Name="devProduct" Description="产品" Index="8" Format="" Value="" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="" />
+    <field Name="program" Description="程序名称" Index="5" Format="" Value="" />
+    <!--  事件传送过程组 --> 
+    <field Name="occurTime" Description="事件产生时刻" Index="" Format="" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="" Format="" Value="" />
+  </event>
+
+</config>

@@ -1,0 +1,28 @@
+2017-09-26 23:19:01,501 WARN  [Main] JettyServer: adding context: /apm -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\opennms
+2017-09-26 23:19:01,562 WARN  [Main] JettyServer: adding context: /apm -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\opennms-remoting
+2017-09-26 23:19:01,562 WARN  [Main] JettyServer: adding context: / -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\ROOT
+2017-09-26 23:19:02,226 INFO  [Main] Server: jetty-7.5.1.v20110908
+2017-09-26 23:19:39,034 INFO  [Main] ContextHandler: started {}
+2017-09-26 23:19:48,875 INFO  [Main] ContextHandler: started {}
+2017-09-26 23:19:48,923 INFO  [Main] ContextHandler: started {}
+2017-09-26 23:19:48,958 INFO  [Main] AbstractConnector: Started {}
+2017-09-26 23:21:45,229 WARN  [Main] JettyServer: adding context: /apm -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\opennms
+2017-09-26 23:21:45,285 WARN  [Main] JettyServer: adding context: /apm -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\opennms-remoting
+2017-09-26 23:21:45,286 WARN  [Main] JettyServer: adding context: / -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\ROOT
+2017-09-26 23:21:45,923 INFO  [Main] Server: jetty-7.5.1.v20110908
+2017-09-27 00:00:39,833 WARN  [Main] JettyServer: adding context: /apm -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\opennms
+2017-09-27 00:00:41,952 WARN  [Main] JettyServer: adding context: /apm -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\opennms-remoting
+2017-09-27 00:00:41,952 WARN  [Main] JettyServer: adding context: / -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\ROOT
+2017-09-27 00:00:42,883 INFO  [Main] Server: jetty-7.5.1.v20110908
+2017-09-27 00:01:32,686 INFO  [Main] ContextHandler: started {}
+2017-09-27 00:01:44,994 INFO  [Main] ContextHandler: started {}
+2017-09-27 00:01:45,045 INFO  [Main] ContextHandler: started {}
+2017-09-27 00:01:45,079 INFO  [Main] AbstractConnector: Started {}
+2017-09-27 00:03:35,296 WARN  [Main] JettyServer: adding context: /apm -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\opennms
+2017-09-27 00:03:35,350 WARN  [Main] JettyServer: adding context: /apm -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\opennms-remoting
+2017-09-27 00:03:35,350 WARN  [Main] JettyServer: adding context: / -> F:\workspaceNMS_new\opennms-1.10.12-1\opennms-full-assembly\target\opennms-1.10.12\jetty-webapps\ROOT
+2017-09-27 00:03:36,149 INFO  [Main] Server: jetty-7.5.1.v20110908
+2017-09-27 00:04:16,878 INFO  [Main] ContextHandler: started {}
+2017-09-27 00:04:28,247 INFO  [Main] ContextHandler: started {}
+2017-09-27 00:04:28,297 INFO  [Main] ContextHandler: started {}
+2017-09-27 00:04:28,507 INFO  [Main] AbstractConnector: Started {}

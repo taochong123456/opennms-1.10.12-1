@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:ns="http://xmlns.opennms.org/xsd/config/monitorCategory"
+		  targetNamespace="http://xmlns.opennms.org/xsd/config/monitorCategory"
+		  elementFormDefault="qualified">
+  <annotation>
+    <documentation>XML Schema for the monitor-category.xml configuration file. .</documentation>
+  </annotation>
+
+  <element name="monitorCategory">
+    <annotation>
+      <documentation>Top-level element for the monitor-category.xml configuration
+      file.</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element maxOccurs="unbounded" ref="ns:monitorgroup">
+          <annotation>
+            <documentation>The monitor groups.</documentation>
+          </annotation>
+        </element>
+      </sequence>
+    </complexType>
+  </element>
+
+
+  <element name="monitorgroup">
+    <annotation>
+      <documentation>A category group containing categories..</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element maxOccurs="unbounded"  ref="ns:server">
+          <annotation>
+            <documentation>The server</documentation>
+          </annotation>
+        </element>
+      </sequence>
+       <attribute name="label" type="string" use="optional">
+        <annotation>
+          <documentation>
+            label
+          </documentation>
+        </annotation>
+       </attribute>
+    </complexType>
+  </element>
+ 
+ <element name="server">
+    <annotation>
+      <documentation>A server.</documentation>
+    </annotation>
+    <complexType>
+      <attribute name="name" type="string" >
+	        <annotation>
+	          <documentation>
+	            name
+	          </documentation>
+	        </annotation>
+        </attribute>
+        <attribute name="label" type="string" >
+	        <annotation>
+	          <documentation>
+	            label
+	          </documentation>
+	        </annotation>
+        </attribute>
+        <attribute name="icon" type="string" >
+	        <annotation>
+	          <documentation>
+	            label
+	          </documentation>
+	        </annotation>
+        </attribute>
+    
+    </complexType>
+  </element>
+</schema>

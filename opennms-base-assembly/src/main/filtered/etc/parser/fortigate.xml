@@ -1,0 +1,161 @@
+﻿<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+
+<!-- 日志格式：
+
+date=2008-10-16 time=11:48:30 devname=FGT1KA3607502473 device_id=FGT1KA3607502473 log_id=0022013001 type=traffic subtype=violation pri=warning vd=root SN=19211538 duration=0 user=N/A group=N/A rule=45 policyid=45 proto=17 service=8183/udp app_type=N/A status=deny src=72.68.185.21 srcname=72.68.185.21 dst=218.241.111.33 dstname=218.241.111.33 src_int="Untrust" dst_int="port3" sent=0 rcvd=0 src_port=50003 dst_port=8183 vpn=N/A tran_ip=0.0.0.0 tran_port=0 
+
+date=2008-10-21 time=10:08:15 devname=FGT1KA3607502473 device_id=FGT1KA3607502473 log_id=0021010001 type=traffic subtype=allowed pri=notice vd=root SN=46776026 duration=180 user=N/A group=N/A rule=129 policyid=129 proto=17 service=60277/udp app_type=N/A status=accept src=218.241.111.75 srcname=218.241.111.75 dst=190.17.210.159 dstname=190.17.210.159 src_int="port3" dst_int="Untrust" sent=131 rcvd=72 sent_pkt=2 rcvd_pkt=1 src_port=1516 dst_port=60277 vpn=N/A tran_ip=0.0.0.0 tran_port=0 dir_disp=org tran_disp=noop 
+ 
+ 
+--> 
+
+<config> 
+<event Name="fortigatelogdeny" Description="fortigatelogutmdeny" Priority="" Match="date=([^\s]*)\stime=([^\s]*)\sdevname=([^\s]*)\sdevice_id=([^\s]*)\slog_id=([^\s]*)\stype=([^\s]*)\ssubtype=([^\s]*)\spri=([^\s]*)\svd=([^\s]*)\sSN=([^\s]*)\sduration=([^\s]*)\suser=([^\s]*)\sgroup=([^\s]*)\srule=([^\s]*)\spolicyid=([^\s]*)\sproto=([^\s]*)\sservice=(\S+)/([^\s]*)\sapp_type=([^\s]*)\sstatus=([^\s]*)\ssrc=([^\s]*)\ssrcname=([^\s]*)\sdst=([^\s]*)\sdstname=([^\s]*)\ssrc_int=&quot;(\S*)&quot;\sdst_int=&quot;(\S*)&quot;\ssent=([^\s]*)\srcvd=([^\s]*)\ssrc_port=([^\s]*)\sdst_port=([^\s]*)\svpn=([^\s]*)\stran_ip=([^\s]*)\stran_port=([^\s]*)">
+    <!-- 系统识别过程组 -->  
+    <field Name="name" Description="摘要" Index="20" Format="" Value="" />
+    <field Name="type" Description="事件具体类型" Index="6" Format="" Value="" />      
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="protocol" Description="协议" Index="18" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="16" Format="" Value="" />
+    
+    <!-- 事件语义过程组 -->
+    <field Name="intent" Description="意图" Index="" Format="" Value="" />
+    <field Name="policy" Description="方法" Index="" Format="" Value="" />
+    <field Name="action" Description="操作" Index="" Format="" Value="/access"/>
+    <field Name="priority" Description="等级" Index="" Format="" Value="3" />
+    <field Name="result" Description="结果" Index="" Format="" Value="/failure" />
+    <field Name="object" Description="对象" Index="" Format="" Value="/host/app" />    
+    <field Name="resource" Description="资源" Index="" Format="" Value="" />
+    
+    
+    <!-- 原始内容过程组 -->
+    <field Name="sessionID" Description="会话ID" Index="5" Format="" Value="" />
+    <field Name="oriPriority" Description="原始等级" Index="8" Format="" Value="" />
+    <field Name="rawID" Description="事件分类号" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="27" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="28" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="requestURI" Description="请求URL" Index="" Format="" Value="" />
+    <field Name="customS1" Description="定制字符串" Index="4" Format="" Value="" /> 
+    <field Name="customS2" Description="定制字符串" Index="14" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" />  
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" />     
+    <field Name="customD3" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD4" Description="定制整型" Index="" Format="" Value="" />    
+    
+    <!-- 地址身份过程组 -->
+    <field Name="sAddr" Description="源地址" Index="21" Format="" Value="" />
+    <field Name="sName" Description="源名称" Index="21" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="29" Format="" Value="" />  
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="32" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="33" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="23" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="24" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="30" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    
+    <!-- 事件产生过程组 -->
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="3" Format="" Value="" />
+    <field Name="devCategory" Description="设备类型" Index="" Format="" Value="" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="/4/Security01" />
+    <field Name="devVendor" Description="厂商" Index="" Format="" Value="Fortinet" />
+    <field Name="devProduct" Description="产品" Index="" Format="" Value="UTM" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="" />
+    <field Name="program" Description="程序名称" Index="" Format="" Value="" />     
+    
+    <!-- 事件传送过程组 -->     
+    <field Name="occurTime" Description="事件产生时刻" Index="" Format="yyyy-MM-dd HH:mm:ss" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="" Format="yyyy-MM-dd HH:mm:ss" Value="" />   
+        
+  </event>
+<event Name="fortigatelog" Description="fortigatelogutm" Priority="" Match="date=([^\s]*)\stime=([^\s]*)\sdevname=([^\s]*)\sdevice_id=([^\s]*)\slog_id=([^\s]*)\stype=([^\s]*)\ssubtype=([^\s]*)\spri=([^\s]*)\svd=([^\s]*)\sSN=([^\s]*)\sduration=([^\s]*)\suser=([^\s]*)\sgroup=([^\s]*)\srule=([^\s]*)\spolicyid=([^\s]*)\sproto=([^\s]*)\sservice=(\S+)/([^\s]*)\sapp_type=([^\s]*)\sstatus=([^\s]*)\ssrc=([^\s]*)\ssrcname=([^\s]*)\sdst=([^\s]*)\sdstname=([^\s]*)\ssrc_int=&quot;(\S*)&quot;\sdst_int=&quot;(\S*)&quot;\ssent=([^\s]*)\srcvd=([^\s]*)\ssent_pkt=([^\s]*)\srcvd_pkt=([^\s]*)\ssrc_port=([^\s]*)\sdst_port=([^\s]*)\svpn=([^\s]*)\stran_ip=([^\s]*)\stran_port=([^\s]*)">
+    <!-- 系统识别过程组 -->  
+    <field Name="name" Description="摘要" Index="20" Format="" Value="" />
+    <field Name="type" Description="事件具体类型" Index="6" Format="" Value="" />      
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="protocol" Description="协议" Index="18" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="16" Format="" Value="" />
+    
+    <!-- 事件语义过程组 -->
+    <field Name="intent" Description="意图" Index="" Format="" Value="" />
+    <field Name="policy" Description="方法" Index="" Format="" Value="" />
+    <field Name="action" Description="操作" Index="" Format="" Value="/access"/>
+    <field Name="priority" Description="等级" Index="" Format="" Value="1" />
+    <field Name="result" Description="结果" Index="" Format="" Value="/success" />
+    <field Name="object" Description="对象" Index="" Format="" Value="/host/app" />    
+    <field Name="resource" Description="资源" Index="" Format="" Value="" />
+    
+    
+    <!-- 原始内容过程组 -->
+    <field Name="sessionID" Description="会话ID" Index="5" Format="" Value="" />
+    <field Name="oriPriority" Description="原始等级" Index="8" Format="" Value="" />
+    <field Name="rawID" Description="事件分类号" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="27" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="28" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="requestURI" Description="请求URL" Index="" Format="" Value="" />
+    <field Name="customS1" Description="device_id" Index="4" Format="" Value="" /> 
+    <field Name="customS2" Description="rule" Index="14" Format="" Value="" />
+    <field Name="customS3" Description="sent_pkt" Index="29" Format="" Value="" />
+    <field Name="customS4" Description="rcvd_pkt" Index="30" Format="" Value="" />
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="定制字符串" Index="" Format="" Value="" />  
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" />     
+    <field Name="customD3" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD4" Description="定制整型" Index="" Format="" Value="" />    
+    
+    <!-- 地址身份过程组 -->
+    <field Name="sAddr" Description="源地址" Index="21" Format="" Value="" />
+    <field Name="sName" Description="源名称" Index="21" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="31" Format="" Value="" />  
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="34" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="35" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="23" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="24" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="32" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    
+    <!-- 事件产生过程组 -->
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="3" Format="" Value="" />
+    <field Name="devCategory" Description="设备类型" Index="" Format="" Value="" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="/4/Security01" />
+    <field Name="devVendor" Description="厂商" Index="" Format="" Value="Fortinet" />
+    <field Name="devProduct" Description="产品" Index="" Format="" Value="UTM" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="" />
+    <field Name="program" Description="程序名称" Index="" Format="" Value="" />     
+    
+    <!-- 事件传送过程组 -->     
+    <field Name="occurTime" Description="事件产生时刻" Index="" Format="yyyy-MM-dd HH:mm:ss" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="" Format="yyyy-MM-dd HH:mm:ss" Value="" />   
+        
+  </event>
+  
+</config>

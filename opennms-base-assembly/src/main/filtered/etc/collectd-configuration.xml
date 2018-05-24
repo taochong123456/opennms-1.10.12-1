@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<?castor class-name="org.opennms.netmgt.collectd.CollectdConfiguration"?>
+<collectd-configuration 
+	threads="50">
+
+	<package name="example1">
+		<filter>IPADDR != '0.0.0.0'</filter>	 
+		<include-range begin="1.1.1.1" end="254.254.254.254"/>
+		<include-range begin="::1" end="ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff" />
+		
+		<service name="SNMP" interval="300000" user-defined="false" status="on">
+			<parameter key="collection" value="default"/>
+			<parameter key="thresholding-enabled" value="true"/>
+		</service>
+
+		<service name="WMI" interval="300000" user-defined="false" status="off">
+			<parameter key="collection" value="default"/>
+			<parameter key="thresholding-enabled" value="true"/>
+		</service>
+
+		<service name="OpenNMS-JVM" interval="300000" user-defined="false" status="on">
+			<parameter key="port" value="18980"/>
+			<parameter key="retry" value="2"/>
+			<parameter key="timeout" value="3000"/>
+			<parameter key="protocol" value="rmi"/>
+			<parameter key="urlPath" value="/jmxrmi"/>
+			<parameter key="rrd-base-name" value="java" />
+			<parameter key="ds-name" value="opennms-jvm"/>
+			<parameter key="friendly-name" value="opennms-jvm"/>
+			<parameter key="collection" value="jsr160"/>
+			<parameter key="thresholding-enabled" value="true"/>
+		</service>
+		<service name="Kafka" interval="300000" user-defined="false" status="on">
+			<parameter key="port" value="9999"/>
+			<parameter key="retry" value="2"/>
+			<parameter key="timeout" value="3000"/>
+			<parameter key="protocol" value="rmi"/>
+			<parameter key="urlPath" value="/jmxrmi"/>
+			<parameter key="rrd-base-name" value="java" />
+			<parameter key="ds-name" value="Kafka"/>
+			<parameter key="friendly-name" value="Kafka"/>
+			<parameter key="collection" value="Kafka"/>
+			<parameter key="thresholding-enabled" value="true"/>
+		</service>
+		<service name="redis" interval="300000" user-defined="false" status="on">
+			<parameter key="port" value="9999"/>
+			<parameter key="retry" value="2"/>
+			<parameter key="timeout" value="3000"/>
+			<parameter key="protocol" value="rmi"/>
+			<parameter key="urlPath" value="/jmxrmi"/>
+			<parameter key="rrd-base-name" value="java" />
+			<parameter key="ds-name" value="redis"/>
+			<parameter key="friendly-name" value="redis"/>
+			<parameter key="collection" value="redis"/>
+			<parameter key="thresholding-enabled" value="true"/>
+		</service>
+		<service name="DOCKER" interval="300000" user-defined="false" status="on" >
+          <parameter key="retry" value="1" />
+          <parameter key="timeout" value="2000" />
+          <parameter key="port" value="5555" />
+		  <parameter key="collection" value="DOCKER"/>
+          <parameter key="thresholding-enabled" value="true"/>
+        </service>
+        
+        <service name="Zookeeper" interval="300000" user-defined="false" status="on">
+			<parameter key="port" value="8989"/>
+			<parameter key="retry" value="2"/>
+			<parameter key="timeout" value="3000"/>
+			<parameter key="protocol" value="rmi"/>
+			<parameter key="urlPath" value="/jmxrmi"/>
+			<parameter key="rrd-base-name" value="java" />
+			<parameter key="ds-name" value="Zookeeper"/>
+			<parameter key="friendly-name" value="Zookeeper"/>
+			<parameter key="collection" value="Zookeeper"/>
+			<parameter key="thresholding-enabled" value="true"/>
+		</service>
+		
+		<service name="Spark" interval="300000" user-defined="false" status="on" >
+          <parameter key="retry" value="1" />
+          <parameter key="timeout" value="2000" />
+          <parameter key="port" value="8080" />
+		  <parameter key="collection" value="SparkWorker"/>
+          <parameter key="thresholding-enabled" value="true"/>
+        </service>
+        
+        <service name="ElasticSearch" interval="300000" user-defined="false" status="on" >
+          <parameter key="retry" value="1" />
+          <parameter key="timeout" value="2000" />
+          <parameter key="port" value="9200" />
+		  <parameter key="collection" value="ElasticSearch"/>
+          <parameter key="thresholding-enabled" value="true"/>
+        </service>
+        
+         <service name="HBase" interval="300000" user-defined="false" status="on">
+			<parameter key="port" value="10101"/>
+			<parameter key="retry" value="2"/>
+			<parameter key="timeout" value="3000"/>
+			<parameter key="protocol" value="rmi"/>
+			<parameter key="urlPath" value="/jmxrmi"/>
+			<parameter key="rrd-base-name" value="java" />
+			<parameter key="ds-name" value="HBase"/>
+			<parameter key="friendly-name" value="HBase"/>
+			<parameter key="collection" value="HBase"/>
+			<parameter key="thresholding-enabled" value="true"/>
+		</service>
+        
+	</package>
+	
+	<collector service="SNMP" class-name="org.opennms.netmgt.collectd.SnmpCollector"/>
+	<collector service="WMI"  class-name="org.opennms.netmgt.collectd.WmiCollector"/>
+	<collector service="OpenNMS-JVM" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
+	<collector service="Kafka" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
+	<collector service="redis" class-name="org.opennms.netmgt.collectd.RedisCollector"/>
+    <collector service="DOCKER" class-name="org.opennms.netmgt.collectd.HttpCollector"/>
+    <collector service="Zookeeper" class-name="org.opennms.netmgt.collectd.ZookeeperCollector"/>
+    <collector service="Spark" class-name="org.opennms.netmgt.collectd.SparkCollector"/>
+    <collector service="ElasticSearch" class-name="org.opennms.netmgt.collectd.ElasticSearchCollector"/>
+    <collector service="HBase" class-name="org.opennms.netmgt.collectd.HBaseCollector"/>
+</collectd-configuration>
+

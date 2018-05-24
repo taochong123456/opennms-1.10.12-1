@@ -1,0 +1,136 @@
+/* for now just disable menu collapse */
+/* $grid-float-breakpoint: 300px; */
+/* container-fluid already gives us a good padding */
+/* container-fluid already gives us a good padding */
+.severity .severity-critical, .severity .severity-Critical {
+  color: black;
+  background-color: #f5cdcd;
+  border: 1px 0 solid #999999;
+}
+.severity .severity-critical td, .severity .severity-Critical td {
+  border: 1px 0 solid #999999;
+}
+.severity .severity-critical.nodivider, .severity .severity-Critical.nodivider {
+  border-top: 1px solid #999999;
+}
+.severity .severity-critical .bright, .severity .severity-critical.bright, .severity .severity-Critical .bright, .severity .severity-Critical.bright {
+  background-image: url(/opennms/images/bgCritical.png);
+  background-repeat: repeat-y;
+  background-position: left top;
+  padding-left: 18px;
+  td-padding-left: 18px;
+}
+
+.severity .severity-major, .severity .severity-Major {
+  color: black;
+  background-color: #ffd7cd;
+  border: 1px 0 solid #999999;
+}
+.severity .severity-major td, .severity .severity-Major td {
+  border: 1px 0 solid #999999;
+}
+.severity .severity-major.nodivider, .severity .severity-Major.nodivider {
+  border-top: 1px solid #999999;
+}
+.severity .severity-major .bright, .severity .severity-major.bright, .severity .severity-Major .bright, .severity .severity-Major.bright {
+  background-image: url(/opennms/images/bgMajor.png);
+  background-repeat: repeat-y;
+  background-position: left top;
+  padding-left: 18px;
+  td-padding-left: 18px;
+}
+
+.severity .severity-minor, .severity .severity-Minor {
+  color: black;
+  background-color: blanchedalmond;
+  border: 1px 0 solid #999999;
+}
+.severity .severity-minor td, .severity .severity-Minor td {
+  border: 1px 0 solid #999999;
+}
+.severity .severity-minor.nodivider, .severity .severity-Minor.nodivider {
+  border-top: 1px solid #999999;
+}
+.severity .severity-minor .bright, .severity .severity-minor.bright, .severity .severity-Minor .bright, .severity .severity-Minor.bright {
+  background-image: url(/opennms/images/bgMinor.png);
+  background-repeat: repeat-y;
+  background-position: left top;
+  padding-left: 18px;
+  td-padding-left: 18px;
+}
+
+.severity .severity-warning, .severity .severity-Warning {
+  color: black;
+  background-color: #fff5cd;
+  border: 1px 0 solid #999999;
+}
+.severity .severity-warning td, .severity .severity-Warning td {
+  border: 1px 0 solid #999999;
+}
+.severity .severity-warning.nodivider, .severity .severity-Warning.nodivider {
+  border-top: 1px solid #999999;
+}
+.severity .severity-warning .bright, .severity .severity-warning.bright, .severity .severity-Warning .bright, .severity .severity-Warning.bright {
+  background-image: url(/opennms/images/bgWarning.png);
+  background-repeat: repeat-y;
+  background-position: left top;
+  padding-left: 18px;
+  td-padding-left: 18px;
+}
+
+.severity .severity-indeterminate, .severity .severity-Indeterminate {
+  color: black;
+  background-color: #ebebcd;
+  border: 1px 0 solid #999999;
+}
+.severity .severity-indeterminate td, .severity .severity-Indeterminate td {
+  border: 1px 0 solid #999999;
+}
+.severity .severity-indeterminate.nodivider, .severity .severity-Indeterminate.nodivider {
+  border-top: 1px solid #999999;
+}
+.severity .severity-indeterminate .bright, .severity .severity-indeterminate.bright, .severity .severity-Indeterminate .bright, .severity .severity-Indeterminate.bright {
+  background-image: url(/opennms/images/bgIndeterminate.png);
+  background-repeat: repeat-y;
+  background-position: left top;
+  padding-left: 18px;
+  td-padding-left: 18px;
+}
+
+.severity .severity-normal, .severity .severity-Normal {
+  color: black;
+  background-color: #d7e1cd;
+  border: 1px 0 solid #999999;
+}
+.severity .severity-normal td, .severity .severity-Normal td {
+  border: 1px 0 solid #999999;
+}
+.severity .severity-normal.nodivider, .severity .severity-Normal.nodivider {
+  border-top: 1px solid #999999;
+}
+.severity .severity-normal .bright, .severity .severity-normal.bright, .severity .severity-Normal .bright, .severity .severity-Normal.bright {
+  background-image: url(/opennms/images/bgNormal.png);
+  background-repeat: repeat-y;
+  background-position: left top;
+  padding-left: 18px;
+  td-padding-left: 18px;
+}
+
+.severity .severity-cleared, .severity .severity-Cleared {
+  color: black;
+  background-color: #eeeeee;
+  border: 1px 0 solid #999999;
+}
+.severity .severity-cleared td, .severity .severity-Cleared td {
+  border: 1px 0 solid #999999;
+}
+.severity .severity-cleared.nodivider, .severity .severity-Cleared.nodivider {
+  border-top: 1px solid #999999;
+}
+.severity .severity-cleared .bright, .severity .severity-cleared.bright, .severity .severity-Cleared .bright, .severity .severity-Cleared.bright {
+  background-image: url(/opennms/images/bgCleared.png);
+  background-repeat: repeat-y;
+  background-position: left top;
+  padding-left: 18px;
+  td-padding-left: 18px;
+}

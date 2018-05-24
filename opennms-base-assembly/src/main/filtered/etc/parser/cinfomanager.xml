@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+
+<config> 
+  <event Name="cinfo-manager" Description="趋势防毒墙" Priority="" Match="cinfo-manager\s*\[*\d*\]*\s*:\s*((\w*\s*)*\[?\w*\]?\s*(\w*\s*)*)\.?">
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="cinfo-manager" /> 
+    <field Name="name" Description="事件名称" Index="1" Format="" Value="" />    
+  </event>
+</config>

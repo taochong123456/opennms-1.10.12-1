@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+
+<config>
+  <event Name="IceEyeIDS" Description="冰之眼IDS日志" Priority="" NodeType="" Match="^module=STR;category=OTH;type=Other;app=1.3.6.1.4.1.19849.2.1.16;descr=([^$]+)$">
+    <!-- 系统识别过程组 --> 
+    <field Name="name" Description="摘要" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.17=([^;$]*).*" Value="" />
+    </field>
+    <field Name="aggregatedCount" Description="聚合事件数" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.1=([^;$]*).*" Value="" />
+    </field>
+    <field Name="category" Description="事件分类" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="protocol" Description="协议" Index="" Format="" Value="" >
+      <fieldvalue Match="" Value="" />
+    </field>
+    <field Name="appProtocol" Description="应用协议" Index="1" Format="" Value="" >
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(echo|Echo)" Value="7" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(ftp|FTP)" Value="21" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(ssh|SSH)" Value="22" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(telnet|Telnet)" Value="23" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(smtp|SMTP)" Value="25" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(domain|Domain)" Value="53" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(bootps|Bootps)" Value="67" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(finger|Finger)" Value="79" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(www|WWW)" Value="80" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(pop3|POP3|pop|POP)" Value="110" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(rpc|RPC)" Value="111" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(netbios|Netbios)" Value="137" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(snmp|SNMP)" Value="161" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(snmp-traps|SNMP-Traps)" Value="162" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(imap3|IMAP3|imap|IMAP)" Value="220" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(ldap|LDAP)" Value="389" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(ups|UPS)" Value="401" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(ssl|SSL|https|HTTPS)" Value="443" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(rlogin|RLogin)" Value="513" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(printer|Printer)" Value="515" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(rstp|RSTP)" Value="554" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(mms|MMS)" Value="1755" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=(rdp|RDP)" Value="3389" />
+    </field>
+    
+    <!-- 事件语义过程组 -->
+    <field Name="intent" Description="意图" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="policy" Description="方法" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.13=([^;$]*).*" Value="" />
+    </field>
+    <field Name="action" Description="操作" Index="1" Format="" Value="" >
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=login" Value="/authen/login" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=set" Value="/modify" />
+	  <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=add" Value="/add" />
+	  <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=del" Value="/remove" />
+	  <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=start" Value="/access/start" />
+	  <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=stop" Value="/access/stop" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=auth" Value="/authen" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=execute" Value="/exe" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=audit" Value="/audit" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=stop" Value="/access/stop" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=(deny|block|p2p_deny)" Value="/deny" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=permit" Value="/permit" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.2=([^;$]*).*" Value="" />
+    </field>
+	<field Name="priority" Description="等级" Index="1" Format="" Value="" >
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.14=(1|低).*" Value="2" />
+  	  <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.14=(2|中).*" Value="3" />
+      <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.14=(3|高).*" Value="4" />
+	</field>
+   	<field Name="result" Description="结果" Index="1" Format="" Value="" >
+   	  <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.18=成功.*" Value="/success" />
+   	  <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.18=失败.*" Value="/failure" />
+   	  <fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.18=未知.*" Value="/try" />
+   	</field>
+  	<field Name="object" Description="对象" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="resource" Description="资源" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    
+    <!-- 原始内容过程组 -->
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="type" Description="事件原始类型" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.12=([^;$]*).*" Value="" />
+    </field>
+    <field Name="rawID" Description="事件分类号" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.9=([^;$]*).*" Value="" />
+    </field>
+    <field Name="send" Description="发送字节数" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="requestURI" Description="请求URL" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="msg" Description="原始消息" Index="1" Format="" Value="" />
+    <field Name="customS1" Description="定制字符串" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.7=([^;$]*).*" Value="" />
+    </field>
+    <field Name="customS2" Description="定制字符串" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.8=([^;$]*).*" Value="" />
+    </field>
+    <field Name="customS3" Description="定制字符串" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.19=([^;$]*).*" Value="" />
+    </field>
+    <field Name="customS4" Description="定制字符串" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.15=([^;$]*).*" Value="" />
+    </field>
+    <field Name="customS5" Description="定制字符串" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.16=([^;$]*).*" Value="" />
+    </field>
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="customS7" Description="定制字符串" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.7=1.*" Value="告警信息" />
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.7=2.*" Value="系统信息" />
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.7=4.*" Value="网络信息" />
+    </field>
+    <field Name="customD1" Description="定制整型" Index="1" Format="" Value="" >    	
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.2\.1=([^;$]*).*" Value="" />
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.3\.1=([^;$]*).*" Value="" />
+    </field>
+    <field Name="customD2" Description="定制整型" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.2\.2=([^;$]*).*" Value="" />
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.3\.2=([^;$]*).*" Value="" />
+    </field>
+    <field Name="customD3" Description="定制整型" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.2\.3=([^;$]*).*" Value="" />
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.3\.3=([^;$]*).*" Value="" />
+    </field>
+    <field Name="customD4" Description="定制整型" Index="" Format="" Value="" >
+    </field>
+        
+    <!-- 地址身份过程组 -->
+    <field Name="sAddr" Description="源地址" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.3=([^;$]*).*" Value="" />
+    </field>
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="sPort" Description="源端口" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.4=([^;$]*).*" Value="" />
+    </field>
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="dAddr" Description="目的地址" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.5=([^;$]*).*" Value="" />
+    </field>
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="dPort" Description="目的端口" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.6=([^;$]*).*" Value="" />
+    </field>
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+        
+    <!-- 事件产生过程组 -->
+    <field Name="devAddr" Description="设备地址" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.11=([^;$]*).*" Value="" />
+    </field>
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="devCategory" Description="设备分类" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="devVendor" Description="厂商" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.5=([^;$]*).*" Value="" />
+    </field>
+	<field Name="devProduct" Description="产品" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.4=([^;$]*).*" Value="" />
+    </field>
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="" >
+    	<fieldvalue Match="" Value="" />
+    </field>
+    <field Name="program" Description="程序名称" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.6=([^;$]*).*" Value="" />
+    </field>
+       
+    <!-- 事件传送过程组 --> 
+    <field Name="occurTime" Description="事件产生时刻" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.10=([^;$]*).*" Value="" />
+    </field>
+    <field Name="sendTime" Description="事件发送时刻" Index="1" Format="" Value="" >
+    	<fieldvalue Match=".*1\.3\.6\.1\.4\.1\.19849\.2\.1\.10=([^;$]*).*" Value="" />
+    </field>
+        
+  </event>
+  
+</config>

@@ -1,0 +1,233 @@
+2017-09-26 23:18:16,914 INFO  [Thread-2] HttpAdaptor: HttpAdaptor version 3.0.1 started on port 8180
+2017-09-26 23:18:16,916 INFO  [Thread-3] HttpAdaptor: HttpAdaptor version 3.0.1 started on port 8181
+2017-09-26 23:18:19,995 INFO  [Main] MLog: MLog clients using log4j logging.
+2017-09-26 23:18:20,257 INFO  [Main] C3P0Registry: Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2017-09-26 23:18:20,550 INFO  [Main] AbstractPoolBackedDataSource: Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 3, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hgfc3l9q1gxitg6ewqu43|19af260, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hgfc3l9q1gxitg6ewqu43|19af260, idleConnectionTestPeriod -> 0, initialPoolSize -> 50, jdbcUrl -> jdbc:postgresql://localhost:5432/opennms, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 600, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 50, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 50, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2017-09-26 23:18:57,493 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-26 23:18:57,493 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-26 23:18:57,496 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-26 23:18:57,496 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'Statsd' initialized from an externally provided properties instance.
+2017-09-26 23:18:57,496 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-26 23:18:57,501 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@b36b89
+2017-09-26 23:18:57,515 INFO  [Main] QuartzScheduler: Scheduler Statsd_$_NON_CLUSTERED started.
+2017-09-26 23:19:00,747 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-26 23:19:00,747 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-26 23:19:00,747 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-26 23:19:00,747 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'provisiond' initialized from an externally provided properties instance.
+2017-09-26 23:19:00,747 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-26 23:19:00,747 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@381ebe
+2017-09-26 23:19:00,774 INFO  [Main] QuartzScheduler: JobFactory set to: org.opennms.netmgt.provision.service.ImportJobFactory@94a83b
+2017-09-26 23:19:00,849 INFO  [Main] QuartzScheduler: Scheduler provisiond_$_NON_CLUSTERED started.
+2017-09-26 23:19:00,937 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-26 23:19:00,937 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-26 23:19:00,937 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-26 23:19:00,937 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'reportd' initialized from an externally provided properties instance.
+2017-09-26 23:19:00,937 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-26 23:19:00,937 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@329a65
+2017-09-26 23:19:01,018 INFO  [Main] QuartzScheduler: JobFactory set to: org.opennms.netmgt.reporting.service.ReportJobFactory@c805f6
+2017-09-26 23:19:01,052 INFO  [Main] QuartzScheduler: Scheduler reportd_$_NON_CLUSTERED started.
+2017-09-26 23:19:02,225 INFO  [Main] QuartzScheduler: Scheduler provisiond_$_NON_CLUSTERED started.
+2017-09-26 23:19:02,225 INFO  [Main] QuartzScheduler: Scheduler reportd_$_NON_CLUSTERED started.
+2017-09-26 23:19:23,507 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-26 23:19:23,507 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-26 23:19:23,507 INFO  [Main] ShutdownHookPlugin: Registering Quartz shutdown hook.
+2017-09-26 23:19:23,548 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'databaseReport' initialized from an externally provided properties instance.
+2017-09-26 23:19:23,548 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-26 23:19:23,548 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@15ff5e0
+2017-09-26 23:19:37,464 INFO  [Main] EntryPointInjectionBeanPostProcessor: Selecting AuthenticationEntryPoint for use in ExceptionTranslationFilter
+2017-09-26 23:19:37,501 INFO  [Main] EntryPointInjectionBeanPostProcessor: Using main configured AuthenticationEntryPoint.
+2017-09-26 23:19:37,501 INFO  [Main] EntryPointInjectionBeanPostProcessor: Using bean 'org.opennms.web.springframework.security.AntPatternBasedAuthenticationEntryPointChain@9b48b' as the entry point.
+2017-09-26 23:19:37,569 INFO  [Main] AbstractSecurityInterceptor: Validated configuration attributes
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: Checking sorted filter chain: [org.springframework.security.context.HttpSessionContextIntegrationFilter[ order=200; ], org.springframework.security.ui.logout.LogoutFilter[ order=300; ], org.springframework.security.ui.webapp.AuthenticationProcessingFilter[ order=700; ], org.springframework.security.ui.basicauth.BasicProcessingFilter[ order=1000; ], org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter[ order=1100; ], org.springframework.security.providers.anonymous.AnonymousProcessingFilter[ order=1300; ], org.springframework.security.ui.ExceptionTranslationFilter[ order=1400; ], org.springframework.security.ui.SessionFixationProtectionFilter[ order=1600; ], org.springframework.security.intercept.web.FilterSecurityInterceptor@376923, OrderedFilterDecorator[ delegate=org.opennms.web.springframework.security.AuthFilterEnabler[ order=2147483647; ]; order=2147483647]]
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: Filter chain...
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: [0] - org.springframework.security.context.HttpSessionContextIntegrationFilter[ order=200; ]
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: [1] - org.springframework.security.ui.logout.LogoutFilter[ order=300; ]
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: [2] - org.springframework.security.ui.webapp.AuthenticationProcessingFilter[ order=700; ]
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: [3] - org.springframework.security.ui.basicauth.BasicProcessingFilter[ order=1000; ]
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: [4] - org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter[ order=1100; ]
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: [5] - org.springframework.security.providers.anonymous.AnonymousProcessingFilter[ order=1300; ]
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: [6] - org.springframework.security.ui.ExceptionTranslationFilter[ order=1400; ]
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: [7] - org.springframework.security.ui.SessionFixationProtectionFilter[ order=1600; ]
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: [8] - org.springframework.security.intercept.web.FilterSecurityInterceptor@376923
+2017-09-26 23:19:37,776 INFO  [Main] FilterChainProxyPostProcessor: [9] - org.opennms.web.springframework.security.AuthFilterEnabler[ order=2147483647; ]
+2017-09-26 23:19:37,777 INFO  [Main] FilterChainProxyPostProcessor: FilterChainProxy: FilterChainProxy[ UrlMatcher = org.springframework.security.util.AntUrlPathMatcher[requiresLowerCase='true']; Filter Chains: {/webstart/**=[], /lather/**=[], /hqu/**=[], /**=[org.springframework.security.context.HttpSessionContextIntegrationFilter[ order=200; ], org.springframework.security.ui.logout.LogoutFilter[ order=300; ], org.springframework.security.ui.webapp.AuthenticationProcessingFilter[ order=700; ], org.springframework.security.ui.basicauth.BasicProcessingFilter[ order=1000; ], org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter[ order=1100; ], org.springframework.security.providers.anonymous.AnonymousProcessingFilter[ order=1300; ], org.springframework.security.ui.ExceptionTranslationFilter[ order=1400; ], org.springframework.security.ui.SessionFixationProtectionFilter[ order=1600; ], org.springframework.security.intercept.web.FilterSecurityInterceptor@376923, org.opennms.web.springframework.security.AuthFilterEnabler[ order=2147483647; ]]}]
+2017-09-26 23:19:38,875 INFO  [Main] QuartzScheduler: Scheduler databaseReport_$_ReportSchdeuler started.
+2017-09-26 23:21:02,930 INFO  [Thread-2] HttpAdaptor: HttpAdaptor version 3.0.1 started on port 8180
+2017-09-26 23:21:02,933 INFO  [Thread-3] HttpAdaptor: HttpAdaptor version 3.0.1 started on port 8181
+2017-09-26 23:21:05,764 INFO  [Main] MLog: MLog clients using log4j logging.
+2017-09-26 23:21:06,023 INFO  [Main] C3P0Registry: Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2017-09-26 23:21:06,257 INFO  [Main] AbstractPoolBackedDataSource: Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 3, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hgfc3l9q1gxmdcx10v0cka|17698ec, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hgfc3l9q1gxmdcx10v0cka|17698ec, idleConnectionTestPeriod -> 0, initialPoolSize -> 50, jdbcUrl -> jdbc:postgresql://localhost:5432/opennms, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 600, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 50, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 50, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2017-09-26 23:21:41,185 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-26 23:21:41,186 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-26 23:21:41,189 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-26 23:21:41,190 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'Statsd' initialized from an externally provided properties instance.
+2017-09-26 23:21:41,190 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-26 23:21:41,195 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@ecfa93
+2017-09-26 23:21:41,212 INFO  [Main] QuartzScheduler: Scheduler Statsd_$_NON_CLUSTERED started.
+2017-09-26 23:21:44,459 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-26 23:21:44,459 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-26 23:21:44,459 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-26 23:21:44,459 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'provisiond' initialized from an externally provided properties instance.
+2017-09-26 23:21:44,459 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-26 23:21:44,459 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@fc60dd
+2017-09-26 23:21:44,492 INFO  [Main] QuartzScheduler: JobFactory set to: org.opennms.netmgt.provision.service.ImportJobFactory@a95c7c
+2017-09-26 23:21:44,562 INFO  [Main] QuartzScheduler: Scheduler provisiond_$_NON_CLUSTERED started.
+2017-09-26 23:21:44,685 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-26 23:21:44,685 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-26 23:21:44,685 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-26 23:21:44,685 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'reportd' initialized from an externally provided properties instance.
+2017-09-26 23:21:44,685 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-26 23:21:44,685 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@15619bd
+2017-09-26 23:21:44,763 INFO  [Main] QuartzScheduler: JobFactory set to: org.opennms.netmgt.reporting.service.ReportJobFactory@14ac4ff
+2017-09-26 23:21:44,800 INFO  [Main] QuartzScheduler: Scheduler reportd_$_NON_CLUSTERED started.
+2017-09-26 23:21:45,921 INFO  [Main] QuartzScheduler: Scheduler provisiond_$_NON_CLUSTERED started.
+2017-09-26 23:21:45,922 INFO  [Main] QuartzScheduler: Scheduler reportd_$_NON_CLUSTERED started.
+2017-09-26 23:59:07,673 INFO  [Thread-2] HttpAdaptor: HttpAdaptor version 3.0.1 started on port 8180
+2017-09-26 23:59:07,676 INFO  [Thread-3] HttpAdaptor: HttpAdaptor version 3.0.1 started on port 8181
+2017-09-26 23:59:11,465 INFO  [Main] MLog: MLog clients using log4j logging.
+2017-09-26 23:59:11,799 INFO  [Main] C3P0Registry: Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2017-09-26 23:59:12,109 INFO  [Main] AbstractPoolBackedDataSource: Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 3, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hgfc3l9q1gyzd1bommn7x|fb77dd, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hgfc3l9q1gyzd1bommn7x|fb77dd, idleConnectionTestPeriod -> 0, initialPoolSize -> 50, jdbcUrl -> jdbc:postgresql://localhost:5432/opennms, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 600, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 50, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 50, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2017-09-26 23:59:23,616 WARN  [com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#2] BasicResourcePool: com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask@78a557 -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (3). Last acquisition attempt exception: 
+org.postgresql.util.PSQLException: Connection 尝试逾时。
+	at org.postgresql.Driver$ConnectThread.getResult(Driver.java:359)
+	at org.postgresql.Driver.connect(Driver.java:271)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:134)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:182)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:171)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:137)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1014)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$800(BasicResourcePool.java:32)
+	at com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask.run(BasicResourcePool.java:1810)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:547)
+2017-09-26 23:59:23,677 WARN  [com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#0] BasicResourcePool: com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask@1ca3565 -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (3). Last acquisition attempt exception: 
+org.postgresql.util.PSQLException: Connection 尝试逾时。
+	at org.postgresql.Driver$ConnectThread.getResult(Driver.java:359)
+	at org.postgresql.Driver.connect(Driver.java:271)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:134)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:182)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:171)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:137)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1014)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$800(BasicResourcePool.java:32)
+	at com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask.run(BasicResourcePool.java:1810)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:547)
+2017-09-26 23:59:23,812 WARN  [com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#1] BasicResourcePool: com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask@19795d8 -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (3). Last acquisition attempt exception: 
+org.postgresql.util.PSQLException: Connection 尝试逾时。
+	at org.postgresql.Driver$ConnectThread.getResult(Driver.java:359)
+	at org.postgresql.Driver.connect(Driver.java:271)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:134)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:182)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:171)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:137)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1014)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$800(BasicResourcePool.java:32)
+	at com.mchange.v2.resourcepool.BasicResourcePool$AcquireTask.run(BasicResourcePool.java:1810)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:547)
+2017-09-26 23:59:41,023 INFO  [Thread-2] HttpAdaptor: HttpAdaptor version 3.0.1 started on port 8180
+2017-09-26 23:59:41,027 INFO  [Thread-3] HttpAdaptor: HttpAdaptor version 3.0.1 started on port 8181
+2017-09-26 23:59:44,700 INFO  [Main] MLog: MLog clients using log4j logging.
+2017-09-26 23:59:45,007 INFO  [Main] C3P0Registry: Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2017-09-26 23:59:45,320 INFO  [Main] AbstractPoolBackedDataSource: Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 3, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hgfc3l9q1gz02o31qcfcg|fb77dd, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hgfc3l9q1gz02o31qcfcg|fb77dd, idleConnectionTestPeriod -> 0, initialPoolSize -> 50, jdbcUrl -> jdbc:postgresql://localhost:5432/opennms, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 600, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 50, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 50, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2017-09-27 00:00:32,332 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-27 00:00:32,332 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-27 00:00:32,335 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-27 00:00:32,335 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'Statsd' initialized from an externally provided properties instance.
+2017-09-27 00:00:32,335 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-27 00:00:32,339 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@178c227
+2017-09-27 00:00:32,364 INFO  [Main] QuartzScheduler: Scheduler Statsd_$_NON_CLUSTERED started.
+2017-09-27 00:00:38,907 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-27 00:00:38,907 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-27 00:00:38,907 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-27 00:00:38,908 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'provisiond' initialized from an externally provided properties instance.
+2017-09-27 00:00:38,908 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-27 00:00:38,908 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@1d256a8
+2017-09-27 00:00:38,953 INFO  [Main] QuartzScheduler: JobFactory set to: org.opennms.netmgt.provision.service.ImportJobFactory@125672b
+2017-09-27 00:00:39,036 INFO  [Main] QuartzScheduler: Scheduler provisiond_$_NON_CLUSTERED started.
+2017-09-27 00:00:39,158 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-27 00:00:39,164 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-27 00:00:39,164 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-27 00:00:39,165 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'reportd' initialized from an externally provided properties instance.
+2017-09-27 00:00:39,165 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-27 00:00:39,166 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@189e2b5
+2017-09-27 00:00:39,246 INFO  [Main] QuartzScheduler: JobFactory set to: org.opennms.netmgt.reporting.service.ReportJobFactory@1ff8724
+2017-09-27 00:00:39,285 INFO  [Main] QuartzScheduler: Scheduler reportd_$_NON_CLUSTERED started.
+2017-09-27 00:00:42,882 INFO  [Main] QuartzScheduler: Scheduler provisiond_$_NON_CLUSTERED started.
+2017-09-27 00:00:42,882 INFO  [Main] QuartzScheduler: Scheduler reportd_$_NON_CLUSTERED started.
+2017-09-27 00:01:12,551 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-27 00:01:12,551 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-27 00:01:12,551 INFO  [Main] ShutdownHookPlugin: Registering Quartz shutdown hook.
+2017-09-27 00:01:12,672 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'databaseReport' initialized from an externally provided properties instance.
+2017-09-27 00:01:12,672 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-27 00:01:12,673 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@1500516
+2017-09-27 00:01:30,471 INFO  [Main] EntryPointInjectionBeanPostProcessor: Selecting AuthenticationEntryPoint for use in ExceptionTranslationFilter
+2017-09-27 00:01:30,521 INFO  [Main] EntryPointInjectionBeanPostProcessor: Using main configured AuthenticationEntryPoint.
+2017-09-27 00:01:30,521 INFO  [Main] EntryPointInjectionBeanPostProcessor: Using bean 'org.opennms.web.springframework.security.AntPatternBasedAuthenticationEntryPointChain@1ff9923' as the entry point.
+2017-09-27 00:01:30,774 INFO  [Main] AbstractSecurityInterceptor: Validated configuration attributes
+2017-09-27 00:01:31,023 INFO  [Main] FilterChainProxyPostProcessor: Checking sorted filter chain: [org.springframework.security.context.HttpSessionContextIntegrationFilter[ order=200; ], org.springframework.security.ui.logout.LogoutFilter[ order=300; ], org.springframework.security.ui.webapp.AuthenticationProcessingFilter[ order=700; ], org.springframework.security.ui.basicauth.BasicProcessingFilter[ order=1000; ], org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter[ order=1100; ], org.springframework.security.providers.anonymous.AnonymousProcessingFilter[ order=1300; ], org.springframework.security.ui.ExceptionTranslationFilter[ order=1400; ], org.springframework.security.ui.SessionFixationProtectionFilter[ order=1600; ], org.springframework.security.intercept.web.FilterSecurityInterceptor@1468cc4, OrderedFilterDecorator[ delegate=org.opennms.web.springframework.security.AuthFilterEnabler[ order=2147483647; ]; order=2147483647]]
+2017-09-27 00:01:31,023 INFO  [Main] FilterChainProxyPostProcessor: Filter chain...
+2017-09-27 00:01:31,023 INFO  [Main] FilterChainProxyPostProcessor: [0] - org.springframework.security.context.HttpSessionContextIntegrationFilter[ order=200; ]
+2017-09-27 00:01:31,023 INFO  [Main] FilterChainProxyPostProcessor: [1] - org.springframework.security.ui.logout.LogoutFilter[ order=300; ]
+2017-09-27 00:01:31,023 INFO  [Main] FilterChainProxyPostProcessor: [2] - org.springframework.security.ui.webapp.AuthenticationProcessingFilter[ order=700; ]
+2017-09-27 00:01:31,023 INFO  [Main] FilterChainProxyPostProcessor: [3] - org.springframework.security.ui.basicauth.BasicProcessingFilter[ order=1000; ]
+2017-09-27 00:01:31,023 INFO  [Main] FilterChainProxyPostProcessor: [4] - org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter[ order=1100; ]
+2017-09-27 00:01:31,023 INFO  [Main] FilterChainProxyPostProcessor: [5] - org.springframework.security.providers.anonymous.AnonymousProcessingFilter[ order=1300; ]
+2017-09-27 00:01:31,023 INFO  [Main] FilterChainProxyPostProcessor: [6] - org.springframework.security.ui.ExceptionTranslationFilter[ order=1400; ]
+2017-09-27 00:01:31,023 INFO  [Main] FilterChainProxyPostProcessor: [7] - org.springframework.security.ui.SessionFixationProtectionFilter[ order=1600; ]
+2017-09-27 00:01:31,025 INFO  [Main] FilterChainProxyPostProcessor: [8] - org.springframework.security.intercept.web.FilterSecurityInterceptor@1468cc4
+2017-09-27 00:01:31,026 INFO  [Main] FilterChainProxyPostProcessor: [9] - org.opennms.web.springframework.security.AuthFilterEnabler[ order=2147483647; ]
+2017-09-27 00:01:31,026 INFO  [Main] FilterChainProxyPostProcessor: FilterChainProxy: FilterChainProxy[ UrlMatcher = org.springframework.security.util.AntUrlPathMatcher[requiresLowerCase='true']; Filter Chains: {/webstart/**=[], /lather/**=[], /hqu/**=[], /**=[org.springframework.security.context.HttpSessionContextIntegrationFilter[ order=200; ], org.springframework.security.ui.logout.LogoutFilter[ order=300; ], org.springframework.security.ui.webapp.AuthenticationProcessingFilter[ order=700; ], org.springframework.security.ui.basicauth.BasicProcessingFilter[ order=1000; ], org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter[ order=1100; ], org.springframework.security.providers.anonymous.AnonymousProcessingFilter[ order=1300; ], org.springframework.security.ui.ExceptionTranslationFilter[ order=1400; ], org.springframework.security.ui.SessionFixationProtectionFilter[ order=1600; ], org.springframework.security.intercept.web.FilterSecurityInterceptor@1468cc4, org.opennms.web.springframework.security.AuthFilterEnabler[ order=2147483647; ]]}]
+2017-09-27 00:01:32,443 INFO  [Main] QuartzScheduler: Scheduler databaseReport_$_ReportSchdeuler started.
+2017-09-27 00:02:49,235 INFO  [Thread-2] HttpAdaptor: HttpAdaptor version 3.0.1 started on port 8180
+2017-09-27 00:02:49,237 INFO  [Thread-3] HttpAdaptor: HttpAdaptor version 3.0.1 started on port 8181
+2017-09-27 00:02:52,286 INFO  [Main] MLog: MLog clients using log4j logging.
+2017-09-27 00:02:52,544 INFO  [Main] C3P0Registry: Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2017-09-27 00:02:52,770 INFO  [Main] AbstractPoolBackedDataSource: Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 3, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hgfc3l9q1gz43egkghn18|5015be, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hgfc3l9q1gz43egkghn18|5015be, idleConnectionTestPeriod -> 0, initialPoolSize -> 50, jdbcUrl -> jdbc:postgresql://localhost:5432/opennms, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 600, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 50, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 50, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> null, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2017-09-27 00:03:31,244 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-27 00:03:31,244 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-27 00:03:31,247 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-27 00:03:31,247 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'Statsd' initialized from an externally provided properties instance.
+2017-09-27 00:03:31,247 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-27 00:03:31,252 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@19e216a
+2017-09-27 00:03:31,269 INFO  [Main] QuartzScheduler: Scheduler Statsd_$_NON_CLUSTERED started.
+2017-09-27 00:03:34,607 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-27 00:03:34,607 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-27 00:03:34,607 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-27 00:03:34,607 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'provisiond' initialized from an externally provided properties instance.
+2017-09-27 00:03:34,607 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-27 00:03:34,607 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@3763d1
+2017-09-27 00:03:34,631 INFO  [Main] QuartzScheduler: JobFactory set to: org.opennms.netmgt.provision.service.ImportJobFactory@984b1a
+2017-09-27 00:03:34,700 INFO  [Main] QuartzScheduler: Scheduler provisiond_$_NON_CLUSTERED started.
+2017-09-27 00:03:34,785 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-27 00:03:34,785 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-27 00:03:34,785 INFO  [Main] RAMJobStore: RAMJobStore initialized.
+2017-09-27 00:03:34,786 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'reportd' initialized from an externally provided properties instance.
+2017-09-27 00:03:34,786 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-27 00:03:34,786 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@1b3e7c7
+2017-09-27 00:03:34,885 INFO  [Main] QuartzScheduler: JobFactory set to: org.opennms.netmgt.reporting.service.ReportJobFactory@c5981e
+2017-09-27 00:03:34,917 INFO  [Main] QuartzScheduler: Scheduler reportd_$_NON_CLUSTERED started.
+2017-09-27 00:03:36,148 INFO  [Main] QuartzScheduler: Scheduler provisiond_$_NON_CLUSTERED started.
+2017-09-27 00:03:36,148 INFO  [Main] QuartzScheduler: Scheduler reportd_$_NON_CLUSTERED started.
+2017-09-27 00:04:00,816 INFO  [Main] SchedulerSignalerImpl: Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2017-09-27 00:04:00,816 INFO  [Main] QuartzScheduler: Quartz Scheduler v.null.null.null created.
+2017-09-27 00:04:00,816 INFO  [Main] ShutdownHookPlugin: Registering Quartz shutdown hook.
+2017-09-27 00:04:00,857 INFO  [Main] StdSchedulerFactory: Quartz scheduler 'databaseReport' initialized from an externally provided properties instance.
+2017-09-27 00:04:00,857 INFO  [Main] StdSchedulerFactory: Quartz scheduler version: null.null.null
+2017-09-27 00:04:00,857 INFO  [Main] QuartzScheduler: JobFactory set to: org.springframework.scheduling.quartz.AdaptableJobFactory@d4e3b0
+2017-09-27 00:04:15,160 INFO  [Main] EntryPointInjectionBeanPostProcessor: Selecting AuthenticationEntryPoint for use in ExceptionTranslationFilter
+2017-09-27 00:04:15,215 INFO  [Main] EntryPointInjectionBeanPostProcessor: Using main configured AuthenticationEntryPoint.
+2017-09-27 00:04:15,215 INFO  [Main] EntryPointInjectionBeanPostProcessor: Using bean 'org.opennms.web.springframework.security.AntPatternBasedAuthenticationEntryPointChain@1b4ca1a' as the entry point.
+2017-09-27 00:04:15,294 INFO  [Main] AbstractSecurityInterceptor: Validated configuration attributes
+2017-09-27 00:04:15,565 INFO  [Main] FilterChainProxyPostProcessor: Checking sorted filter chain: [org.springframework.security.context.HttpSessionContextIntegrationFilter[ order=200; ], org.springframework.security.ui.logout.LogoutFilter[ order=300; ], org.springframework.security.ui.webapp.AuthenticationProcessingFilter[ order=700; ], org.springframework.security.ui.basicauth.BasicProcessingFilter[ order=1000; ], org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter[ order=1100; ], org.springframework.security.providers.anonymous.AnonymousProcessingFilter[ order=1300; ], org.springframework.security.ui.ExceptionTranslationFilter[ order=1400; ], org.springframework.security.ui.SessionFixationProtectionFilter[ order=1600; ], org.springframework.security.intercept.web.FilterSecurityInterceptor@510e06, OrderedFilterDecorator[ delegate=org.opennms.web.springframework.security.AuthFilterEnabler[ order=2147483647; ]; order=2147483647]]
+2017-09-27 00:04:15,565 INFO  [Main] FilterChainProxyPostProcessor: Filter chain...
+2017-09-27 00:04:15,565 INFO  [Main] FilterChainProxyPostProcessor: [0] - org.springframework.security.context.HttpSessionContextIntegrationFilter[ order=200; ]
+2017-09-27 00:04:15,565 INFO  [Main] FilterChainProxyPostProcessor: [1] - org.springframework.security.ui.logout.LogoutFilter[ order=300; ]
+2017-09-27 00:04:15,565 INFO  [Main] FilterChainProxyPostProcessor: [2] - org.springframework.security.ui.webapp.AuthenticationProcessingFilter[ order=700; ]
+2017-09-27 00:04:15,565 INFO  [Main] FilterChainProxyPostProcessor: [3] - org.springframework.security.ui.basicauth.BasicProcessingFilter[ order=1000; ]
+2017-09-27 00:04:15,566 INFO  [Main] FilterChainProxyPostProcessor: [4] - org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter[ order=1100; ]
+2017-09-27 00:04:15,566 INFO  [Main] FilterChainProxyPostProcessor: [5] - org.springframework.security.providers.anonymous.AnonymousProcessingFilter[ order=1300; ]
+2017-09-27 00:04:15,566 INFO  [Main] FilterChainProxyPostProcessor: [6] - org.springframework.security.ui.ExceptionTranslationFilter[ order=1400; ]
+2017-09-27 00:04:15,566 INFO  [Main] FilterChainProxyPostProcessor: [7] - org.springframework.security.ui.SessionFixationProtectionFilter[ order=1600; ]
+2017-09-27 00:04:15,566 INFO  [Main] FilterChainProxyPostProcessor: [8] - org.springframework.security.intercept.web.FilterSecurityInterceptor@510e06
+2017-09-27 00:04:15,566 INFO  [Main] FilterChainProxyPostProcessor: [9] - org.opennms.web.springframework.security.AuthFilterEnabler[ order=2147483647; ]
+2017-09-27 00:04:15,566 INFO  [Main] FilterChainProxyPostProcessor: FilterChainProxy: FilterChainProxy[ UrlMatcher = org.springframework.security.util.AntUrlPathMatcher[requiresLowerCase='true']; Filter Chains: {/webstart/**=[], /lather/**=[], /hqu/**=[], /**=[org.springframework.security.context.HttpSessionContextIntegrationFilter[ order=200; ], org.springframework.security.ui.logout.LogoutFilter[ order=300; ], org.springframework.security.ui.webapp.AuthenticationProcessingFilter[ order=700; ], org.springframework.security.ui.basicauth.BasicProcessingFilter[ order=1000; ], org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter[ order=1100; ], org.springframework.security.providers.anonymous.AnonymousProcessingFilter[ order=1300; ], org.springframework.security.ui.ExceptionTranslationFilter[ order=1400; ], org.springframework.security.ui.SessionFixationProtectionFilter[ order=1600; ], org.springframework.security.intercept.web.FilterSecurityInterceptor@510e06, org.opennms.web.springframework.security.AuthFilterEnabler[ order=2147483647; ]]}]
+2017-09-27 00:04:16,656 INFO  [Main] QuartzScheduler: Scheduler databaseReport_$_ReportSchdeuler started.

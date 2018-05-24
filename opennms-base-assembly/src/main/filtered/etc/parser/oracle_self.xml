@@ -1,0 +1,164 @@
+﻿<?xml version='1.0' encoding="UTF-8"?>
+<!--
+   
+   请注意xml的转义：
+   使用 &gt; 转义右尖括号（>），用 &amp; 转义“与”符号（&），用 &lt; 转义右尖括号（<）。 将双引号（"）字符转义成 &quot;。
+-->
+
+<!-- 日志格式：
+第一类日志-告警日志
+Wed Apr 23 12:45:23 2008
+Started recovery at
+ Thread 1: logseq 22, block 3, scn 0.0
+Recovery of Online Redo Log: Thread 1 Group 3 Seq 22 Reading mem 0
+  Mem# 0 errs 0: C:\ORACLE\ORADATA\SOC\REDO03.LOG
+Wed Apr 23 12:45:24 2008
+Ended recovery at
+ Thread 1: logseq 22, block 2142, scn 0.4433302
+ 118 data blocks read, 118 data blocks written, 2139 redo blocks read
+Crash recovery completed successfully
+Wed Apr 23 12:45:25 2008
+Thread 1 advanced to log sequence 23
+Thread 1 opened at log sequence 23
+  Current log# 1 seq# 23 mem# 0: C:\ORACLE\ORADATA\SOC\REDO01.LOG
+Successful open of redo thread 1.
+
+第二类日志-操作审计日志
+oracle Administrator#215700#2008-08-18 13:27:18#SYS#DUAL#3##SELECT#SYSTEM#unknown##14#94#0# 
+oracle SYSTEM#215704#2008-08-18 13:28:06#SYS#V_$VERSION#3##SELECT#SYSTEM#TGMWNCP2T6EJVRD##1#4#0# 
+oracle SYSTEM#215704#2008-08-18 13:28:06#SYS#X$VERSION#3##SELECT#SYSTEM#TGMWNCP2T6EJVRD##1#1#0# 
+oracle SYSTEM#215713#2008-08-18 13:30:11#SYS#V_$VERSION#3##SELECT#SYSTEM#TGMWNCP2T6EJVRD##1#4#0# 
+--> 
+
+<config> 
+  <event Name="Oracle" Description="Oracle alert日志" Priority="1" Match="oracle\s+(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{2}\s+\d{2}:\d{2}:\d{2}\s+\d{4})\s+(.*)">
+    <field Name="category" Description="事件分类" Index="" Format="" Value="" />
+    <field Name="type" Description="事件具体类型" Index="" Format="" Value="" />
+    <field Name="priority" Description="等级" Index="" Format="" Value="" />
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" />
+    <field Name="rawID" Description="事件本身的编号" Index="" Format="" Value="" />
+    <field Name="occurTime" Description="事件产生时刻" Index="1" Format="MMM dd HH:mm:ss yyyy" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="1" Format="MMM dd HH:mm:ss yyyy" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="protocol" Description="协议" Index="" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="" Format="" Value="" />
+    <field Name="object" Description="对象" Index="" Format="" Value="" />
+    <field Name="policy" Description="策略" Index="" Format="" Value="" />
+    <field Name="resource" Description="资源名称" Index="" Format="" Value="" />
+    <field Name="action" Description="操作" Index="" Format="" Value="" />
+    <field Name="intent" Description="意图" Index="" Format="" Value="" /> 
+    <field Name="result" Description="结果" Index="" Format="" Value="" />
+    <field Name="sAddr" Description="源地址" Index="" Format="" Value="" />
+    <field Name="sName" Description="源名称" Index="" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="" Format="" Value="" />
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备分类" Index="" Format="" Value="" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="" />
+    <field Name="devVendor" Description="设备厂商" Index="" Format="" Value="Oracle" />
+	<field Name="devProduct" Description="产品名称" Index="" Format="" Value="Datebase" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="/db" />
+    <field Name="program" Description="程序名称" Index="" Format="" Value="" />
+    <field Name="requestURI" Description="请求网址" Index="" Format="" Value="" />
+    <field Name="name" Description="事件名称" Index="2" Format="" Value="" />
+    <field Name="customS1" Description="定制字符串" Index="" Format="" Value="" /> 
+    <field Name="customS2" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" /> 
+    <field Name="customD1" Description="定制整型" Index="" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="" Format="" Value="" />      
+  </event>
+
+
+<event Name="oracle" Description="Oracle操作日志" Priority="2" Match="oracle\s([^#]+)#(\d+)#(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})#(.*?)#(.*?)#(\d+)#(.*?)#(.*?)#(.*?)#(.*?)#(.*?)#(\d*)#(\d*)#(\d*)#(.*?)">
+    <!-- 系统识别过程组 -->  
+    <field Name="name" Description="摘要" Index="8" Format="" Value="" />
+    <field Name="type" Description="事件具体类型" Index="" Format="" Value="" />      
+    <field Name="category" Description="事件分类" Index="" Format="" Value="/sec" />
+    <field Name="protocol" Description="协议" Index="" Format="" Value="" />
+    <field Name="appProtocol" Description="应用协议" Index="" Format="" Value="" />
+    
+    <!-- 事件语义过程组 -->
+    <field Name="intent" Description="意图" Index="" Format="" Value="" />
+    <field Name="policy" Description="方法" Index="" Format="" Value="" />
+    <field Name="action" Description="操作" Index="8" Format="" Value=""/>
+    <field Name="priority" Description="等级" Index="" Format="" Value="" />
+    <field Name="result" Description="结果" Index="" Format="" Value="" />
+    <field Name="object" Description="对象" Index="" Format="" Value="" />    
+    <field Name="resource" Description="资源" Index="" Format="" Value="" />
+    
+    
+    <!-- 原始内容过程组 -->
+    <field Name="oriPriority" Description="原始等级" Index="" Format="" Value="" />
+    <field Name="rawID" Description="事件分类号" Index="" Format="" Value="" />
+    <field Name="send" Description="发送字节数" Index="" Format="" Value="" />
+    <field Name="receive" Description="接收字节数" Index="" Format="" Value="" />
+    <field Name="duration" Description="持续时刻" Index="" Format="" Value="" />
+    <field Name="requestURI" Description="请求URL" Index="" Format="" Value="" />
+    <field Name="customS1" Description="登陆账号" Index="9" Format="" Value="" /> 
+    <field Name="customS2" Description="定制字符串" Index="15" Format="" Value="" />
+    <field Name="customS3" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS4" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS5" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS6" Description="定制字符串" Index="" Format="" Value="" />
+    <field Name="customS7" Description="操作系统" Index="" Format="" Value="" />  
+    <field Name="customD1" Description="定制整型" Index="12" Format="" Value="" />
+    <field Name="customD2" Description="定制整型" Index="13" Format="" Value="" />     
+    <field Name="customD3" Description="定制整型" Index="14" Format="" Value="" />
+    <field Name="customD4" Description="定制整型" Index="" Format="" Value="" />
+    
+    
+    <!-- 地址身份过程组 -->
+    <field Name="sAddr" Description="源地址" Index="11" Format="" Value="" >
+       <fieldvalue Match="HOST=(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})" Value="" />
+    </field>
+    <field Name="sName" Description="源名称" Index="10" Format="" Value="" />
+    <field Name="sPort" Description="源端口" Index="11" Format="" Value="" >
+       <fieldvalue Match="PORT=(\d{1,5})" Value="" />
+    </field>   
+    <field Name="sProcess" Description="源进程名称" Index="" Format="" Value="" />
+    <field Name="sUserID" Description="源用户ID" Index="" Format="" Value="" />
+    <field Name="sUserName" Description="源用户名称" Index="1" Format="" Value="" />
+    <field Name="stAddr" Description="源地址转换" Index="" Format="" Value="" />
+    <field Name="stPort" Description="源地址转换端口" Index="" Format="" Value="" />
+    <field Name="dAddr" Description="目的地址" Index="" Format="" Value="" />
+    <field Name="dName" Description="目的名称" Index="" Format="" Value="" />
+    <field Name="dPort" Description="目的端口" Index="" Format="" Value="" />
+    <field Name="dProcess" Description="目的进程名称" Index="" Format="" Value="" />
+    <field Name="dUserID" Description="目的用户ID" Index="" Format="" Value="" />
+    <field Name="dUserName" Description="目的用户名称" Index="" Format="" Value="" />
+    <field Name="dtAddr" Description="目的地址转换" Index="" Format="" Value="" />
+    <field Name="dtPort" Description="目的地址转换端口" Index="" Format="" Value="" />
+    
+    <!-- 事件产生过程组 -->
+    <field Name="devAddr" Description="设备地址" Index="" Format="" Value="" />
+    <field Name="devName" Description="设备名称" Index="" Format="" Value="" />
+    <field Name="devCategory" Description="设备类型" Index="" Format="" Value="" />
+    <field Name="devType" Description="设备型号" Index="" Format="" Value="" />
+    <field Name="devVendor" Description="厂商" Index="" Format="" Value="Oracle" />
+    <field Name="devProduct" Description="产品" Index="" Format="" Value="Datebase" />
+    <field Name="programType" Description="程序类型" Index="" Format="" Value="/db" />
+    <field Name="program" Description="程序名称" Index="" Format="" Value="" />     
+    
+    <!-- 事件传送过程组 -->     
+    <field Name="occurTime" Description="事件产生时刻" Index="3" Format="yyyy-MM-dd HH:mm:ss" Value="" />
+    <field Name="sendTime" Description="事件发送时刻" Index="3" Format="yyyy-MM-dd HH:mm:ss" Value="" />   
+        
+  </event>
+
+</config>

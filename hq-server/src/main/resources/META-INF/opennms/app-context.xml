@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    NOTE: This copyright does *not* cover user programs that use HQ
+    program services by normal system calls through the application
+    program interfaces provided as part of the Hyperic Plug-in Development
+    Kit or the Hyperic Client Development Kit - this is merely considered
+    normal use of the program, and does *not* fall under the heading of
+     "derived work".
+
+     Copyright (C) [2009-2010], VMware, Inc.
+     This file is part of HQ.
+
+     HQ is free software; you can redistribute it and/or modify
+     it under the terms version 2 of the GNU General Public License as
+     published by the Free Software Foundation. This program is distributed
+     in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+     even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+     PARTICULAR PURPOSE. See the GNU General Public License for more
+     details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program; if not, write to the Free Software
+     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+     USA.
+
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation=
+	   "http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean scope="prototype" id="org.hyperic.hq.bizapp.agent.client.SecureAgentConnection" class="org.hyperic.hq.bizapp.agent.client.SecureAgentConnection" />
+
+	<context:component-scan base-package="org.hyperic,com.hyperic"> 
+	   <context:exclude-filter type="regex" expression="org.hyperic.cm.*"/>
+	   <context:exclude-filter type="regex" expression="org.hyperic.hq.api.*"/>
+	</context:component-scan>
+	
+  <bean id="serverProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:/hq-server.conf</value>
+			</list>
+		</property>
+	</bean>
+	
+    <bean id="securityProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="server.keystore.path">/etc/keystore</prop>
+				<prop key="server.keystore.password">storePW</prop>
+			</props>
+		</property>	
+	</bean>
+	
+	
+
+	<util:list id="preloadCaches">
+		<value>org.hyperic.hq.authz.server.session.Resource</value>
+		<value>org.hyperic.hq.authz.server.session.ResourceType</value>
+	    <value>org.hyperic.hq.authz.server.session.ResourceGroup</value>
+	    <value>org.hyperic.hq.appdef.AgentType</value>
+	    <value>org.hyperic.hq.appdef.Agent</value>
+	    <value>org.hyperic.hq.appdef.server.session.PlatformType</value>
+	    <value>org.hyperic.hq.appdef.server.session.ServerType</value>
+	    <value>org.hyperic.hq.appdef.server.session.ServiceType</value>
+	    <value>org.hyperic.hq.appdef.server.session.Platform</value>
+	    <value>org.hyperic.hq.appdef.server.session.Server</value>
+		<value>org.hyperic.hq.appdef.server.session.Service</value>
+	    <value>org.hyperic.hq.measurement.server.session.Category</value>
+	    <value>org.hyperic.hq.measurement.server.session.MonitorableType</value>
+	    <value>org.hyperic.hq.measurement.server.session.ScheduleRevNum</value>
+	</util:list>
+
+	<util:list id="preregisterZevents">
+		<value>org.hyperic.hq.measurement.server.session.MeasurementZevent</value>
+		<value>org.hyperic.hq.zevents.HeartBeatZevent</value>
+	</util:list>
+	
+
+
+	<tx:annotation-driven />
+
+	<bean id="runtimeReportProcessor"
+		class="org.hyperic.hq.autoinventory.server.session.RuntimeReportProcessor"
+		scope="prototype" />
+
+	<bean class="org.hyperic.hq.appdef.server.session.ResourceTreeGenerator" />
+
+	<bean id="tweakProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean"
+		p:location="classpath:/tweak.properties" />
+
+
+	
+	<context:mbean-export />
+	<context:mbean-server />
+
+	<bean class="org.hyperic.hq.transport.util.AsynchronousInvoker">
+		<constructor-arg value="4" />
+	</bean>
+
+	<!--
+		This bean refers to various classes that should be loaded at startup.
+		Its only interest is loading the classes listed to have static blocks
+		in them executed (which typically register event types)
+	-->
+	<util:list id="triggers">
+		<bean class="org.hyperic.hq.bizapp.server.trigger.conditional.AlertTrigger" />
+		<bean class="org.hyperic.hq.bizapp.server.trigger.conditional.ConfigChangedTrigger" />
+		<bean class="org.hyperic.hq.bizapp.server.trigger.conditional.ValueChangeTrigger" />
+		<bean class="org.hyperic.hq.bizapp.server.trigger.conditional.ControlEventTrigger" />
+		<bean class="org.hyperic.hq.bizapp.server.trigger.conditional.CustomPropertyTrigger" />
+		<bean class="org.hyperic.hq.bizapp.server.trigger.conditional.LogEventTrigger" />
+		<bean class="org.hyperic.hq.bizapp.server.trigger.conditional.MeasurementThresholdTrigger" />
+		<bean class="org.hyperic.hq.bizapp.server.trigger.conditional.ValueChangeTrigger" />
+	</util:list>
+
+	<!--
+		This bean refers to various classes that should be loaded at startup.
+		Its only interest is loading the classes listed to have the
+		no-argument constructor called to do some initialization.
+	-->
+	<util:list id="actions">
+		<bean class="org.hyperic.hq.bizapp.server.action.integrate.OpenNMSAction" />
+	</util:list>
+	
+    <task:annotation-driven scheduler="scheduler"/>
+	<task:scheduler id="scheduler" pool-size="8"/>
+	
+    <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler" id="measurementEnablerExecutor" p:poolSize="2">
+        <property name="threadFactory">
+            <bean class="org.springframework.scheduling.concurrent.CustomizableThreadFactory" p:daemon="true">
+                <constructor-arg value="measurement-enabler-exec-"/>
+            </bean>
+        </property>
+    </bean>
+	
+    <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler" id="notificationFilterExecutor" p:poolSize="1">
+        <property name="threadFactory">
+            <bean class="org.springframework.scheduling.concurrent.CustomizableThreadFactory" p:daemon="true">
+                <constructor-arg value="notification-filter-exec-"/>
+            </bean>
+        </property>
+    </bean>
+	
+    <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler" id="notificationExecutor" p:poolSize="2">
+        <property name="threadFactory">
+            <bean class="org.springframework.scheduling.concurrent.CustomizableThreadFactory" p:daemon="true">
+                <constructor-arg value="notification-endpoint-exec-"/>
+            </bean>
+        </property>
+    </bean>
+	
+	<bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler" id="concurrentStatsScheduler" p:poolSize="2">
+		<property name="threadFactory">
+            <bean class="org.springframework.scheduling.concurrent.CustomizableThreadFactory" p:daemon="true">
+                <constructor-arg value="hqstats-sampler-"/>
+            </bean>
+		</property>
+	</bean>
+	
+	<!--  Executor that ControlManager uses to run tasks that wait for control action results -->
+	<task:executor id="controlExecutor" pool-size="1-5" queue-capacity="500" rejection-policy="CALLER_RUNS"/>
+
+	<bean class="org.hyperic.hq.application.Scheduler">
+		<constructor-arg value="10" />
+	</bean>
+
+    <bean class="org.hyperic.hq.common.Log4jWatcher">
+        <constructor-arg value="/log4j.xml"/>
+    </bean>
+
+</beans>

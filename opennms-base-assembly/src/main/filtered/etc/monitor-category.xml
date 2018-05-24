@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monitorCategory>
+	<monitorgroup label="Application Servers">
+        <server label="JBoss Server" name="JBoss" icon="icon_monitors_jboss.png"></server>
+        <server label="Java Runtime" name="Java" icon="icon_monitors_jdk.png"></server>
+        <server label="Tomcat Server" name="Tomcat" icon="icon_monitors_tomcat.png"></server>
+	</monitorgroup>
+
+	<monitorgroup label="Services">
+         <server label="Apache Spark Master" name="Spark" icon="icon_monitor_apache_spark.png"></server>
+         <server label="Apache Spark Worker" name="spark" icon="icon_monitor_apache_spark.png"></server>
+        <server label="Hadoop" name="Hadoop" icon="icon_monitor_hadoop.png"></server>
+        <server label="Apache Zookeeper" name="Zookeeper" icon="icon_zookeeper.png"></server>
+        <server label="Ping Monitor" name="Icmp" icon="icon_monitors_ping.png"></server>
+        <server label="SNMP/Network Device" name="SNMP" icon="icon_monitors_snmp.png"></server>
+	</monitorgroup>
+	
+   <monitorgroup label="Database Servers">
+        <server label="DB2" name="DB2" icon="icon_monitor_as400db2.png"></server>
+        <server label="HBase" name="HBase" icon="icon_monitor_hbase.png"></server>
+        <server label="Mysql" name="Mysql" icon="icon_monitors_mysql.gif"></server>
+        <server label="Memcached" name="Memcached" icon="icon_monitors_memcached.gif"></server>
+        <server label="MogoDB" name="MogoDB" icon="icon_monitor_mongodb.png"></server>
+        <server label="Memcached" name="Memcached" icon="icon_monitors_memcached.gif"></server>
+        <server label="Oracle" name="Oracle" icon="icon_monitors_oracle.gif"></server>
+        <server label="PostgreSQL" name="PostgreSQL" icon="icon_monitors_postgres.gif"></server>
+        <server label="Redis" name="Redis" icon="icon_redis.png"></server>
+	</monitorgroup>
+
+	<monitorgroup label="Web Server/Services">
+          <server label="Apache Server" name="ApacheServer" icon="icon_monitors_apache.gif"></server>
+          <server label="Apache Solr" name="Solr" icon="icon_monitor_apache_solr.png"></server>
+          <server label="Elasticsearch" name="Elasticsearch" icon="icon_monitors_elasticsearch.png"></server>
+          <server label="IIS Server" name="IIS" icon="icon_monitors_iis.gif"></server>
+          <server label="Nginx" name="Nginx" icon="icon_monitor_Nginx.gif"></server>
+          <server label="Http" name="Http" icon="icon_monitors_urlmonitor.png"></server>
+	</monitorgroup>
+	
+	<monitorgroup label="Servers">
+        <server label="Linux" name="Linux" icon="icon_monitors_linux.gif"></server>
+        <server label="Windows" name="Windows" icon="icon_monitors_windows.gif"></server>
+	</monitorgroup>
+
+	<monitorgroup label="Middleware/Portal">
+          <server label="Apache ActiveMQ" name="ActiveMQ" icon="apachemq.png"></server>
+          <server label="Apache Kafka" name="Kafka" icon="icon_kafka.png"></server>
+          <server label="RabbitMQ" name="RabbitMQ" icon="icon_rabbit_mq.gif"></server>     
+	</monitorgroup>
+	
+    <monitorgroup label="Virtualization">
+        <server label="Docker" name="Docker" icon="icon_docker.png"></server>
+        <server label="VCenter" name="VCenter" icon="icon_vcenter.gif"></server>
+	</monitorgroup>
+</monitorCategory>

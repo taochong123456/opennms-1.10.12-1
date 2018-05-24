@@ -1,0 +1,554 @@
+<?xml version="1.0"?>
+<jmx-datacollection-config rrdRepository="share/rrd/snmp/">
+	<jmx-collection name="jboss">
+		<rrd step="300">
+			<rra>RRA:AVERAGE:0.5:1:2016</rra>
+			<rra>RRA:AVERAGE:0.5:12:1488</rra>
+			<rra>RRA:AVERAGE:0.5:288:366</rra>
+			<rra>RRA:MAX:0.5:288:366</rra>
+			<rra>RRA:MIN:0.5:288:366</rra>
+		</rrd>
+		<mbeans>
+			<mbean name="SystemInfo" objectname="jboss.system:type=ServerInfo">
+				<attrib name="FreeMemory" alias="FreeMemory" type="gauge" />
+				<attrib name="TotalMemory" alias="TotalMemory" type="gauge" />
+			</mbean>
+			<mbean name="DefaultDSManagedConnectionPool"
+				objectname="jboss.jca:service=ManagedConnectionPool,name=DefaultDS">
+				<attrib name="AvailableConnectionCount" alias="DefDS_AvailConns"
+					type="gauge" />
+				<attrib name="ConnectionCount" alias="DefDS_Conns" type="gauge" />
+				<attrib name="InUseConnectionCount" alias="DefDS_InUseConns"
+					type="gauge" />
+				<attrib name="ConnectionCreatedCount" alias="DefDS_CreatedConns"
+					type="counter" />
+				<attrib name="ConnectionDestroyedCount" alias="DefDS_DestroyConns"
+					type="counter" />
+			</mbean>
+			<!-- JmsXA Connector Pool <mbean name="JmsXAManagedConnectionPool" objectname="jboss.jca:service=ManagedConnectionPool,name=JmsXA"> 
+				<attrib name="AvailableConnectionCount" alias="JmsXA_AvailConns" type="gauge"/> 
+				<attrib name="ConnectionCount" alias="JmsXA_Conns" type="gauge"/> <attrib 
+				name="InUseConnectionCount" alias="JmsXA_InUseConns" type="gauge"/> <attrib 
+				name="ConnectionCreatedCount" alias="JmsXA_CreatedConns" type="gauge"/> <attrib 
+				name="ConnectionDestroyedCount" alias="JmsXA_DestroyConns" type="gauge"/> 
+				</mbean -->
+			<!-- Destination Manager <mbean name="MQ_DestinationManager" objectname="jboss.mq:service=DestinationManager"> 
+				<attrib name="ClientCount" alias="MQ_ClientCount" type="gauge"/> </mbean -->
+			<!-- an example of a Queue <mbean name="MQ_DestinationQueueA" objectname="jboss.mq.destination:service=Queue,name=A"> 
+				<attrib name="QueueDepth" alias="A_QueueDepth" type="gauge"/> <attrib name="ReceiversCount" 
+				alias="A_QueueRecv" type="gauge"/> <attrib name="MaxDepth" alias="A_QueueMaxDepth" 
+				type="gauge"/> </mbean -->
+			<!-- an example of a Topic <mbean name="SecuredTopic" objectname="jboss.mq.destination:service=Topic,name=securedTopic"> 
+				<attrib name="DurableMessageCount" alias="ST_DurMsg" type="gauge"/> <attrib 
+				name="NonDurableMessageCount" alias="ST_NonDurMsg" type="gauge"/> <attrib 
+				name="NonDurableSubscriptionCount" alias="ST_NonDurSub" type="gauge"/> <attrib 
+				name="DurableSubscriptionCount" alias="ST_DurSub" type="gauge"/> <attrib 
+				name="AllMessageCount" alias="ST_AllMsg" type="gauge"/> <attrib name="MaxDepth" 
+				alias="ST_MaxDepth" type="gauge"/> <attrib name="AllSubscriptionsCount" alias="ST_AllSub" 
+				type="gauge"/> </mbean -->
+			<!-- Global Request Processor -->
+			<mbean name="GlobalRequestProcessor"
+				objectname="jboss.web:type=GlobalRequestProcessor,name=http-0.0.0.0-8080">
+				<attrib name="requestCount" alias="GRP_requests" type="counter" />
+				<attrib name="maxTime" alias="GRP_maxTime" type="gauge" />
+				<attrib name="bytesSent" alias="GRP_bytesSent" type="counter" />
+				<attrib name="bytesReceived" alias="GRP_bytesRec" type="counter" />
+				<attrib name="processingTime" alias="GRP_procTime" type="counter" />
+				<attrib name="errorCount" alias="GRP_errors" type="counter" />
+			</mbean>
+			<!-- Thread Pool -->
+			<mbean name="ThreadPool" objectname="jboss.web:type=ThreadPool,name=http-0.0.0.0-8080">
+				<attrib name="currentThreadsBusy" alias="BusyThreads" type="gauge" />
+				<attrib name="currentThreadCount" alias="Threads" type="gauge" />
+				<attrib name="minSpareThreads" alias="MinSpareThreads" type="gauge" />
+				<attrib name="maxSpareThreads" alias="MaxSpareThreads" type="gauge" />
+				<attrib name="maxThreads" alias="MaxThreads" type="gauge" />
+			</mbean>
+		</mbeans>
+	</jmx-collection>
+	<jmx-collection name="jsr160">
+		<rrd step="300">
+			<rra>RRA:AVERAGE:0.5:1:2016</rra>
+			<rra>RRA:AVERAGE:0.5:12:1488</rra>
+			<rra>RRA:AVERAGE:0.5:288:366</rra>
+			<rra>RRA:MAX:0.5:288:366</rra>
+			<rra>RRA:MIN:0.5:288:366</rra>
+		</rrd>
+		<mbeans>
+			<mbean name="OpenNMS Queued" objectname="OpenNMS:Name=Queued">
+				<attrib name="CreatesCompleted" alias="ONMSQueCreates" type="counter" />
+				<attrib name="DequeuedItems" alias="ONMSQueItemDeque" type="counter" />
+				<attrib name="DequeuedOperations" alias="ONMSQueDequeOps"
+					type="counter" />
+				<attrib name="EnqueuedOperations" alias="ONMSQueEnqueOps"
+					type="counter" />
+				<attrib name="Errors" alias="ONMSQueErrors" type="counter" />
+				<attrib name="PromotionCount" alias="ONMSQuePromo" type="counter" />
+				<attrib name="SignificantOpsCompleted" alias="ONMSQueSigOpsCompl"
+					type="counter" />
+				<attrib name="SignificantOpsDequeued" alias="ONMSQueSigOpsDeque"
+					type="counter" />
+				<attrib name="SignificantOpsEnqueued" alias="ONMSQueSigOpsEnque"
+					type="counter" />
+				<attrib name="TotalOperationsPending" alias="ONMSQueOpsPend"
+					type="gauge" />
+				<attrib name="UpdatesCompleted" alias="ONMSQueUpdates" type="counter" />
+			</mbean>
+			<mbean name="JVM Memory" objectname="java.lang:type=OperatingSystem">
+				<attrib name="FreePhysicalMemorySize" alias="FreeMemory"
+					type="gauge" />
+				<attrib name="TotalPhysicalMemorySize" alias="TotalMemory"
+					type="gauge" />
+				<attrib name="FreeSwapSpaceSize" alias="FreeSwapSpace" type="gauge" />
+				<attrib name="TotalSwapSpaceSize" alias="TotalSwapSpace"
+					type="gauge" />
+			</mbean>
+			<mbean name="JVM Threading" objectname="java.lang:type=Threading">
+				<attrib name="ThreadCount" alias="ThreadCount" type="gauge" />
+				<attrib name="PeakThreadCount" alias="PeakThreadCount" type="gauge" />
+				<attrib name="DaemonThreadCount" alias="DaemonThreadCount"
+					type="gauge" />
+				<attrib name="CurrentThreadCpuTime" alias="CurThreadCpuTime"
+					type="gauge" />
+			</mbean>
+			<mbean name="JVM ClassLoading" objectname="java.lang:type=ClassLoading">
+				<attrib name="TotalLoadedClassCount" alias="TotLoadedClasses"
+					type="gauge" />
+				<attrib name="LoadedClassCount" alias="LoadedClasses" type="gauge" />
+				<attrib name="UnloadedClassCount" alias="UnloadedClass" type="gauge" />
+			</mbean>
+			<mbean name="JVM MemoryPool:Eden Space" objectname="java.lang:type=MemoryPool,name=Eden Space">
+				<attrib name="CollectionUsageThreshold" alias="EdenCollUseThrsh"
+					type="gauge" />
+				<attrib name="CollectionUsageThresholdCount" alias="EdenCollUseThrshCnt"
+					type="gauge" />
+				<comp-attrib name="Usage" type="Composite" alias="EdenUsage">
+					<comp-member name="init" type="gauge" alias="EdenUsage.init" />
+					<comp-member name="max" type="gauge" alias="EdenUsage.max" />
+					<comp-member name="used" type="gauge" alias="EdenUsage.used" />
+					<comp-member name="committed" type="gauge" alias="EdenUsg.cmmttd" />
+				</comp-attrib>
+				<comp-attrib name="PeakUsage" type="Composite" alias="EdenPeakUsage">
+					<comp-member name="init" type="gauge" alias="EdenPeakUsage.init" />
+					<comp-member name="max" type="gauge" alias="EdenPeakUsage.max" />
+					<comp-member name="used" type="gauge" alias="EdenPeakUsage.used" />
+					<comp-member name="committed" type="gauge" alias="EdenPeakUsg.cmmttd" />
+				</comp-attrib>
+			</mbean>
+			<mbean name="JVM MemoryPool:Survivor Space" objectname="java.lang:type=MemoryPool,name=Survivor Space">
+				<attrib name="CollectionUsageThreshold" alias="SurvCollUseThresh"
+					type="gauge" />
+				<attrib name="CollectionUsageThresholdCount" alias="SurvCollUseThrshCnt"
+					type="gauge" />
+				<comp-attrib name="Usage" type="Composite" alias="SurvUsage">
+					<comp-member name="init" type="gauge" alias="SurvUsage.init" />
+					<comp-member name="max" type="gauge" alias="SurvUsage.max" />
+					<comp-member name="used" type="gauge" alias="SurvUsage.used" />
+					<comp-member name="committed" type="gauge" alias="SurvUsg.cmmttd" />
+				</comp-attrib>
+				<comp-attrib name="PeakUsage" type="Composite" alias="SurvPeakUsage">
+					<comp-member name="init" type="gauge" alias="SurvPeakUsage.init" />
+					<comp-member name="max" type="gauge" alias="SurvPeakUsage.max" />
+					<comp-member name="used" type="gauge" alias="SurvPeakUsage.used" />
+					<comp-member name="committed" type="gauge" alias="SurvPeakUsg.cmmttd" />
+				</comp-attrib>
+			</mbean>
+			<mbean name="JVM MemoryPool:Perm Gen" objectname="java.lang:type=MemoryPool,name=Perm Gen">
+				<attrib name="CollectionUsageThreshold" alias="PermCollUseThresh"
+					type="gauge" />
+				<attrib name="CollectionUsageThresholdCount" alias="PermCollUseThrshCnt"
+					type="gauge" />
+				<comp-attrib name="Usage" type="Composite" alias="PermUsage">
+					<comp-member name="init" type="gauge" alias="PermUsage.init" />
+					<comp-member name="max" type="gauge" alias="PermUsage.max" />
+					<comp-member name="used" type="gauge" alias="PermUsage.used" />
+					<comp-member name="committed" type="gauge" alias="PermUsg.cmmttd" />
+				</comp-attrib>
+			</mbean>
+			<mbean name="JVM MemoryPool:Old Gen" objectname="java.lang:type=MemoryPool,name=Old Gen">
+				<attrib name="CollectionUsageThreshold" alias="OGenCollUseThresh"
+					type="gauge" />
+				<attrib name="CollectionUsageThresholdCount" alias="OGenCollUseThrshCnt"
+					type="gauge" />
+				<comp-attrib name="Usage" type="Composite" alias="OGenUsage">
+					<comp-member name="init" type="gauge" alias="OGenUsage.init" />
+					<comp-member name="max" type="gauge" alias="OGenUsage.max" />
+					<comp-member name="used" type="gauge" alias="OGenUsage.used" />
+					<comp-member name="committed" type="gauge" alias="OGenUsg.cmmttd" />
+				</comp-attrib>
+			</mbean>
+
+			<mbean name="JVM GarbageCollector:Copy" objectname="java.lang:type=GarbageCollector,name=Copy">
+				<attrib name="CollectionCount" alias="Copy.CollCnt" type="counter" />
+				<attrib name="CollectionTime" alias="Copy.CollTime" type="counter" />
+				<comp-attrib name="LastGcInfo" type="Composite" alias="Copy.LastGcInfo">
+					<comp-member name="GcThreadCount" type="gauge"
+						alias="Copy.GcThreadCnt" />
+					<comp-member name="duration" type="gauge" alias="Copy.Duration" />
+					<comp-member name="endTime" type="gauge" alias="Copy.EndTime" />
+				</comp-attrib>
+			</mbean>
+			<mbean name="JVM GarbageCollector:MarkSweepCompact"
+				objectname="java.lang:type=GarbageCollector,name=MarkSweepCompact">
+				<attrib name="CollectionCount" alias="MSC.CollCnt" type="counter" />
+				<attrib name="CollectionTime" alias="MSC.CollTime" type="counter" />
+				<comp-attrib name="LastGcInfo" type="Composite" alias="MSC.LastGcInfo">
+					<comp-member name="GcThreadCount" type="gauge"
+						alias="MSC.GcThreadCnt" />
+					<comp-member name="duration" type="gauge" alias="MSC.Duration" />
+					<comp-member name="endTime" type="gauge" alias="MSC.EndTime" />
+				</comp-attrib>
+			</mbean>
+			<mbean name="JVM GarbageCollector:ParNew" objectname="java.lang:type=GarbageCollector,name=ParNew">
+				<attrib name="CollectionCount" alias="ParNew.CollCnt" type="counter" />
+				<attrib name="CollectionTime" alias="ParNew.CollTime" type="counter" />
+				<comp-attrib name="LastGcInfo" type="Composite" alias="ParNew.LastGcInfo">
+					<comp-member name="GcThreadCount" type="gauge"
+						alias="ParNew.GcThreadCnt" />
+					<comp-member name="duration" type="gauge" alias="ParNew.Duration" />
+					<comp-member name="endTime" type="gauge" alias="ParNew.EndTime" />
+				</comp-attrib>
+			</mbean>
+			<mbean name="JVM GarbageCollector:ConcurrentMarkSweep"
+				objectname="java.lang:type=GarbageCollector,name=ConcurrentMarkSweep">
+				<attrib name="CollectionCount" alias="CMS.CollCnt" type="counter" />
+				<attrib name="CollectionTime" alias="CMS.CollTime" type="counter" />
+				<comp-attrib name="LastGcInfo" type="Composite" alias="CMS.LastGcInfo">
+					<comp-member name="GcThreadCount" type="gauge"
+						alias="CMS.GcThreadCnt" />
+					<comp-member name="duration" type="gauge" alias="CMS.Duration" />
+					<comp-member name="endTime" type="gauge" alias="CMS.EndTime" />
+				</comp-attrib>
+			</mbean>
+			<mbean name="JVM GarbageCollector:PS MarkSweep" objectname="java.lang:type=GarbageCollector,name=PS MarkSweep">
+				<attrib name="CollectionCount" alias="PSMS.CollCnt" type="counter" />
+				<attrib name="CollectionTime" alias="PSMS.CollTime" type="counter" />
+				<comp-attrib name="LastGcInfo" type="Composite" alias="PSMS.LastGcInfo">
+					<comp-member name="GcThreadCount" type="gauge"
+						alias="PSMS.GcThreadCnt" />
+					<comp-member name="duration" type="gauge" alias="PSMS.Duration" />
+					<comp-member name="endTime" type="gauge" alias="PSMS.EndTime" />
+				</comp-attrib>
+			</mbean>
+			<mbean name="JVM GarbageCollector:PS Scavenge" objectname="java.lang:type=GarbageCollector,name=PS Scavenge">
+				<attrib name="CollectionCount" alias="PSS.CollCnt" type="counter" />
+				<attrib name="CollectionTime" alias="PSS.CollTime" type="counter" />
+				<comp-attrib name="LastGcInfo" type="Composite" alias="PSS.LastGcInfo">
+					<comp-member name="GcThreadCount" type="gauge"
+						alias="PSS.GcThreadCnt" />
+					<comp-member name="duration" type="gauge" alias="PSS.Duration" />
+					<comp-member name="endTime" type="gauge" alias="PSS.EndTime" />
+				</comp-attrib>
+			</mbean>
+
+		</mbeans>
+	</jmx-collection>
+
+
+	<jmx-collection name="HBase">
+		<rrd step="300">
+			<rra>RRA:AVERAGE:0.5:1:2016</rra>
+			<rra>RRA:AVERAGE:0.5:12:1488</rra>
+			<rra>RRA:AVERAGE:0.5:288:366</rra>
+			<rra>RRA:MAX:0.5:288:366</rra>
+			<rra>RRA:MIN:0.5:288:366</rra>
+		</rrd>
+		<mbeans>
+			<mbean name="HBase ThreadMetrics" objectname="Hadoop:service=HBase,name=JvmMetrics">
+				<attrib name="ThreadsTimedWaiting" alias="ThreadsTimedWaiting"
+					type="gauge" />
+				<attrib name="ThreadsWaiting" alias="ThreadsWaiting" type="gauge" />
+				<attrib name="ThreadsBlocked" alias="ThreadsBlocked" type="gauge" />
+				<attrib name="ThreadsRunnable" alias="ThreadsRunnable" type="gauge" />
+				<attrib name="MemMaxM" alias="MemMaxM" type="gauge" />
+				<attrib name="MemHeapUsedM" alias="MemHeapUsedM" type="gauge" />
+				<attrib name="MemHeapCommittedM" alias="MemHeapCommittedM" type="gauge" />
+				<attrib name="GcCount" alias="GcCount" type="gauge" />
+				<attrib name="FreePhysicalMemorySize" alias="FreePhysicalMemorySize" type="gauge" />
+				<attrib name="FreeSwapSpaceSize" alias="FreeSwapSpaceSize" type="gauge" />
+				<attrib name="TotalPhysicalMemorySize" alias="TotalPhysicalMemorySize" type="gauge" />
+				<attrib name="TotalSwapSpaceSize" alias="TotalSwapSpaceSize" type="gauge" />
+				<attrib name="CommittedVirtualMemorySize" alias="CommittedVirtualMemorySize" type="gauge" />
+				<attrib name="BootClassPath" alias="BootClassPath" type="String" />
+				<attrib name="ClassPath" alias="ClassPath" type="String" />
+				<attrib name="SpecVendor" alias="SpecVendor" type="String" />
+				<attrib name="SpecVersion" alias="SpecVersion" type="String" />
+				<attrib name="VmName" alias="VmName" type="String" />
+				<attrib name="VmVendor" alias="VmVendor" type="String" />
+				<attrib name="blockCacheCount" alias="blockCacheCount" type="gauge" />
+				<attrib name="blockCacheEvictionCount" alias="blockCacheEvictionCount" type="gauge" />
+				<attrib name="blockCacheFreeSize" alias="blockCacheFreeSize" type="gauge" />
+				<attrib name="blockCacheExpressHitPercent" alias="blockCacheExpressHitPercent" type="gauge" />
+				<attrib name="blockCacheHitCount" alias="blockCacheHitCount" type="gauge" />
+				<attrib name="blockCacheCountHitPercent" alias="blockCacheCountHitPercent" type="gauge" />
+				<attrib name="blockCacheMissCount" alias="blockCacheMissCount" type="gauge" />
+				<attrib name="blockCacheSize" alias="blockCacheSize" type="gauge" />
+				<attrib name="slowAppendCount" alias="slowAppendCount" type="gauge" />
+				<attrib name="slowGetCount" alias="slowGetCount" type="gauge" />
+				<attrib name="slowPutCount" alias="slowPutCount" type="gauge" />
+				<attrib name="slowIncrementCount" alias="slowIncrementCount" type="gauge" />
+				<attrib name="slowDeleteCount" alias="slowDeleteCount" type="gauge" />
+				<attrib name="metric_storeCount" alias="metric_storeCount" type="gauge" />
+				<attrib name="metric_storeFileCount" alias="metric_storeFileCount" type="gauge" />
+				<attrib name="metric_memStoreSize" alias="metric_memStoreSize" type="gauge" />
+				<attrib name="metric_storeFileSize" alias="metric_storeFileSize" type="gauge" />
+				<attrib name="metric_compactionsCompletedCount" alias="metric_compactionsCompletedCount" type="gauge" />
+				<attrib name="metric_numBytesCompactedCount" alias="metric_numBytesCompactedCount" type="gauge" />
+				<attrib name="metric_numFilesCompactedCount" alias="metric_numFilesCompactedCount" type="gauge" />
+				<attrib name="metric_deleteCount" alias="metric_deleteCount" type="gauge" />
+				<attrib name="metric_incrementCount" alias="metric_incrementCount" type="gauge" />
+				<attrib name="metric_appendCount" alias="metric_appendCount" type="gauge" />
+				<attrib name="metric_scanNext_num_ops" alias="metric_scanNext_num_ops" type="gauge" />
+				<attrib name="metric_scanNext_min" alias="metric_scanNext_min" type="gauge" />
+				<attrib name="metric_scanNext_max" alias="metric_scanNext_max" type="gauge" />
+				<attrib name="metric_scanNext_mean" alias="metric_scanNext_mean" type="gauge" />
+				<attrib name="metric_scanNext_median" alias="metric_scanNext_median" type="gauge" />
+				<attrib name="metric_mutateCount" alias="metric_mutateCount" type="gauge" />
+				<attrib name="metric_get_num_ops" alias="metric_get_num_ops" type="gauge" />
+				<attrib name="metric_get_min" alias="metric_get_min" type="gauge" />
+				<attrib name="metric_get_max" alias="metric_get_max" type="gauge" />
+				<attrib name="metric_get_mean" alias="metric_get_mean" type="gauge" />
+				<attrib name="metric_get_median" alias="metric_get_median" type="gauge" />
+				<attrib name="tag.liveRegionServers" alias="tag.liveRegionServers" type="gauge" />
+				<attrib name="tag.deadRegionServers" alias="tag.deadRegionServers" type="gauge" />
+				<attrib name="ritCount" alias="ritCount" type="gauge" />
+				<attrib name="ritCountOverThreshold" alias="ritCountOverThreshold" type="gauge" />
+				<attrib name="HlogSplitTime_mean" alias="HlogSplitTime_mean" type="gauge" />
+				<attrib name="HlogSplitTime_min" alias="HlogSplitTime_min" type="gauge" />
+				<attrib name="HlogSplitTime_max" alias="HlogSplitTime_max" type="gauge" />
+				<attrib name="HlogSplitTime_num_ops" alias="HlogSplitTime_num_ops" type="gauge" />
+				<attrib name="HlogSplitSize_mean" alias="HlogSplitSize_mean" type="gauge" />
+				<attrib name="HlogSplitSize_min" alias="HlogSplitSize_min" type="gauge" />
+				<attrib name="HlogSplitSize_max" alias="HlogSplitSize_max" type="gauge" />
+				<attrib name="HlogSplitSize_num_ops" alias="HlogSplitSize_num_ops" type="gauge" />
+				<attrib name="averageLoad" alias="averageLoad" type="gauge" />
+				<attrib name="numDeadRegionServers" alias="numDeadRegionServers" type="gauge" />
+				<attrib name="numRegionServers" alias="numRegionServers" type="gauge" />
+				<attrib name="clusterRequests" alias="clusterRequests" type="gauge" />
+				<attrib name="receivedBytes" alias="receivedBytes" type="gauge" />
+				<attrib name="numOpenConnections" alias="numOpenConnections" type="gauge" />
+				<attrib name="TotalCallTime_num_ops" alias="TotalCallTime_num_ops" type="gauge" />
+				<attrib name="numActiveHandler" alias="numActiveHandler" type="gauge" />
+				<attrib name="numCallsInReplicationQueue" alias="numCallsInReplicationQueue" type="gauge" />
+			</mbean>
+		</mbeans>
+	</jmx-collection>
+
+
+	<jmx-collection name="Kafka">
+		<rrd step="300">
+			<rra>RRA:AVERAGE:0.5:1:2016</rra>
+			<rra>RRA:AVERAGE:0.5:12:1488</rra>
+			<rra>RRA:AVERAGE:0.5:288:366</rra>
+			<rra>RRA:MAX:0.5:288:366</rra>
+			<rra>RRA:MIN:0.5:288:366</rra>
+		</rrd>
+		<mbeans>
+			<mbean name="Kafka OperatingSystem" objectname="java.lang:type=OperatingSystem">
+				<attrib name="FreePhysicalMemorySize" alias="FreePhysicalMemorySize"
+					type="gauge" />
+				<attrib name="FreeSwapSpaceSize" alias="FreeSwapSpaceSize"
+					type="gauge" />
+				<attrib name="TotalPhysicalMemorySize" alias="TotalPhysicalMemorySize"
+					type="gauge" />
+				<attrib name="TotalSwapSpaceSize" alias="TotalSwapSpaceSize"
+					type="counter" />
+				<attrib name="CommittedVirtualMemorySize" alias="CommittedVirtualMemorySize"
+					type="counter" />
+			</mbean>
+			<mbean name="Kafka RunTime" objectname="java.lang:type=Runtime">
+				<attrib name="BootClassPath" alias="BootClassPath" type="gauge" />
+				<attrib name="ClassPath" alias="ClassPath" type="gauge" />
+				<attrib name="SpecVendor" alias="SpecVendor" type="gauge" />
+				<attrib name="SpecVersion" alias="SpecVersion" type="counter" />
+				<attrib name="VmName" alias="VmName" type="counter" />
+				<attrib name="VmVendor" alias="VmVendor" type="counter" />
+			</mbean>
+			<mbean name="Kafka RunTime" objectname="java.lang:type=Runtime">
+				<attrib name="BootClassPath" alias="BootClassPath" type="gauge" />
+				<attrib name="ClassPath" alias="ClassPath" type="gauge" />
+				<attrib name="SpecVendor" alias="SpecVendor" type="gauge" />
+				<attrib name="SpecVersion" alias="SpecVersion" type="counter" />
+				<attrib name="VmName" alias="VmName" type="counter" />
+				<attrib name="VmVendor" alias="VmVendor" type="counter" />
+			</mbean>
+			<mbean name="Kafka RunTime" objectname="java.lang:type=Runtime">
+				<attrib name="BootClassPath" alias="BootClassPath" type="gauge" />
+				<attrib name="ClassPath" alias="ClassPath" type="gauge" />
+				<attrib name="SpecVendor" alias="SpecVendor" type="gauge" />
+				<attrib name="SpecVersion" alias="SpecVersion" type="counter" />
+				<attrib name="VmName" alias="VmName" type="counter" />
+				<attrib name="VmVendor" alias="VmVendor" type="counter" />
+			</mbean>
+			<mbean name="Kafka IsrExpandsPerSec"
+				objectname="kafka.server:type=ReplicaManager,name=IsrExpandsPerSec">
+				<attrib name="server_ReplicaManager_IsrExpandsPerSec" alias="server_ReplicaManager_IsrExpandsPerSec"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka IsrShrinksPerSec"
+				objectname="kafka.server:type=ReplicaManager,name=IsrShrinksPerSec">
+				<attrib name="server_ReplicaManager_IsrShrinksPerSec" alias="server_ReplicaManager_IsrShrinksPerSec"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka BytesInPerSec"
+				objectname="kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec">
+				<attrib name="server_BrokerTopicMetrics_BytesInPerSec" alias="server_BrokerTopicMetrics_BytesInPerSec"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka BytesOutPerSec"
+				objectname="kafka.server:type=BrokerTopicMetrics,name=BytesOutPerSec">
+				<attrib name="server_BrokerTopicMetrics_BytesOutPerSec"
+					alias="server_BrokerTopicMetrics_BytesOutPerSec" type="gauge" />
+			</mbean>
+			<mbean name="Kafka BytesRejectedPerSec"
+				objectname="kafka.server:type=BrokerTopicMetrics,name=BytesRejectedPerSec">
+				<attrib name="server_BrokerTopicMetrics_BytesRejectedPerSec"
+					alias="server_BrokerTopicMetrics_BytesRejectedPerSec" type="gauge" />
+			</mbean>
+			<mbean name="Kafka FailedFetchRequestsPerSec"
+				objectname="kafka.server:type=BrokerTopicMetrics,name=FailedFetchRequestsPerSec">
+				<attrib name="server_BrokerTopicMetrics_FailedFetchRequestsPerSec"
+					alias="server_BrokerTopicMetrics_FailedFetchRequestsPerSec" type="gauge" />
+			</mbean>
+			<mbean name="Kafka FailedProduceRequestsPerSec"
+				objectname="kafka.server:type=BrokerTopicMetrics,name=FailedProduceRequestsPerSec">
+				<attrib name="server_BrokerTopicMetrics_FailedProduceRequestsPerSec"
+					alias="server_BrokerTopicMetrics_FailedProduceRequestsPerSec" type="gauge" />
+			</mbean>
+			<mbean name="Kafka MessagesInPerSec"
+				objectname="kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec">
+				<attrib name="server_BrokerTopicMetrics_MessagesInPerSec"
+					alias="server_BrokerTopicMetrics_MessagesInPerSec" type="gauge" />
+			</mbean>
+			<mbean name="Kafka RequestHandlerAvgIdlePercent"
+				objectname="kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent">
+				<attrib
+					name="server_KafkaRequestHandlerPool_RequestHandlerAvgIdlePercent"
+					alias="server_KafkaRequestHandlerPool_RequestHandlerAvgIdlePercent"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka Produce"
+				objectname="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=Produce">
+				<attrib name="network_RequestsPerSec_Produce" alias="network_RequestsPerSec_Produce"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka FetchConsumer"
+				objectname="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=FetchConsumer">
+				<attrib name="network_RequestsPerSec_FetchConsumer" alias="network_RequestsPerSec_FetchConsumer"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka FetchFollower"
+				objectname="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=FetchFollower">
+				<attrib name="network_RequestsPerSec_FetchFollower" alias="network_RequestsPerSec_FetchFollower"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka Produce"
+				objectname="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=Produce">
+				<attrib name="network_TotalTimeMs_Produce" alias="network_TotalTimeMs_Produce"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka FetchConsumer"
+				objectname="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=FetchConsumer">
+				<attrib name="network_TotalTimeMs_FetchConsumer" alias="network_TotalTimeMs_FetchConsumer"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka FetchFollower"
+				objectname="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=FetchFollower">
+				<attrib name="network_TotalTimeMs_FetchFollower" alias="network_TotalTimeMs_FetchFollower"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka NetworkProcessorAvgIdlePercent"
+				objectname="kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent">
+				<attrib name="network_SocketServer_NetworkProcessorAvgIdlePercent"
+					alias="network_SocketServer_NetworkProcessorAvgIdlePercent" type="gauge" />
+			</mbean>
+			<mbean name="Kafka LeaderElectionRateAndTimeMs"
+				objectname="kafka.controller:type=ControllerStats,name=LeaderElectionRateAndTimeMs">
+				<attrib name="controller_ControllerStats_LeaderElectionRateAndTimeMs"
+					alias="controller_ControllerStats_LeaderElectionRateAndTimeMs"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka UncleanLeaderElectionsPerSec"
+				objectname="kafka.controller:type=ControllerStats,name=UncleanLeaderElectionsPerSec">
+				<attrib name="controller_ControllerStats_UncleanLeaderElectionsPerSec"
+					alias="controller_ControllerStats_UncleanLeaderElectionsPerSec"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka LogFlushRateAndTimeMs"
+				objectname="kafka.log:type=LogFlushStats,name=LogFlushRateAndTimeMs">
+				<attrib name="log_LogFlushStats_LogFlushRateAndTimeMs" alias="log_LogFlushStats_LogFlushRateAndTimeMs"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka LeaderCount" objectname="kafka.server:type=ReplicaManager,name=LeaderCount">
+				<attrib name="server_ReplicaManager_LeaderCount" alias="server_ReplicaManager_LeaderCount"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka PartitionCount"
+				objectname="kafka.server:type=ReplicaManager,name=PartitionCount">
+				<attrib name="server_ReplicaManager_PartitionCount" alias="server_ReplicaManager_PartitionCount"
+					type="gauge" />
+			</mbean>
+			<mbean name="Kafka UnderReplicatedPartitions"
+				objectname="kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions">
+				<attrib name="server_ReplicaManager_UnderReplicatedPartitions"
+					alias="server_ReplicaManager_UnderReplicatedPartitions" type="gauge" />
+			</mbean>
+			<mbean name="Kafka ActiveControllerCount"
+				objectname="kafka.controller:type=KafkaController,name=ActiveControllerCount">
+				<attrib name="controller_KafkaController_ActiveControllerCount"
+					alias="controller_KafkaController_ActiveControllerCount" type="gauge" />
+			</mbean>
+			<mbean name="Kafka OfflinePartitionsCount"
+				objectname="kafka.controller:type=KafkaController,name=OfflinePartitionsCount">
+				<attrib name="controller_KafkaController_OfflinePartitionsCount"
+					alias="controller_KafkaController_OfflinePartitionsCount" type="gauge" />
+			</mbean>
+			<mbean name="Kafka PreferredReplicaImbalanceCount"
+				objectname="kafka.controller:type=KafkaController,name=PreferredReplicaImbalanceCount">
+				<attrib name="controller_KafkaController_PreferredReplicaImbalanceCount"
+					alias="controller_KafkaController_PreferredReplicaImbalanceCount"
+					type="gauge" />
+			</mbean>
+		</mbeans>
+	</jmx-collection>
+	
+	
+	<jmx-collection name="Zookeeper">
+		<rrd step="300">
+			<rra>RRA:AVERAGE:0.5:1:2016</rra>
+			<rra>RRA:AVERAGE:0.5:12:1488</rra>
+			<rra>RRA:AVERAGE:0.5:288:366</rra>
+			<rra>RRA:MAX:0.5:288:366</rra>
+			<rra>RRA:MIN:0.5:288:366</rra>
+		</rrd>
+		<mbeans>
+			<mbean name="allAttrs" objectname="">
+				<attrib name="LastZxid" alias="LastZxid" type="String" />
+				<attrib name="OutstandingRequests" alias="OutstandingRequests" type="gauge" />
+				<attrib name="FreeSwapSpaceSize" alias="FreeSwapSpaceSize" type="gauge" />
+				<attrib name="WatchCount" alias="WatchCount" type="gauge" />
+				<attrib name="DaemonThreadCount" alias="DaemonThreadCount" type="gauge" />
+				<attrib name="HeapMemoryUsage_used" alias="HeapMemoryUsage_used" type="gauge" />
+				<attrib name="InitLimit" alias="InitLimit" type="gauge" />
+				<attrib name="HeapMemoryUsage_init" alias="HeapMemoryUsage_init" type="gauge" />
+				<attrib name="TotalStartedThreadCount" alias="TotalStartedThreadCount" type="gauge" />
+				<attrib name="MaxClientCnxnsPerHost" alias="MaxClientCnxnsPerHost" type="gauge" />
+				<attrib name="NodeCount" alias="NodeCount" type="gauge" />
+				<attrib name="approximateDataSize" alias="approximateDataSize" type="gauge" />
+				<attrib name="MinSessionTimeout" alias="MinSessionTimeout" type="gauge" />
+				<attrib name="StartTime" alias="StartTime" type="String" />
+				<attrib name="MaxSessionTimeout" alias="MaxSessionTimeout" type="gauge" />
+				<attrib name="QuorumAddress" alias="QuorumAddress" type="String" />
+				<attrib name="TickTime" alias="TickTime" type="gauge" />
+				<attrib name="AvgRequestLatency" alias="AvgRequestLatency" type="gauge" />
+				<attrib name="ClientPort" alias="ClientPort" type="string" />
+				<attrib name="SyncLimit" alias="SyncLimit" type="gauge" />
+				<attrib name="Tick" alias="Tick" type="gauge" />
+				<attrib name="Name" alias="Name" type="String" />
+				<attrib name="MinRequestLatency" alias="MinRequestLatency" type="gauge" />
+				<attrib name="NumAliveConnections" alias="NumAliveConnections" type="gauge" />
+			</mbean>
+		</mbeans>
+	</jmx-collection>
+
+</jmx-datacollection-config>

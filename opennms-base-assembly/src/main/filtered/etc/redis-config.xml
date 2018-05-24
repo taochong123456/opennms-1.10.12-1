@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<redis-config>
+   <authen ip="" port=""/>
+</redis-config>
+

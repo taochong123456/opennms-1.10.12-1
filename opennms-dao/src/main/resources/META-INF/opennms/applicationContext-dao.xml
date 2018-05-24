@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:onmsgi="http://xmlns.opennms.org/xsd/spring/onms-osgi"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+       http://xmlns.opennms.org/xsd/spring/onms-osgi http://xmlns.opennms.org/xsd/spring/onms-osgi.xsd
+       ">
+
+  <context:annotation-config />
+  
+  <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    <property name="location" value="file:${opennms.home}/etc/model-importer.properties" />
+  </bean>
+  
+  <!-- 
+    DataSourceFactory has been changed to return TransactionAwareDataSources so
+    legacy code can participate in transactions properly.
+  -->
+  <bean id="dataSource" class="org.opennms.netmgt.config.DataSourceFactoryBean" />
+
+  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+
+  <bean id="timeKeeper" class="org.opennms.core.utils.DefaultTimeKeeper" />
+
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="packagesToScan">
+      <list>
+        <value>org.opennms.netmgt.dao.hibernate</value>
+        <value>org.opennms.netmgt.model</value>
+      </list>
+    </property>
+    <!--  property name="schemaUpdate" value="true">
+      </property -->
+    <property name="annotatedPackages">
+      <list>
+        <value>org.opennms.netmgt.dao.hibernate</value>
+        <value>org.opennms.netmgt.model</value>
+      </list>
+    </property>
+    <property name="mappingLocations" value="classpath:/hibernate/**/*.hbm.xml" />
+    <property name="hibernateProperties">
+      <value>
+        hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+        hibernate.cache.use_second_level_cache=false
+        hibernate.cache=false
+        hibernate.cache.use_query_cache=false
+        hibernate.jdbc.batch_size=0
+        <!-- hibernate.format_sql=true -->
+      </value>
+    </property>
+  </bean>
+
+  <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+    <property name="nestedTransactionAllowed" value="true"/>
+  </bean>
+
+  <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+    <property name="transactionManager" ref="transactionManager" />
+  </bean>
+
+	<bean id="jasyptConfiguration" scope="prototype" class="org.hyperic.util.security.StrictEnvironmentPBEConfig">
+        <property name="algorithm" value="PBEWithMD5AndDES" />
+        <property name="password" value="a3f4b85471ee" />
+        <property name="passwordSysPropertyName" value="server.encryption-key" />
+        <property name="poolSize" value="5"  /> 
+    </bean>
+   <bean id="markedStringEncryptor" class="org.hyperic.util.security.MarkedStringEncryptor">
+        <property name="config" ref="jasyptConfiguration" />
+    </bean>
+  
+    <bean id="hibernateStringEncryptor" class="org.jasypt.hibernate.encryptor.HibernatePBEStringEncryptor" lazy-init="false">
+        <property name="registeredName">
+            <value>markedStringEncryptorHibernateWrapper</value>
+        </property>
+        <property name="encryptor">
+            <ref bean="markedStringEncryptor" />
+        </property>
+    </bean> 
+
+
+  
+  <bean id="filterManager" class="org.opennms.netmgt.dao.hibernate.HibernateFilterManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="acknowledgmentDao" class="org.opennms.netmgt.dao.hibernate.AcknowledgmentDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="alarmDao" class="org.opennms.netmgt.dao.hibernate.AlarmDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="memoDao" class="org.opennms.netmgt.dao.hibernate.MemoDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="assetRecordDao" class="org.opennms.netmgt.dao.hibernate.AssetRecordDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="categoryDao" class="org.opennms.netmgt.dao.hibernate.CategoryDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="distPollerDao" class="org.opennms.netmgt.dao.hibernate.DistPollerDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="demandPollDao" class="org.opennms.netmgt.dao.hibernate.DemandPollDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="eventDao" class="org.opennms.netmgt.dao.hibernate.EventDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="ipInterfaceDao" class="org.opennms.netmgt.dao.hibernate.IpInterfaceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="monitoredServiceDao" class="org.opennms.netmgt.dao.hibernate.MonitoredServiceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="nodeDao" class="org.opennms.netmgt.dao.hibernate.NodeDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="linkStateDao" class="org.opennms.netmgt.dao.hibernate.LinkStateDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="reportCatalogDao" class="org.opennms.netmgt.dao.hibernate.ReportCatalogDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="notificationDao" class="org.opennms.netmgt.dao.hibernate.NotificationDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="outageDao" class="org.opennms.netmgt.dao.hibernate.OutageDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="serviceTypeDao" class="org.opennms.netmgt.dao.hibernate.ServiceTypeDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="snmpInterfaceDao" class="org.opennms.netmgt.dao.hibernate.SnmpInterfaceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="userNotificationDao" class="org.opennms.netmgt.dao.hibernate.UserNotificationDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="atInterfaceDao" class="org.opennms.netmgt.dao.hibernate.AtInterfaceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="vlanDao" class="org.opennms.netmgt.dao.hibernate.VlanDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="stpNodeDao" class="org.opennms.netmgt.dao.hibernate.StpNodeDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="stpInterfaceDao" class="org.opennms.netmgt.dao.hibernate.StpInterfaceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="ipRouteInterfaceDao" class="org.opennms.netmgt.dao.hibernate.IpRouteInterfaceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <!--
+  <bean id="userDao" class="org.opennms.netmgt.dao.hibernate.UserDaoHibernate" >
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+ 
+  <bean id="groupDao" class="org.opennms.netmgt.dao.hibernate.GroupDaoHibernate" >
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  -->
+ 
+  <bean id="applicationDao" class="org.opennms.netmgt.dao.hibernate.ApplicationDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="statisticsReportDao" class="org.opennms.netmgt.dao.hibernate.StatisticsReportDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="statisticsReportDataDao" class="org.opennms.netmgt.dao.hibernate.StatisticsReportDataDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="resourceReferenceDao" class="org.opennms.netmgt.dao.hibernate.ResourceReferenceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="locationMonitorConfigResourceLocation" class="java.lang.String">
+    <constructor-arg value="file:${opennms.home}/etc/monitoring-locations.xml" />
+  </bean>
+
+  <bean id="locationMonitorDao" class="org.opennms.netmgt.dao.hibernate.LocationMonitorDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+    <property name="monitoringLocationConfigResource" ref="locationMonitorConfigResourceLocation" />
+  </bean>
+ 
+  <bean id="surveillanceViewConfigResourceLocation" class="java.lang.String">
+    <constructor-arg value="file:${opennms.home}/etc/surveillance-views.xml" />
+  </bean>
+  
+  <bean id="monitorCategoryConfigResourceLocation" class="java.lang.String">
+    <constructor-arg value="file:${opennms.home}/etc/monitor-category.xml" />
+  </bean>
+  
+  <bean id="monitorCategoryConfigDao" class="org.opennms.netmgt.dao.castor.DefaultMonitorCategoryConfigurationDao">
+    <property name="configResource" ref="monitorCategoryConfigResourceLocation" />
+  </bean>
+  <bean id="surveillanceViewConfigDao" class="org.opennms.netmgt.dao.castor.DefaultSurveillanceViewConfigDao">
+    <property name="configResource" ref="surveillanceViewConfigResourceLocation" />
+  </bean>
+  
+  <bean id="databaseReportConfigResourceLocation" class="java.lang.String">
+    <constructor-arg value="file:${opennms.home}/etc/database-reports.xml" />
+  </bean>
+  
+  <bean id="databaseReportConfigDao" class="org.opennms.netmgt.dao.castor.DefaultDatabaseReportConfigDao">
+    <property name="configResource" ref="databaseReportConfigResourceLocation" />
+  </bean>
+  
+  <bean id="availabilityReportConfigResourceLocation" class="java.lang.String">
+    <constructor-arg value="file:${opennms.home}/etc/availability-reports.xml" />
+  </bean>
+  
+  <bean id="availabilityReportConfigDao" class="org.opennms.netmgt.dao.castor.DefaultOnmsReportConfigDao">
+    <property name="configResource" ref="availabilityReportConfigResourceLocation" />
+  </bean>
+  
+  <bean id="jasperReportConfigResourceLocation" class="java.lang.String">
+    <constructor-arg value="file:${opennms.home}/etc/jasper-reports.xml" />
+  </bean>
+  
+  <bean id="jasperReportConfigDao" class="org.opennms.netmgt.dao.castor.DefaultJasperReportConfigDao">
+    <property name="configResource" ref="jasperReportConfigResourceLocation" />
+  </bean>
+  
+  <bean id="databaseSchemaConfigFactory-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod"><value>org.opennms.netmgt.config.DatabaseSchemaConfigFactory.init</value></property>
+  </bean>
+
+  <bean id="databaseSchemaConfigFactory" class="org.opennms.netmgt.config.DatabaseSchemaConfigFactory" depends-on="databaseSchemaConfigFactory-init" factory-method="getInstance"/>
+
+  <bean id="filterDaoFactory-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod"><value>org.opennms.netmgt.filter.FilterDaoFactory.setInstance</value></property>
+    <property name="arguments">
+      <bean id="jdbcFilterDao" class="org.opennms.netmgt.dao.support.JdbcFilterDao">
+        <property name="dataSource" ref="dataSource" />
+        <property name="databaseSchemaConfigFactory" ref="databaseSchemaConfigFactory" />
+        <property name="nodeDao" ref="nodeDao" />
+      </bean>
+    </property>
+  </bean>
+  
+  <bean id="filterDao" class="org.opennms.netmgt.filter.FilterDaoFactory" depends-on="filterDaoFactory-init" factory-method="getInstance" />
+  
+  <bean id="collectdConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod"><value>org.opennms.netmgt.config.CollectdConfigFactory.init</value></property>
+  </bean>
+
+  <bean id="collectdConfig" class="org.opennms.netmgt.config.CollectdConfigFactory" depends-on="collectdConfig-init" factory-method="getInstance"/>
+
+  <bean id="dataCollectionConfigResourceLocation" class="java.lang.String">
+    <constructor-arg value="file:${opennms.home}/etc/datacollection-config.xml" />
+  </bean>
+
+  <bean id="dataCollectionConfigDirectoryLocation" class="java.lang.String">
+    <constructor-arg value="${opennms.home}/etc/datacollection" />
+  </bean>
+
+  <!-- Default: reload datacollection config every 10 minutes -->
+  <bean id="dataCollectionConfigReloadInterval" class="java.lang.Long">
+    <constructor-arg value="0" />
+  </bean>
+
+  <bean id="dataCollectionConfigDao" class="org.opennms.netmgt.dao.DefaultDataCollectionConfigDao">
+    <property name="configResource" ref="dataCollectionConfigResourceLocation" />
+    <property name="configDirectory" ref="dataCollectionConfigDirectoryLocation" />
+    <property name="reloadCheckInterval" ref="dataCollectionConfigReloadInterval" />
+  </bean>
+
+  <bean id="dataCollectionConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod">
+      <value>org.opennms.netmgt.config.DataCollectionConfigFactory.setInstance</value>
+    </property>
+    <property name="arguments">
+      <list>
+        <ref bean="dataCollectionConfigDao" />
+      </list>
+    </property>
+  </bean>
+
+  <bean id="dataCollectionConfig" class="org.opennms.netmgt.config.DataCollectionConfigFactory" depends-on="dataCollectionConfig-init" factory-method="getInstance" />
+
+  <bean id="resourceDao" class="org.opennms.netmgt.dao.support.DefaultResourceDao">
+    <property name="nodeDao" ref="nodeDao" />
+    <property name="locationMonitorDao" ref="locationMonitorDao" />
+    <property name="collectdConfig" ref="collectdConfig" />
+    <property name="dataCollectionConfigDao" ref="dataCollectionConfig" />
+    <property name="rrdDirectory" value="${opennms.home}/${rrd.base.dir}" />
+  </bean>
+
+  <bean id="rrdStrategy" class="org.opennms.netmgt.rrd.RrdUtils" factory-method="getStrategy"/>
+
+  <bean id="rrdDao" class="org.opennms.netmgt.dao.support.DefaultRrdDao">
+    <property name="rrdStrategy" ref="rrdStrategy" />
+    <property name="rrdBaseDirectory" value="${opennms.home}/${rrd.base.dir}" />
+    <property name="rrdBinaryPath" value="${rrd.binary}" />
+  </bean>
+
+  <bean id="statsdConfigResourceLocation" class="java.lang.String">
+    <constructor-arg value="file:${opennms.home}/etc/statsd-configuration.xml" />
+  </bean>
+
+  <bean id="statsdConfigDao" class="org.opennms.netmgt.dao.castor.DefaultStatisticsDaemonConfigDao">
+    <property name="configResource" ref="statsdConfigResourceLocation" />
+    <property name="reloadCheckInterval" value="-1" />
+  </bean>
+  
+  <bean id="javamailConfigResourceLocation" class="java.lang.String">
+    <constructor-arg value="file:${opennms.home}/etc/javamail-configuration.xml" />
+  </bean>
+
+  <bean id="javamailConfigDao" class="org.opennms.netmgt.dao.castor.DefaultJavamailConfigurationDao">
+    <property name="configResource" ref="javamailConfigResourceLocation" />
+    <property name="reloadCheckInterval" value="-1" />
+  </bean>
+
+  <bean id="onmsMapDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="onmsMapElementDao" class="org.opennms.netmgt.dao.hibernate.OnmsMapElementDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="dataLinkInterfaceDao" class="org.opennms.netmgt.dao.hibernate.DataLinkInterfaceDaoHibernate">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  
+  <bean id="init-snmpPeerFactory" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod"><value>org.opennms.netmgt.config.SnmpPeerFactory.init</value></property>
+  </bean>
+
+  <bean id="snmpPeerFactory" class="org.opennms.netmgt.config.SnmpPeerFactory" depends-on="init-snmpPeerFactory" factory-method="getInstance"/>
+  
+  <bean id="simpleJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+    <constructor-arg ref="jdbcTemplate" />
+  </bean>
+
+  <bean id="alarmStatisticsService" class="org.opennms.netmgt.dao.stats.AlarmStatisticsService" />
+  
+  
+   <bean id="protocolPropertyDao" class="org.opennms.netmgt.dao.ProtocolPropertyDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	    <property name="serviceTypeDao" ref="serviceTypeDao" />
+	</bean>
+  
+  	<bean id="agentDao" class="org.opennms.hq.dao.AgentDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="agentTypeDao" class="org.opennms.hq.dao.AgentTypeDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+  <bean id="crispoDAO" class="org.opennms.hq.dao.CrispoDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="resourceTypeDAO" class="org.opennms.hq.dao.ResourceTypeDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="resourceGroupDAO" class="org.opennms.hq.dao.ResourceGroupDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="resourceDAO" />
+		<constructor-arg ref="resourceTypeDAO" />
+	</bean>
+	<bean id="resourceDAO" class="org.opennms.hq.dao.ResourceDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="roleDAO" class="org.opennms.hq.dao.RoleDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="resourceDAO" />
+		<constructor-arg ref="resourceTypeDAO" />
+		<constructor-arg ref="resourceGroupDAO" />
+	</bean>
+	<bean id="authzSubjectDAO" class="org.opennms.hq.dao.AuthzSubjectDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="crispoDAO" />
+		<constructor-arg ref="resourceTypeDAO" />
+		<constructor-arg ref="resourceDAO" />
+		<constructor-arg ref="roleDAO" />
+	</bean>
+	<bean id="crispoOptionDAO" class="org.opennms.hq.dao.CrispoOptionDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="actionDAO" class="org.opennms.hq.dao.ActionDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="pluginDAO" class="org.opennms.hq.dao.PluginDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="agentPluginStatusDAO" class="org.opennms.hq.dao.AgentPluginStatusDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="agentDao" />
+		<constructor-arg ref="pluginDAO" />
+	</bean>
+	<bean id="aIHistoryDAO" class="org.opennms.hq.dao.AIHistoryDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="aiIpDAO" class="org.opennms.hq.dao.AIIpDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="aiPlatformDAO" class="org.opennms.hq.dao.AIPlatformDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="aiScheduleDAO" class="org.opennms.hq.dao.AIScheduleDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="aiServerDAO" class="org.opennms.hq.dao.AIServerDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="aiServiceDAO" class="org.opennms.hq.dao.AIServiceDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="alertActionLogDAO" class="org.opennms.hq.dao.AlertActionLogDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="alertConditionDAO" class="org.opennms.hq.dao.AlertConditionDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="alertConditionLogDAO" class="org.opennms.hq.dao.AlertConditionLogDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="alertDAO" class="org.opennms.hq.dao.AlertDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="alertActionLogDAO" />
+	</bean>
+	<bean id="triggerDAO" class="org.opennms.hq.dao.TriggerDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="alertDefinitionDAO" class="org.opennms.hq.dao.AlertDefinitionDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="actionDAO" />
+		<constructor-arg ref="triggerDAO" />
+		<constructor-arg ref="alertConditionDAO" />
+		<constructor-arg ref="resourceDAO" />
+	</bean>
+    <bean id="appdefStatDAO" class="org.opennms.hq.dao.AppdefStatDAO"> 
+		<constructor-arg ref="jdbcTemplate" /> 
+		</bean>
+	<bean id="appSvcDependencyDAO" class="org.opennms.hq.dao.AppSvcDependencyDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="configResponseDAO" class="org.opennms.hq.dao.ConfigResponseDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="virtualDAO" class="org.opennms.hq.dao.VirtualDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="resourceDAO" />
+	</bean>
+	<bean id="platformDAO" class="org.opennms.hq.dao.PlatformDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="virtualDAO" />
+	</bean>
+	<bean id="serviceTypeDAO" class="org.opennms.hq.dao.ServiceTypeDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="platformDAO" />
+	</bean>
+	<bean id="serviceDAO" class="org.opennms.hq.dao.ServiceDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="configResponseDAO" />
+		<constructor-arg ref="serviceTypeDAO" />
+		<constructor-arg ref="virtualDAO" />
+	</bean>
+	<bean id="appServiceDAO" class="org.opennms.hq.dao.AppServiceDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="resourceGroupDAO" />
+		<constructor-arg ref="serviceDAO" />
+		<constructor-arg ref="serviceTypeDAO" />
+		<constructor-arg ref="appSvcDependencyDAO" />
+	</bean>
+	<bean id="applicationDAO" class="org.opennms.hq.dao.ApplicationDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="appSvcDependencyDAO" />
+		<constructor-arg ref="appServiceDAO" />
+	</bean>
+	<bean id="applicationTypeDAO" class="org.opennms.hq.dao.ApplicationTypeDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="serviceTypeDAO" />
+	</bean>
+	<bean id="attachmentDAO" class="org.opennms.hq.dao.AttachmentDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="attachmentResourceDAO" class="org.opennms.hq.dao.AttachmentResourceDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="auditDAO" class="org.opennms.hq.dao.AuditDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="availabilityDataDAO" class="org.opennms.hq.dao.AvailabilityDataDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="baselineDAO" class="org.opennms.hq.dao.BaselineDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="calendarDAO" class="org.opennms.hq.dao.CalendarDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="calendarEntryDAO" class="org.opennms.hq.dao.CalendarEntryDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="categoryDAO" class="org.opennms.hq.dao.CategoryDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="configPropertyDAO" class="org.opennms.hq.dao.ConfigPropertyDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="controlHistoryDAO" class="org.opennms.hq.dao.ControlHistoryDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="jdbcTemplate" />
+	</bean>
+	<bean id="controlScheduleDAO" class="org.opennms.hq.dao.ControlScheduleDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="cpropKeyDAO" class="org.opennms.hq.dao.CpropKeyDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="cpropDAO" class="org.opennms.hq.dao.CpropDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="jdbcTemplate" />
+		<constructor-arg ref="cpropKeyDAO" />
+	</bean>
+	<bean id="dataCompressionDAO" class="org.opennms.hq.dao.DataCompressionDAO">
+		<constructor-arg ref="jdbcTemplate" />
+		<constructor-arg ref="sessionFactory" />
+	</bean>
+	<bean id="dbKeystoreDAO" class="org.opennms.hq.dao.DbKeystoreDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="escalationDAO" class="org.opennms.hq.dao.EscalationDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="escalationStateDAO" class="org.opennms.hq.dao.EscalationStateDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="eventLogDAO" class="org.opennms.hq.dao.EventLogDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="executionStrategyTypeInfoDAO" class="org.opennms.hq.dao.ExecutionStrategyTypeInfoDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="galertActionLogDAO" class="org.opennms.hq.dao.GalertActionLogDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="galertAuxLogDAO" class="org.opennms.hq.dao.GalertAuxLogDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="galertDefDAO" class="org.opennms.hq.dao.GalertDefDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="galertLogDAO" class="org.opennms.hq.dao.GalertLogDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="groupCriteriaDAO" class="org.opennms.hq.dao.GroupCriteriaDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="gtriggerTypeInfoDAO" class="org.opennms.hq.dao.GtriggerTypeInfoDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="HQCertificateDAO" class="org.opennms.hq.dao.HQCertificateDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="measurementDAO" class="org.opennms.hq.dao.MeasurementDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="agentDao" />
+	</bean>
+	<bean id="measurementTemplateDAO" class="org.opennms.hq.dao.MeasurementTemplateDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="categoryDAO" />
+		<constructor-arg ref="jdbcTemplate" />
+	</bean>
+	<bean id="metricAuxLogDAO" class="org.opennms.hq.dao.MetricAuxLogDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="metricProblemDAO" class="org.opennms.hq.dao.MetricProblemDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="monitorableTypeDAO" class="org.opennms.hq.dao.MonitorableTypeDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="operationDAO" class="org.opennms.hq.dao.OperationDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="jdbcTemplate" />
+	</bean>
+	<bean id="platformTypeDAO" class="org.opennms.hq.dao.PlatformTypeDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="principalDAO" class="org.opennms.hq.dao.PrincipalDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="resourceEdgeDAO" class="org.opennms.hq.dao.ResourceEdgeDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="resourceRelationDAO" class="org.opennms.hq.dao.ResourceRelationDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="roleCalendarDAO" class="org.opennms.hq.dao.RoleCalendarDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="scheduleRevNumDAO" class="org.opennms.hq.dao.ScheduleRevNumDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="serverTypeDAO" class="org.opennms.hq.dao.ServerTypeDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="serverDAO" class="org.opennms.hq.dao.ServerDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<constructor-arg ref="configResponseDAO" />
+		<constructor-arg ref="serverTypeDAO" />
+		<constructor-arg ref="virtualDAO" />
+	</bean>
+	<bean id="topNScheduleDAO" class="org.opennms.hq.dao.TopNScheduleDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="uiPluginDAO" class="org.opennms.hq.dao.UIPluginDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="updateStatusDAO" class="org.opennms.hq.dao.UpdateStatusDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="vcConfigDAO" class="org.opennms.hq.dao.VCConfigDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="vcDAO" class="org.opennms.hq.dao.VCDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="viewDAO" class="org.opennms.hq.dao.ViewDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+  
+  
+  
+
+</beans>

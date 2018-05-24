@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:ns="http://xmlns.opennms.org/xsd/config/redis-config"
+		  targetNamespace="http://xmlns.opennms.org/xsd/config/redis-config"
+		  elementFormDefault="qualified">
+	<annotation>
+		<documentation>
+			XML Schema for the redis-config configuration file
+		</documentation>
+	</annotation>
+
+	<element name="redis-config">
+		<complexType>
+			<sequence>
+				<element ref="ns:authen" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="authen">
+		<annotation>
+			<documentation>redis authen</documentation>
+		</annotation>
+		<complexType>
+			<attribute name="ip" type="string" use="required"/>
+			<attribute name="port" type="string" use="required"/>
+			<!-- collector name -->
+		</complexType>
+	</element>
+</schema>
