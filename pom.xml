@@ -101,12 +101,7 @@
     <module>opennms-test</module>
     <module>opennms-util</module>
     <module>opennms-bootstrap</module>
-    <module>hq-util</module>
     <module>opennms-model</module>
-	<module>hq-common</module>
-	<module>hq-lather</module>
-	<module>hq-pdk</module>
-	<module>hq-agent</module>
     <module>opennms-ackd</module>
     <module>opennms-alarms</module>
     <module>opennms-config-utils</module>
@@ -125,12 +120,6 @@
     <module>opennms-correlation</module>
     <module>opennms-reporting</module>
     <module>opennms-qosdaemon</module>
-    <module>hq-server</module>
-    <module>hq-rendit</module>
-    <module>hq-api</module>
-   
-    <module>hq-plugin</module>
-    <module>hq-uiplugin</module>
     <module>opennms-web-api</module>
     <module>opennms-web-dependencies</module>
     <module>opennms-webapp</module>
